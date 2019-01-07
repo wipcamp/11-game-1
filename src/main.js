@@ -1,14 +1,13 @@
 import 'phaser';
 import GameScene from './scenes/GameScene';
 
-const config = {
+let config = {
     // For more settings see <https://github.com/photonstorm/phaser/blob/master/src/boot/Config.js>
-    type: Phaser.WEBGL,
-    pixelArt: true,
-    roundPixels: true,
-    parent: 'content',
-    width: 400,
-    height: 240,
+    type: Phaser.AUTO,
+    parent: 'app',
+    width: 800,
+    height: 600,
+    zoom : 1,
     physics: {
         default: 'arcade',
         arcade: {
@@ -19,5 +18,7 @@ const config = {
         GameScene
     ]
 };
+
+
 
 const game = new Phaser.Game(config);
