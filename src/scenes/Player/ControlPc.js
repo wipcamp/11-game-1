@@ -14,8 +14,8 @@ class ControlPc extends Phaser.Scene {
     create() {
 
         player = phaser.physics.add.image(100,450,'player');
-         player.body.ColliderWorldBounds=true;
-console.log(phaser)
+        player.setCollideWorldBounds(true);
+        
         cursors = phaser.input.keyboard.createCursorKeys();
         this.keyW = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyA = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
