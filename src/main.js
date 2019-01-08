@@ -5,10 +5,9 @@ let config = {
     // For more settings see <https://github.com/photonstorm/phaser/blob/master/src/boot/Config.js>
     type: Phaser.AUTO,
     parent: 'app',
-    width: 800,
-    height: 600,
-    zoom : 1,
-    backgroundcolor: '#88BBDD',   
+    width: window.innerWidth * window.devicePixelRatio,
+    height: window.innerHeight * window.devicePixelRatio,
+    zoom : 1, 
     physics: {
         default: 'arcade',
         arcade: {
