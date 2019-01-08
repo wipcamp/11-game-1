@@ -13,15 +13,44 @@ class ControlPc extends Phaser.Scene {
 
     create() {
 
-        player = phaser.physics.add.image(100,450,'player');
+        player = phaser.physics.add.image(100,450,'player').setScale(0.5);
         player.setCollideWorldBounds(true);
         
         cursors = phaser.input.keyboard.createCursorKeys();
         this.keyW = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyA = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        this.keyD = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);        
+        this.keyD = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        
+        phaser.cameras.main.setBounds(0, 0, 1024, 2048);
+        phaser.cameras.main.startFollow(player, true, 1, 1);
+        phaser.cameras.main.setZoom(2);
     }
+
+    updateDirect ()
+{
+    if (cursors.left.isDown||this.keyA.isDown)
+    {
+        player.setAngle(-90);
+        player.x -= 2.5;
+    }
+    else if (cursors.right.isDown||this.keyD.isDown)
+    {
+        player.setAngle(90);
+        player.x += 2.5;
+    }
+
+    if (cursors.up.isDown||this.keyW.isDown)
+    {
+        player.setAngle(0);
+        player.y -= 2.5;
+    }
+    else if (cursors.down.isDown||this.keyS.isDown)
+    {
+        player.setAngle(-180);
+        player.y += 2.5;
+    }
+}
 
     update() {
         player.setVelocity(0)
