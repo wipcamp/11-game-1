@@ -17,9 +17,6 @@ class GameScene extends Phaser.Scene {
     create() {
         mobile = new move_mobile({ scene: this })
         mobile.create()
-
-
-
     }
 
     update() {

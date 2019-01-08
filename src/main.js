@@ -8,6 +8,7 @@ let config = {
     width: 800,
     height: 600,
     zoom : 1,
+    backgroundcolor: '#88BBDD',   
     physics: {
         default: 'arcade',
         arcade: {

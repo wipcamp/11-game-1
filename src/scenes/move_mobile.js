@@ -2,8 +2,10 @@ import 'phaser';
 
 let phasers;
 let player;
-let leftzone
-let rightzone
+let up;
+let down;
+let right;
+let left;
 let button;
 let cursors
 
@@ -17,55 +19,29 @@ class move_mobile extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('player', '../images/lamp_on.png');
-        this.load.image('bg', '../images/bg.jpg');
-
-        this.load.image('button', '../images/left.png');
-        this.load.image('c_right', '../images/right.png');
-        this.load.image('c_up', '../images/up.png');
-        this.load.image('c_down', '../images/down.png');
-
-
-        // this.load.spritesheet('control', '../../images/button_control.png', { frameWidth: 1195, frameHeight: 240 });
-
-        //fullscreen setup    
-
+        this.load.image('up', './../../images/button_up.png');
+        this.load.image('down', '../../images/button_down.png');
+        this.load.image('left', '../../images/button_left.png');
+        this.load.image('right','../../images/button_right.png');
+        
+        this.load.image('player','../../images/player.png');
     }
+    create() {      
+        //กำหนดตัวละครเป็น physics
+        player = phasers.physics.add.sprite(73, 72, 'player').setScale(0.5);      
 
-    create() {
-        player = phasers.physics.add.sprite(150, 120, 'player')
-        button = phasers.physics.add.sprite(0, 0, 'button').setVisible(true);
-        player.setScale(0.8);
-
-        phasers.input.on('pointerdown', function (pointer) {
-
-            button.x = pointer.x;
-            button.y = pointer.y;
-
-
-
-        });
-        phasers.input.on('pointerdown', this.handleStop);
-
-
+        //ไม่ให้ player ออกนอกโลก
         player.setCollideWorldBounds(true);
-        // phasers.physics.overlap(o1, o2)
 
-        // phasers.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        // phasers.cameras.main.startFollow(player);
-        phasers.physics.add.overlap(player, button, this.handleStop);
-
-    }
-    handleStop() {
-        console.log('handle')
-        Phaser.Curves.MoveTo(button.x, button.y)
-        player.setVelocityX(0);
-        player.setVelocityY(0);
+        const upButton = phasers.add.image(100, 500, 'up');
+        upButton.setInteractive();
+    
+        upButton.on('pointerover', () => { console.log('up'); });
 
     }
 
     update() {
-
+        
     }
 
 
