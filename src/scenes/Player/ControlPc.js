@@ -24,18 +24,16 @@ class ControlPc extends Phaser.Scene {
     }
 
     update() {
+        player.setVelocity(0)
 
         if(cursors.left.isDown||this.keyA.isDown){
             player.setVelocityX(-150);
         }else if(cursors.right.isDown||this.keyD.isDown){
             player.setVelocityX(150);
-        }else if(cursors.up.isDown||this.keyW.isDown){
+        }if(cursors.up.isDown||this.keyW.isDown){
             player.setVelocityY(-150);
         }else if(cursors.down.isDown||this.keyS.isDown){
             player.setVelocityY(150);
-        }else {
-            player.setVelocityX(0)
-            player.setVelocityY(0)
         }
 
     }

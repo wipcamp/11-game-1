@@ -7,8 +7,8 @@ const config = {
     pixelArt: true,
     roundPixels: true,
     parent: 'content',
-    width: 720,
-    height: 600,
+    width: 1080,
+    height: 900,
     physics: {
         default: 'arcade',
         arcade: {
