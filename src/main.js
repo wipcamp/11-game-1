@@ -1,5 +1,6 @@
 import 'phaser';
 import GameScene from './scenes/GameScene';
+import Player from './scenes/Player';
 import Monster from './scenes/Monster';
 
 const config = {
@@ -19,6 +20,7 @@ const config = {
     },
     scene: [
         //GameScene,
+        //Player,
         Monster
     ]
 };

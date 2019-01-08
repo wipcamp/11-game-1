@@ -1,5 +1,7 @@
+
 let x, y, height, width;
-let mons, gameitems;
+let player, platforms;
+let monsters;
 
 class Monster extends Phaser.Scene {
 
@@ -11,6 +13,8 @@ class Monster extends Phaser.Scene {
 
     preload() {
         this.load.image('monster', '../../images/monster.png');
+        this.load.image('player', '../../images/player.png');
+        this.load.image('platform', '../../images/platform.png');
     }
 
     create() {
@@ -19,15 +23,9 @@ class Monster extends Phaser.Scene {
         x = width * 0.5;
         y = height * 0.5;
 
-        // mons = this.physics.add.group({
-        //     key: 'monster',
-        //     repeat: 20,
-        //     setXY: { x: Phaser.Math.RND.between(0, 1260), y: Phaser.Math.RND.between(0, 560), stepX: 70 }
-        // });
-        // mons.children.iterate(function (child) {
-        //     child.setBounce(1);
-        //     child.setVelocity(200, 100);
-        // });
+        player = this.physics.add.image(x, y, 'player');
+        player.setBounce(0.2);
+        player.setCollideWorldBounds(true);
 
         // this.gameitems = this.physics.add.group();
 	    // for (var i = 0; i < 20; i++) {
@@ -35,8 +33,17 @@ class Monster extends Phaser.Scene {
 		//     var y = Phaser.Math.RND.between(0, 560);
         //     var newobj = this.gameitems.create(x, y, 'monster');
         // }
+
+        platforms = this.physics.add.staticGroup({
+            key: 'platform',
+            frameQuantity: 20,
+            
+        });
+        Phaser.Actions.PlaceOnRectangle(platforms.getChildren(), new Phaser.Geom.Rectangle(100, 100, 600, 400));
+        platforms = this.physics.world.bounds;
+
         
-        gameitems = this.physics.add.group({
+        monsters = this.physics.add.group({
             key: 'monster',
             frameQuantity: 20,
             collideWorldBounds: true,
@@ -45,8 +52,12 @@ class Monster extends Phaser.Scene {
             velocityX: 40,
             velocityY: 40
         });
-        Phaser.Actions.RandomRectangle(gameitems.getChildren(), this.physics.world.bounds);
-        this.physics.add.collider(gameitems);
+        Phaser.Actions.RandomRectangle(monsters.getChildren(), this.physics.world.bounds);
+
+        this.physics.add.collider(monsters);
+        this.physics.add.collider(monsters, player);
+        this.physics.add.collider(monsters, platforms);
+        this.physics.add.collider(player, platforms);
 
     }
 

@@ -1,3 +1,5 @@
+
+
 class GameScene extends Phaser.Scene {
     constructor(test) {
         super({
@@ -7,6 +9,7 @@ class GameScene extends Phaser.Scene {
 
     preload() {
         
+
     }
 
     create() {
