@@ -8,7 +8,7 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('player','../images/Icon Alive.png');
+        this.load.image('player','../../images/iconalive.png')
     }
 
     create() {
