@@ -1,6 +1,5 @@
 import 'phaser';
 import GameScene from './scenes/GameScene';
-import Monster from './scenes/Monster';
 
 const config = {
     // For more settings see <https://github.com/photonstorm/phaser/blob/master/src/boot/Config.js>
@@ -18,9 +17,7 @@ const config = {
         }
     },
     scene: [
-        GameScene,
-        //Player,
-        // Monster
+        GameScene
     ]
 };
 

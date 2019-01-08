@@ -54,7 +54,8 @@ class Monster extends Phaser.Scene {
             velocityY: 40
         });
 
-        Phaser.Actions.RandomRectangle(monsters.getChildren(), phaser.physics.world.bounds);
+        //Phaser.Actions.RandomRectangle(monsters.getChildren(), phaser.physics.world.bounds);
+        Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
         phaser.physics.add.collider(monsters);
 
     }
