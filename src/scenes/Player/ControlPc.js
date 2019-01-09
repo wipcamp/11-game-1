@@ -23,6 +23,7 @@ class ControlPc extends Phaser.Scene {
 
         player = phaser.physics.add.image(100, 450, 'player');
         player.setCollideWorldBounds(true);
+        
         bullets = phaser.physics.add.image(x, y, 'bullet'); 
         bullets.setCollideWorldBounds(true);
 
@@ -44,18 +45,26 @@ class ControlPc extends Phaser.Scene {
 
     update() {
 
-        if (cursors.left.isDown || this.keyA.isDown) {
-            player.setVelocityX(-150);
-        } else if (cursors.right.isDown || this.keyD.isDown) {
-            player.setVelocityX(150);
-        } else if (cursors.up.isDown || this.keyW.isDown) {
-            player.setVelocityY(-150);
-        } else if (cursors.down.isDown || this.keyS.isDown) {
-            player.setVelocityY(150);
-        } else {
-            player.setVelocityX(0)
-            player.setVelocityY(0)
-        }
+        if (cursors.left.isDown||this.keyA.isDown) 
+        { 
+            player.setAngle(-90); 
+            player.x -= 2.5; 
+        } 
+        else if (cursors.right.isDown||this.keyD.isDown) 
+        { 
+            player.setAngle(90); 
+            player.x += 2.5; 
+        } 
+        if (cursors.up.isDown||this.keyW.isDown) 
+        { 
+            player.setAngle(0); 
+            player.y -= 2.5; 
+        } 
+        else if (cursors.down.isDown||this.keyS.isDown) 
+        { 
+            player.setAngle(-180); 
+            player.y += 2.5; 
+        } 
 
     }
 }

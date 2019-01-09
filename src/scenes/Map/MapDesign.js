@@ -30,19 +30,19 @@ class MapDesign extends Phaser.Scene {
             key: 'safezone',
             frameQuantity: 1,
             collideWorldBounds: true,
-            visible: true
+            visible: false
         });
-        Phaser.Actions.PlaceOnRectangle(safezone.getChildren(), new Phaser.Geom.Rectangle(50, 210, x, 10));
+        Phaser.Actions.PlaceOnRectangle(safezone.getChildren(), new Phaser.Geom.Rectangle(50, 210));
         safezone.refresh();
 
-        // wall = phaser.physics.add.staticGroup({
-        //     key: 'wall',
-        //     frameQuantity: 130,
-        //     collideWorldBounds: true,
-
-        // });
-        // Phaser.Actions.PlaceOnRectangle(wall.getChildren(), new Phaser.Geom.Rectangle(20, 20, 1910, 860));
-        // wall.refresh();
+        wall = phaser.physics.add.staticGroup({
+             key: 'wall',
+             frameQuantity: 12,
+             collideWorldBounds: true,
+             visible: false
+         });
+        Phaser.Actions.PlaceOnLine(wall.getChildren(), new Phaser.Geom.Line(20,500, 20));
+        wall.refresh();
 
         heart = phaser.physics.add.image(120, 22.5, 'heart');
 
@@ -54,6 +54,15 @@ class MapDesign extends Phaser.Scene {
         });
         Phaser.Actions.PlaceOnRectangle(part.getChildren(), new Phaser.Geom.Rectangle(x, 35, x, 10));
         part.refresh();
+
+        flower = phaser.physics.add.staticGroup({
+            key: 'flower',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnLine(flower.getChildren(), new Phaser.Geom.Line(630,300,630,420));
+        flower.refresh();
 
         graphics = phaser.make.graphics().fillStyle(0xF0FFFF).fillRect(0, 0, 1300, 50);
         graphics.generateTexture('hudbar', 1300, 50);
@@ -82,6 +91,14 @@ class MapDesign extends Phaser.Scene {
 
     getSafeZone() {
         return safezone
+    }
+
+    getWall() {
+        return wall
+    }
+
+    getFlower() {
+        return flower
     }
     
     update() {
