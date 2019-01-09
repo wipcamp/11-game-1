@@ -13,7 +13,17 @@ class responsive extends Phaser.Scene {
 
     create(){
 
+    // Scaling options
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
+    // Have the game centered horizontally
+    game.scale.pageAlignHorizontally = true;
+
+    // And vertically
+    game.scale.pageAlignVertically = true;
+
+    // Screen size will be set automatically
+    game.scale.setScreenSize(true);
 
 
 
@@ -26,26 +36,26 @@ class responsive extends Phaser.Scene {
         }
 
         //ฟังก์ชั่นย่อส่วน object เวลาเปิดบนโทรศัพท์ หรือ คอม 
-        // function resize(width, height) {
-        //     phasers.background.width = width;
-        //     phasers.background.height = height;
+        function resize(width, height) {
+            phasers.background.width = width;
+            phasers.background.height = height;
 
-        //     phasers.scaleSprite(phasers.upButton, width, height / 3, 50, 1);
-        //     phasers.upButton.x = phasers.world.centerX;
-        //     phasers.upButton.y = phasers.world.centerY - height / 3;
+            phasers.scaleSprite(phasers.upButton, width, height / 3, 50, 1);
+            phasers.upButton.x = phasers.world.centerX;
+            phasers.upButton.y = phasers.world.centerY - height / 3;
 
-        //     phasers.scaleSprite(phasers.downButtonButton, width, height / 3, 50, 1);
-        //     phasers.downButton.x = phasers.world.centerX;
-        //     phasers.downButton.y = phasers.world.centerY;
+            phasers.scaleSprite(phasers.downButtonButton, width, height / 3, 50, 1);
+            phasers.downButton.x = phasers.world.centerX;
+            phasers.downButton.y = phasers.world.centerY;
 
-        //     phasers.scaleSprite(phasers.leftButtonButton, width, height / 3, 50, 0.5);
-        //     phasers.lefttButtonButton.x = phasers.world.centerX - phasers.leftButtonButton.width / 2;
-        //     phasers.leftButton.y = phasers.world.centerY + height / 3;
+            phasers.scaleSprite(phasers.leftButtonButton, width, height / 3, 50, 0.5);
+            phasers.lefttButtonButton.x = phasers.world.centerX - phasers.leftButtonButton.width / 2;
+            phasers.leftButton.y = phasers.world.centerY + height / 3;
 
-        //     phasers.scaleSprite(phasers.rightButton, width, height / 3, 50, 0.5);
-        //     phasers.rightButton.x = phasers.world.centerX + phasers.rightButton.width / 2;
-        //     phasers.rightButton.y = phasers.world.centerY + height / 3;
-        // }
+            phasers.scaleSprite(phasers.rightButton, width, height / 3, 50, 0.5);
+            phasers.rightButton.x = phasers.world.centerX + phasers.rightButton.width / 2;
+            phasers.rightButton.y = phasers.world.centerY + height / 3;
+        }
 
         //ฟังก์ชั่นย่อส่วน object
         function resize() {
@@ -69,37 +79,37 @@ class responsive extends Phaser.Scene {
         console.log('sceneheight = ' + sceneheight);
         console.log('scenewidth = ' + scenewidth);
         if (sceneheight <= 450) {
-            this.scale = 0.5;
+            scale = 0.5;
         }
         else if (sceneheight <= 490) {
-            this.scale = 0.6;
+            scale = 0.6;
         }
         else if (sceneheight <= 580) {
-            this.scale = 0.65;
+            scale = 0.65;
         }
         else if (sceneheight <= 650) {
-            this.scale = 0.75;
+          scale = 0.75;
         }
         else if (sceneheight <= 680) {
-            this.scale = 0.8;
+           scale = 0.8;
         }
         else if (sceneheight <= 750) {
-            this.scale = 0.85;
+           scale = 0.85;
         }
         else if (sceneheight <= 850) {
-            this.scale = 0.9;
+            scale = 0.9;
         }
         else if (sceneheight <= 1024) {
-            this.scale = 1;
+            scale = 1;
         }
         else {
-            this.scale = 1.2;
+            scale = 1.2;
         }
     }
     
     getScale ()
     {
-        return this.scale;
+        return scale;
     }
 
 }

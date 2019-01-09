@@ -5,9 +5,11 @@ let config = {
     // For more settings see <https://github.com/photonstorm/phaser/blob/master/src/boot/Config.js>
     type: Phaser.AUTO,
     parent: 'app',
-    width: window.innerWidth * window.devicePixelRatio,
-    height: window.innerHeight * window.devicePixelRatio,
+    title: 'Shinobi x WIP Camp',
+    width: 960,
+    height: 960,
     zoom : 1, 
+    resolution: window.devicePixelRatio || 1,
     physics: {
         default: 'arcade',
         arcade: {
@@ -15,10 +17,10 @@ let config = {
         }
     },
     scene: [
+
         GameScene
     ]
 };
 
+var game = new Phaser.Game(config);
 
-
-const game = new Phaser.Game(config);
