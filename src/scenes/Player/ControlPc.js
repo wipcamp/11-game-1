@@ -23,7 +23,7 @@ class ControlPc extends Phaser.Scene {
 
         player = phaser.physics.add.image(100, 450, 'player');
         player.setCollideWorldBounds(true);
-        bullets = phaser.physics.add.image(x, y, 'bullet');
+        bullets = phaser.physics.add.image(x, y, 'bullet'); 
         bullets.setCollideWorldBounds(true);
 
         cursors = phaser.input.keyboard.createCursorKeys();

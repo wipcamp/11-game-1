@@ -35,14 +35,14 @@ class Monster extends Phaser.Scene {
         //     var newobj = this.gameitems.create(x, y, 'monster');
         // }
 
-        platforms = phaser.physics.add.staticGroup({
-            key: 'platform',
-            frameQuantity: 20,
-            collideWorldBounds: true,
+        // platforms = phaser.physics.add.staticGroup({
+        //     key: 'platform',
+        //     frameQuantity: 20,
+        //     collideWorldBounds: true,
 
-        });
-        Phaser.Actions.PlaceOnRectangle(platforms.getChildren(), new Phaser.Geom.Rectangle(100, 100, 600, 400));
-        platforms.refresh();
+        // });
+        // Phaser.Actions.PlaceOnRectangle(platforms.getChildren(), new Phaser.Geom.Rectangle(100, 100, 600, 400));
+        // platforms.refresh();
 
         monsters = phaser.physics.add.group({
             key: 'monster',

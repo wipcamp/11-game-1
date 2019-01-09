@@ -1,8 +1,7 @@
 
 let x, y, height, width;
 let graphics, exp, graphicRank;
-let butOption;
-let heart, part;
+let heart, part, bg, flower, wall, safezone;
 let levelText, nameText;
 let phaser;
 
@@ -26,6 +25,25 @@ class MapDesign extends Phaser.Scene {
         x = width * 0.5;
         y = height * 0.5;
 
+        bg = phaser.add.image(1890, 630, 'bg');
+        safezone = phaser.physics.add.staticGroup({
+            key: 'safezone',
+            frameQuantity: 1,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(safezone.getChildren(), new Phaser.Geom.Rectangle(50, 210, x, 10));
+        safezone.refresh();
+
+        // wall = phaser.physics.add.staticGroup({
+        //     key: 'wall',
+        //     frameQuantity: 130,
+        //     collideWorldBounds: true,
+
+        // });
+        // Phaser.Actions.PlaceOnRectangle(wall.getChildren(), new Phaser.Geom.Rectangle(20, 20, 1910, 860));
+        // wall.refresh();
+
         heart = phaser.physics.add.image(120, 22.5, 'heart');
 
         part = phaser.physics.add.staticGroup({
@@ -34,10 +52,8 @@ class MapDesign extends Phaser.Scene {
             collideWorldBounds: true,
             visible: false
         });
-        Phaser.Actions.PlaceOnRectangle(part.getChildren(), new Phaser.Geom.Rectangle(35, 35, x, 10));
+        Phaser.Actions.PlaceOnRectangle(part.getChildren(), new Phaser.Geom.Rectangle(x, 35, x, 10));
         part.refresh();
-
-        butOption = phaser.physics.add.image(1235, 20, 'butOption');
 
         graphics = phaser.make.graphics().fillStyle(0xF0FFFF).fillRect(0, 0, 1300, 50);
         graphics.generateTexture('hudbar', 1300, 50);
@@ -57,11 +73,15 @@ class MapDesign extends Phaser.Scene {
         levelText = phaser.add.text(10, 5, 'Lv.1', { fontSize: '12px', fill: '#00FFFF' });
         nameText = phaser.add.text(10, 20, 'แป้งมาเยือน อิอิ', { fontSize: '12px', fill: '#FF1493' });
         
-
+        
     }
 
     getPart() {
         return part
+    }
+
+    getSafeZone() {
+        return safezone
     }
     
     update() {
