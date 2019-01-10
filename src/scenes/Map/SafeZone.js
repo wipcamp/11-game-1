@@ -13,8 +13,7 @@ class SafeZone extends Phaser.Scene {
     create() {
 
         
-        // zone = phaser.physics.add.image(100, 450, 'safezone').setScale(0.25, 0.25)
-        // zone.setCollideWorldBounds(true);
+        
         zone = phaser.physics.add.staticGroup({
             key: 'safezone',
             frameQuantity: 1,
