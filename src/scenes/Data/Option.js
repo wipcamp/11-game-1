@@ -25,20 +25,20 @@ class Option extends Phaser.Scene {
         x = width * 0.5;
         y = height * 0.5;
 
-        playButOption = phaser.add.image(1235, 20, 'butOption');
+        playButOption = phaser.add.image(x+303, y-129, 'butOption').setScrollFactor(0).setScale(0.6);
         playButOption.setInteractive();
         playButOption.input.useHandCursor = true;
         playButOption.on ('pointerup', () => { 
-            bgOption = phaser.make.graphics().fillStyle(0xFFFFFF).fillRect(0, 0, 500, 470);
-            bgOption.generateTexture('bgOp', 500, 470);
+            bgOption = phaser.make.graphics().fillStyle(0xFFFFFF).fillRect(0, 0, 300, 240);
+            bgOption.generateTexture('bgOp', 300, 240);
             bgOption.destroy();
-            phaser.add.image(x, y+10, 'bgOp').setAlpha(0.7);
+            phaser.add.image(x, y+5, 'bgOp').setAlpha(0.7).setScrollFactor(0);
 
             playButSound = phaser.add.image(x-50, y, 'butSound');
             playButSound.setInteractive();
             // playButSound.on ('pointerup', () => {
             //     phaser.input.on('gameobjectup',changeVolume, phaser);
-            // });
+            // });  
         });
 
     }

@@ -20,6 +20,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('bullet', '../../images/bullet.png');
         this.load.image('heart', '../../images/heart.png');
         this.load.image('part', '../../images/part.png');
+        this.load.image('part2', '../../images/part2.png');
         this.load.image('bg', '../../images/bg.png');
         this.load.image('flower', '../../images/flower.png');
         this.load.image('wall', '../../images/wall.png');
@@ -44,9 +45,22 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(monster.getMonster(), player.getBullet(), collect);
         this.physics.add.collider(monster.getMonster(), monster.getPlatforms());
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart());
+        this.physics.add.collider(monster.getMonster(), mapDesign.getPart2());
+        this.physics.add.collider(monster.getMonster(), mapDesign.getPart3());
+        this.physics.add.collider(monster.getMonster(), mapDesign.getPart4());
         this.physics.add.collider(monster.getMonster(), mapDesign.getSafeZone());
-        this.physics.add.collider(player.getPlayer(), monster.getPlatforms());
+        this.physics.add.collider(monster.getMonster(), mapDesign.getWall());
+        this.physics.add.collider(monster.getMonster(), mapDesign.getFlower());
+        this.physics.add.collider(monster.getMonster(), mapDesign.getFlower2());
 
+        this.physics.add.collider(player.getPlayer(), monster.getPlatforms());
+        this.physics.add.collider(player.getPlayer(), mapDesign.getPart());
+        this.physics.add.collider(player.getPlayer(), mapDesign.getPart2());
+        this.physics.add.collider(player.getPlayer(), mapDesign.getPart3());
+        this.physics.add.collider(player.getPlayer(), mapDesign.getPart4());
+        this.physics.add.collider(player.getPlayer(), mapDesign.getWall());
+        this.physics.add.collider(player.getPlayer(), mapDesign.getFlower());
+        this.physics.add.collider(player.getPlayer(), mapDesign.getFlower2());
        
     }
     

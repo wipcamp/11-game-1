@@ -3,7 +3,7 @@ import 'phaser';
 let x, y, height, width;
 let cursors;
 let player;
-let bullet, bullets, reticle;
+let bullets;
 let phaser;
 
 class ControlPc extends Phaser.Scene {
@@ -22,17 +22,20 @@ class ControlPc extends Phaser.Scene {
         y = height * 0.5;
 
         player = phaser.physics.add.image(100, 450, 'player');
-        player.setCollideWorldBounds(true);
+    
         
         bullets = phaser.physics.add.image(x, y, 'bullet'); 
         bullets.setCollideWorldBounds(true);
 
         cursors = phaser.input.keyboard.createCursorKeys();
-        this.keyW = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        this.keyA = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.keyS = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        this.keyD = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        phaser.keyW = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        phaser.keyA = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        phaser.keyD = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        phaser.keyS = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
+        //phaser.cameras.main.setBounds(0, 0, 2000, 2048);
+        phaser.cameras.main.startFollow(player, true, 1, 1);
+        phaser.cameras.main.setZoom(2);
     }
 
     getPlayer() {
@@ -44,27 +47,21 @@ class ControlPc extends Phaser.Scene {
     }
 
     update() {
+        player.setVelocity(0)
 
-        if (cursors.left.isDown||this.keyA.isDown) 
-        { 
-            player.setAngle(-90); 
-            player.x -= 2.5; 
-        } 
-        else if (cursors.right.isDown||this.keyD.isDown) 
-        { 
-            player.setAngle(90); 
-            player.x += 2.5; 
-        } 
-        if (cursors.up.isDown||this.keyW.isDown) 
-        { 
-            player.setAngle(0); 
-            player.y -= 2.5; 
-        } 
-        else if (cursors.down.isDown||this.keyS.isDown) 
-        { 
-            player.setAngle(-180); 
-            player.y += 2.5; 
-        } 
+        if (cursors.left.isDown || phaser.keyA.isDown) {
+            player.setAngle(-90);
+            player.setVelocityX(-150);
+        } else if (cursors.right.isDown || phaser.keyD.isDown) {
+            player.setAngle(90);
+            player.setVelocityX(150);
+        } if (cursors.up.isDown || phaser.keyW.isDown) {
+            player.setAngle(0);
+            player.setVelocityY(-150);
+        } else if (cursors.down.isDown || phaser.keyS.isDown) {
+            player.setAngle(-180);
+            player.setVelocityY(150);
+        }
 
     }
 }

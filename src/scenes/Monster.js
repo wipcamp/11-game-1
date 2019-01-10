@@ -24,10 +24,6 @@ class Monster extends Phaser.Scene {
         x = width * 0.5;
         y = height * 0.5;
 
-        // player = phaser.physics.add.image(x, y, 'player');
-        // player.setBounce(0.2);
-        // player.setCollideWorldBounds(true);
-
         // this.gameitems = this.physics.add.group();
         // for (var i = 0; i < 20; i++) {
         //     var x = Phaser.Math.RND.between(0, 1260);
