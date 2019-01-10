@@ -49,9 +49,11 @@ class move_mobile extends Phaser.Scene {
     create() {
         let width = phasers.scene.scene.physics.world.bounds.width;
         let height = phasers.scene.scene.physics.world.bounds.height;
-        x = width / 3
-        y = height / 3
+        let x = phasers.scene.scene
+        console.log(phasers)
+
         console.log(height, width)
+
         let responsives = new responsive(width, height)
         responsives.check(height, width)
         let scaleRatio = responsives.getScale()
@@ -59,46 +61,54 @@ class move_mobile extends Phaser.Scene {
         // let bg = phasers.add.image(x, y, 'bg');
 
         //กำหนดตัวละครเป็น physics
-        player = phasers.physics.add.image(x, y, 'player');
-        player.setScale(0.8);
+        player = phasers.physics.add.image(400, 600, 'player');
+        player.setScale(scaleRatio + 0.4);
 
         //ไม่ให้ player ออกนอกโลก
         player.setCollideWorldBounds(true);
+        // cameras.setCollideWorldBounds(true);
+
+        //กล้องตามตัว player
+        phasers.cameras.main.setBounds(0, 0, 600, 600)
         phasers.cameras.main.startFollow(player, true, 1, 1);
-        // phasers.cam2.startFollow(player, true, 1, 1);
+        // phasers.cameras.main.setZoom(2);
+
+
 
         //ใส่ปุ่มในมือถือ และ ล็อกตัวปุ่มทั้งหมด
         // .setScrollFactor(0) = A sprite, doesn't scroll with the camera (is fixed to camera)  
-
-        rightButton = phasers.add.image(180, 280, 'right').setInteractive().setScale(scaleRatio, scaleRatio).setScrollFactor(0);
+        rightButton = phasers.physics.add.image(scaleRatio * 320, scaleRatio * 520 , 'right').setInteractive().setScale(scaleRatio + 0.5).setScrollFactor(0);
         rightButton.on('pointerdown', control_right); //pointerdown คือ เมื่อกด จะให้เกิดอะไรซักอย่าง โดยเรียกใช้ฟังก์ชั่น
         rightButton.on('pointerup', control_stopX); //pointerup คือ เมื่อไม่ได้กดปุ่ม หรือ ปล่อย จะให้เกิดอะไรซักอย่าง โดยเรียกใช้ฟังก์ชั่น
 
-        leftButton = phasers.add.image(60, 280, 'left').setInteractive().setScale(scaleRatio, scaleRatio).setScrollFactor(0);
+        leftButton = phasers.add.image((scaleRatio * 80), scaleRatio * 520, 'left').setInteractive().setScale(scaleRatio + 0.5).setScrollFactor(0);
         leftButton.on('pointerdown', control_left);
         leftButton.on('pointerup', control_stopX);
 
-        upButton = phasers.physics.add.image(120, 240, 'up').setInteractive().setScale(scaleRatio, scaleRatio).setScrollFactor(0);
+        upButton = phasers.physics.add.image(scaleRatio * 200,scaleRatio * 440, 'up').setInteractive().setScale(scaleRatio + 0.5).setScrollFactor(0);
         upButton.on('pointerdown', control_up);
         upButton.on('pointerup', control_stopY);
+        upButton.setCollideWorldBounds(true)
 
-        downButton = phasers.add.image(120, 320, 'down').setInteractive().setScale(scaleRatio, scaleRatio).setScrollFactor(0);
+        downButton = phasers.add.image(scaleRatio * 200 ,(scaleRatio * 590), 'down').setInteractive().setScale(scaleRatio + 0.5).setScrollFactor(0);
         downButton.on('pointerdown', control_down);
         downButton.on('pointerup', control_stopY);
 
-        up_left_Button = phasers.add.image(180, 240, 'up_right').setInteractive().setScale(scaleRatio, scaleRatio).setScrollFactor(0);
+        up_left_Button = phasers.physics.add.image(scaleRatio * 320,scaleRatio * 440, 'up_right').setInteractive().setScale(scaleRatio + 0.5).setScrollFactor(0);
         up_left_Button.on('pointerdown', control_up_left);
         up_left_Button.on('pointerup', control_stopXY);
+        up_left_Button.setCollideWorldBounds(true)
 
-        up_right_Button = phasers.add.image(60, 240, 'up_left').setInteractive().setScale(scaleRatio, scaleRatio).setScrollFactor(0);
+        up_right_Button = phasers.physics.add.image(scaleRatio * 80,scaleRatio * 440, 'up_left').setInteractive().setScale(scaleRatio + 0.5).setScrollFactor(0);
         up_right_Button.on('pointerdown', control_up_right);
         up_right_Button.on('pointerup', control_stopXY);
+        up_right_Button.setCollideWorldBounds(true)
 
-        down_left_Button = phasers.add.image(60, 320, 'down_left').setInteractive().setScale(scaleRatio, scaleRatio).setScrollFactor(0);
+        down_left_Button = phasers.add.image(scaleRatio * 80,scaleRatio * 590, 'down_left').setInteractive().setScale(scaleRatio + 0.5).setScrollFactor(0);
         down_left_Button.on('pointerdown', control_down_left);
         down_left_Button.on('pointerup', control_stopXY);
 
-        down_right_Button = phasers.add.image(180, 320, 'down_right').setInteractive().setScale(scaleRatio, scaleRatio).setScrollFactor(0);
+        down_right_Button = phasers.add.image(scaleRatio * 320,scaleRatio * 590, 'down_right').setInteractive().setScale(scaleRatio + 0.5).setScrollFactor(0);
         down_right_Button.on('pointerdown', control_down_right);
         down_right_Button.on('pointerup', control_stopXY);
 
@@ -143,36 +153,16 @@ class move_mobile extends Phaser.Scene {
             player.setVelocityX(0);
             player.setVelocityY(0);
         }
-
-        // var controlConfig = {
-        //     camera: phasers.cameras.main,
-        //     left: leftButton.left,
-        //     right: rightButton.right,
-        //     up: upButton.up,
-        //     down: downButton.down,
-        //     acceleration: 0.06,
-        //     drag: 0.0005,
-        //     maxSpeed: 1.0
-        // };
-
-        // var controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
-
-      
-
-
     }
 
     update() {
 
-
     }
 
     resize(width, height) {
-        this.cameras.resize(width, height);
-        this.bg.setDisplaySize(width, height);
+        phasers.cameras.resize(width, height);
+        this.bg.setDisplaySize(2400, 600);
     }
-
-
 
 }
 

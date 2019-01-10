@@ -40,19 +40,18 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-        this.gameHeight = this.sys.canvas.height;
-        this.gameWidth = this.sys.canvas.width;
-        mobile = new move_mobile({ scene: this })
-        mobile.create()
 
 
         let width = this.scene.scene.physics.world.bounds.width;
         let height = this.scene.scene.physics.world.bounds.height;
+        map = new Map({ scene: this, });
+        map.create();
+
+        mobile = new move_mobile({ scene: this })
+        mobile.create()
 
         respon = new responsive({ width, height })
         respon.check(width, height)
-
-
 
         function setupStage() {
             phasers.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
@@ -88,24 +87,18 @@ class GameScene extends Phaser.Scene {
                 canvas.style.height = windowHeight + "px";
             }
         }
+        // zone = new SafeZone({ scene: this, });
+        // zone.create();
+        // player = new ControlPc({ scene: this, });
+        // player.create();
+        // this.physics.add.collider(player.getPlayer(), zone.getSafeZone());
 
-        map = new Map({ scene: this, });
-        map.create();
-        zone = new SafeZone({ scene: this, });
-        zone.create();
-        player = new ControlPc({ scene: this, });
-        player.create();
-        this.physics.add.collider(player.getPlayer(), zone.getSafeZone());
-        
-        
     }
 
     update() {
         mobile.update()
-        player.update();
+        // player.update();
         // player.updateDirect();
-        
-
     }
 
 }

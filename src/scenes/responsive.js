@@ -3,6 +3,7 @@ import 'phaser'
 let scale;
 let sceneheight;
 let scenewidth;
+let x, y;
 
 class responsive extends Phaser.Scene {
     constructor({ sceneheight, scenewidth }) {
@@ -11,25 +12,25 @@ class responsive extends Phaser.Scene {
         this.scenewidth = scenewidth;
     }
 
-    create(){
+    create() {
 
-    // Scaling options
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        // Scaling options
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-    // Have the game centered horizontally
-    game.scale.pageAlignHorizontally = true;
+        // Have the game centered horizontally
+        game.scale.pageAlignHorizontally = true;
 
-    // And vertically
-    game.scale.pageAlignVertically = true;
+        // And vertically
+        game.scale.pageAlignVertically = true;
 
-    // Screen size will be set automatically
-    game.scale.setScreenSize(true);
+        // Screen size will be set automatically
+        game.scale.setScreenSize(true);
 
 
 
 
         //?????????????????
-        function scaleSprite (sprite, availableSpaceWidth, availableSpaceHeight, padding, scaleMultiplier) {
+        function scaleSprite(sprite, availableSpaceWidth, availableSpaceHeight, padding, scaleMultiplier) {
             var scale = phasers.getSpriteScale(sprite._frame.width, sprite._frame.height, availableSpaceWidth, availableSpaceHeight, padding);
             sprite.scale.x = scale * scaleMultiplier;
             sprite.scale.y = scale * scaleMultiplier;
@@ -64,11 +65,11 @@ class responsive extends Phaser.Scene {
             var windowHeight = window.innerHeight;
             var windowRatio = windowWidth / windowHeight;
             var gameRatio = game.config.width / game.config.height;
-            if(windowRatio < gameRatio){
+            if (windowRatio < gameRatio) {
                 canvas.style.width = windowWidth + "px";
                 canvas.style.height = (windowWidth / gameRatio) + "px";
             }
-            else{
+            else {
                 canvas.style.width = (windowHeight * gameRatio) + "px";
                 canvas.style.height = windowHeight + "px";
             }
@@ -88,13 +89,13 @@ class responsive extends Phaser.Scene {
             scale = 0.65;
         }
         else if (sceneheight <= 650) {
-          scale = 0.75;
+            scale = 0.75;
         }
         else if (sceneheight <= 680) {
-           scale = 0.8;
+            scale = 0.8;
         }
         else if (sceneheight <= 750) {
-           scale = 0.85;
+            scale = 0.85;
         }
         else if (sceneheight <= 850) {
             scale = 0.9;
@@ -106,9 +107,39 @@ class responsive extends Phaser.Scene {
             scale = 1.2;
         }
     }
-    
-    getScale ()
-    {
+
+
+    posiions(sceneheight, scenewidth) {
+
+        if (sceneheight <= 450) {
+
+        }
+        else if (sceneheight <= 490) {
+
+        }
+        else if (sceneheight <= 580) {
+
+        }
+        else if (sceneheight <= 650) {
+
+        }
+        else if (sceneheight <= 680) {
+
+        }
+        else if (sceneheight <= 750) {
+
+        }
+        else if (sceneheight <= 850) {
+
+        }
+        else if (sceneheight <= 1024) {
+            
+        }
+        else {
+        }
+    }
+
+    getScale() {
         return scale;
     }
 
