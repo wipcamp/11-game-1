@@ -30,29 +30,31 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
+        this.gameHeight = this.sys.canvas.height;
+        this.gameWidth = this.sys.canvas.width;
         mobile = new move_mobile({ scene: this })
         mobile.create()
-        
+
 
         let width = this.scene.scene.physics.world.bounds.width;
         let height = this.scene.scene.physics.world.bounds.height;
 
-        respon = new responsive({ width , height})
-        respon.check( width , height)
+        respon = new responsive({ width, height })
+        respon.check(width, height)
 
-        
+
 
         function setupStage() {
             phasers.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
             if (!isMobile) phasers.scale.setResizeCallback(phasers.scaleGame);
             phasers.scaleGame();
-          }
-        function scaleGame () {
+        }
+        function scaleGame() {
             const padding = isMobile ? 0 : 80; // include padding around the canvas frame for desktop
             const yScale = (window.innerHeight - padding) / phasers.game.height;
             const scale = Math.min(yScale, 1);
             phasers.scale.setUserScale(scale, scale);
-          };
+        };
 
         function scaleSprite(sprite, availableSpaceWidth, availableSpaceHeight, padding, scaleMultiplier) {
             var scale = phasers.getSpriteScale(sprite._frame.width, sprite._frame.height, availableSpaceWidth, availableSpaceHeight, padding);
@@ -66,8 +68,8 @@ class GameScene extends Phaser.Scene {
             var windowHeight = window.innerHeight;
             var windowRatio = windowWidth / windowHeight;
             var gameRatio = game.config.width / game.config.height;
-        
-            if(windowRatio < gameRatio){
+
+            if (windowRatio < gameRatio) {
                 canvas.style.width = windowWidth + "px";
                 canvas.style.height = (windowWidth / gameRatio) + "px";
             }

@@ -51,7 +51,7 @@ class move_mobile extends Phaser.Scene {
         let height = phasers.scene.scene.physics.world.bounds.height;
         x = width / 3
         y = height / 3
-        console.log(height,width)
+        console.log(height, width)
         let responsives = new responsive(width, height)
         responsives.check(height, width)
         let scaleRatio = responsives.getScale()
@@ -69,7 +69,6 @@ class move_mobile extends Phaser.Scene {
 
         //ใส่ปุ่มในมือถือ และ ล็อกตัวปุ่มทั้งหมด
         // .setScrollFactor(0) = A sprite, doesn't scroll with the camera (is fixed to camera)  
-        phasers.add.image(400, 200, 'hahah')
 
         rightButton = phasers.add.image(180, 280, 'right').setInteractive().setScale(scaleRatio, scaleRatio).setScrollFactor(0);
         rightButton.on('pointerdown', control_right); //pointerdown คือ เมื่อกด จะให้เกิดอะไรซักอย่าง โดยเรียกใช้ฟังก์ชั่น
@@ -158,6 +157,7 @@ class move_mobile extends Phaser.Scene {
 
         // var controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
 
+      
 
 
     }
@@ -166,6 +166,12 @@ class move_mobile extends Phaser.Scene {
 
 
     }
+
+    resize(width, height) {
+        this.cameras.resize(width, height);
+        this.bg.setDisplaySize(width, height);
+    }
+
 
 
 }
