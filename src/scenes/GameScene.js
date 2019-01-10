@@ -1,9 +1,10 @@
 import ControlPc from './Player/ControlPc'
 import MapDesign from './Map/MapDesign'
 import Option from './Data/Option'
+import Value from './HP/Value'
 import Monster from './Monster'
 
-let player, monster, bullets, mapDesign, option;
+let player, monster, bullets, mapDesign, option, hp;
 
 
 class GameScene extends Phaser.Scene {
@@ -19,6 +20,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('platform', '../../images/platform.png');
         this.load.image('bullet', '../../images/bullet.png');
         this.load.image('heart', '../../images/heart.png');
+        this.load.image('halfheart', '../../images/halfheart.png');
         this.load.image('part', '../../images/part.png');
         this.load.image('part2', '../../images/part2.png');
         this.load.image('bg', '../../images/bg.png');
@@ -38,12 +40,13 @@ class GameScene extends Phaser.Scene {
         monster.create();        
         option = new Option({ scene: this, });
         option.create();        
+        hp = new Value({ scene: this, });
+        hp.create();        
 
         this.physics.add.collider(monster.getMonster(), player.getPlayer(), () => {
             player.getPlayer().setTint(0xff0000);
         });
         this.physics.add.collider(monster.getMonster(), player.getBullet(), collect);
-        this.physics.add.collider(monster.getMonster(), monster.getPlatforms());
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart());
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart2());
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart3());
@@ -53,7 +56,6 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(monster.getMonster(), mapDesign.getFlower());
         this.physics.add.collider(monster.getMonster(), mapDesign.getFlower2());
 
-        this.physics.add.collider(player.getPlayer(), monster.getPlatforms());
         this.physics.add.collider(player.getPlayer(), mapDesign.getPart());
         this.physics.add.collider(player.getPlayer(), mapDesign.getPart2());
         this.physics.add.collider(player.getPlayer(), mapDesign.getPart3());
@@ -68,6 +70,7 @@ class GameScene extends Phaser.Scene {
         player.update();
         monster.update();
         mapDesign.update();
+        hp.update();
 
     }
 }

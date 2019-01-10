@@ -25,7 +25,6 @@ class SafeZone extends Phaser.Scene {
         });
         Phaser.Actions.PlaceOnRectangle(zone.getChildren(), new Phaser.Geom.Rectangle(100, 450, 50, 50));
         zone.refresh();
-        console.log(zone)
 
 
     }

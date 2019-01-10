@@ -14,11 +14,6 @@ class Option extends Phaser.Scene {
         phaser = config.scene
     }
 
-
-    preload() {
-
-    }
-
     create() {
         width = phaser.scene.scene.physics.world.bounds.width;
         height = phaser.scene.scene.physics.world.bounds.height;

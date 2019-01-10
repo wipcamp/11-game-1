@@ -112,7 +112,7 @@ class MapDesign extends Phaser.Scene {
         nameText = phaser.add.text(x-310, y-128, 'แป้งมาเยือน อิอิ', { fontSize: '8px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1);
         nameText2 = phaser.add.text(x-25, y-30, 'แป้งมาเยือน อิอิ', { fontSize: '8px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1);
         
-        heart = phaser.physics.add.image(x-230, y-128, 'heart').setScrollFactor(0).setScale(0.7);
+        
         
     }
 
