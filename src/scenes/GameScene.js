@@ -3,8 +3,9 @@ import MapDesign from './Map/MapDesign'
 import Option from './Data/Option'
 import Value from './HP/Value'
 import Monster from './Monster'
+import Boss from './Boss'
 
-let player, monster, bullets, mapDesign, option, hp;
+let player, monster, bullets, mapDesign, option, hp, boss;
 
 
 class GameScene extends Phaser.Scene {
@@ -16,7 +17,10 @@ class GameScene extends Phaser.Scene {
 
     preload() {
         this.load.image('player', '../../images/player.png')
+        this.load.image('weapon', '../../images/weapon.png');
         this.load.image('monster', '../../images/monster.png');
+        this.load.image('boss', '../../images/boss.png');
+        this.load.image('weaponBoss', '../../images/weaponBoss.png');
         this.load.image('platform', '../../images/platform.png');
         this.load.image('bullet', '../../images/bullet.png');
         this.load.image('heart', '../../images/heart.png');
@@ -34,6 +38,8 @@ class GameScene extends Phaser.Scene {
     create() {
         mapDesign = new MapDesign({ scene: this, });
         mapDesign.create();        
+        boss = new Boss({ scene: this, });
+        boss.create();        
         player = new ControlPc({ scene: this, });
         player.create();
         monster = new Monster({ scene: this, });
@@ -43,10 +49,8 @@ class GameScene extends Phaser.Scene {
         hp = new Value({ scene: this, });
         hp.create();        
 
-        this.physics.add.collider(monster.getMonster(), player.getPlayer(), () => {
-            player.getPlayer().setTint(0xff0000);
-        });
-        this.physics.add.collider(monster.getMonster(), player.getBullet(), collect);
+        this.physics.add.collider(monster.getMonster(), player.getPlayer(), hp.checkHeart);
+        this.physics.add.collider(monster.getMonster(), player.getBullet(), hp.checkHp);
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart());
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart2());
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart3());
@@ -63,6 +67,11 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(player.getPlayer(), mapDesign.getWall());
         this.physics.add.collider(player.getPlayer(), mapDesign.getFlower());
         this.physics.add.collider(player.getPlayer(), mapDesign.getFlower2());
+
+        this.physics.add.collider(boss.getBoss(), player.getPlayer(), hp.checkHeart);
+        this.physics.add.collider(boss.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
+        this.physics.add.collider(boss.getBoss(), monster.getMonster());
+        this.physics.add.collider(boss.getBoss(), player.getWeapon(), hp.checkHpBoss);
        
     }
     
@@ -71,12 +80,13 @@ class GameScene extends Phaser.Scene {
         monster.update();
         mapDesign.update();
         hp.update();
+        boss.update();
 
     }
 }
 
-function collect(monster, bullets) {
-    bullets.disableBody(true, true);
-}
+// function collect(monster, bullets) { 
+//     bullets.disableBody(true, true);
+// }
 
 export default GameScene;

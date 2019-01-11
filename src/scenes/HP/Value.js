@@ -1,10 +1,12 @@
+import GameScene from "../GameScene";
 
 let x, y, height, width;
-let maxText, currentText;
-let playimage1, playimage2;
+let maxText, currentText, bossText;
+let playimage1, playimage2, playimage3;
 let heart1_2, heart1, heart2_2, heart2, heart3_2, heart3;
 let currentHeart = 3;
 let hpMons = 100;
+let hpBoss = 1000;
 let phaser;
 
 class Value extends Phaser.Scene {
@@ -40,7 +42,7 @@ class Value extends Phaser.Scene {
         heart3.setVisible(true);
 
         //test ว่าถ้าทำเงื่อนไข แล้วลดเปล่า
-        playimage1 = phaser.add.image(x, y, 'heart');
+        playimage1 = phaser.add.image(x, y-20, 'heart');
         playimage1.setInteractive();
         playimage1.input.useHandCursor = true;
         phaser.input.on('gameobjectup', this.checkHeart, this);
@@ -51,6 +53,12 @@ class Value extends Phaser.Scene {
         playimage2.input.useHandCursor = true;
         phaser.input.on('gameobjectup', this.checkHp, this);
         maxText = phaser.add.text(x+70, y-135, 'HP Monster: '+ hpMons, { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);
+        
+        playimage3 = phaser.add.image(x-40, y-20, 'heart');
+        playimage3.setInteractive();
+        playimage3.input.useHandCursor = true;
+        phaser.input.on('gameobjectup', this.checkHpBoss, this);
+        bossText = phaser.add.text(x+160, y-135, 'HP Boss: '+ hpBoss, { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);
 
     }
 
@@ -104,6 +112,20 @@ class Value extends Phaser.Scene {
             return hpMons;
         }
     }
+
+    checkHpBoss () {
+        hpBoss -= 10;
+        bossText.setText('Score: ' + hpBoss);
+
+        if (hpBoss <= 0 ) {
+            playimage3.setVisible(false);
+            hpBoss =1000;
+            return hpBoss;
+        } else {
+            return hpBoss;
+        }
+    }
+
 }
 
 

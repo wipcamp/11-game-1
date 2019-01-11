@@ -2,7 +2,7 @@ import 'phaser';
 
 let x, y, height, width;
 let cursors;
-let player;
+let player, weapon;
 let bullets;
 let phaser;
 
@@ -21,8 +21,10 @@ class ControlPc extends Phaser.Scene {
         x = width * 0.5;
         y = height * 0.5;
 
-        player = phaser.physics.add.image(100, 450, 'player');
-    
+        player = phaser.physics.add.image(50, 420, 'player');
+
+        weapon = phaser.physics.add.image(x+320,y+150, 'weapon');
+        weapon.setCollideWorldBounds(true);
         
         bullets = phaser.physics.add.image(x, y, 'bullet'); 
         bullets.setCollideWorldBounds(true);
@@ -41,9 +43,11 @@ class ControlPc extends Phaser.Scene {
     getPlayer() {
         return player
     }
-
     getBullet() {
         return bullets
+    }
+    getWeapon() {
+        return weapon
     }
 
     update() {
@@ -52,15 +56,23 @@ class ControlPc extends Phaser.Scene {
         if (cursors.left.isDown || phaser.keyA.isDown) {
             player.setAngle(-90);
             player.setVelocityX(-150);
+            weapon.setAngle(-90);
+            
         } else if (cursors.right.isDown || phaser.keyD.isDown) {
             player.setAngle(90);
             player.setVelocityX(150);
+            weapon.setAngle(90);
+            
         } if (cursors.up.isDown || phaser.keyW.isDown) {
             player.setAngle(0);
             player.setVelocityY(-150);
+            weapon.setAngle(0);
+            
         } else if (cursors.down.isDown || phaser.keyS.isDown) {
             player.setAngle(-180);
             player.setVelocityY(150);
+            weapon.setAngle(-180);
+            
         }
 
     }
