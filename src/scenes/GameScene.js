@@ -37,6 +37,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('player', '../../images/iconalive.png')
         this.load.image('map', '../../images/Background_long.jpg')
         this.load.image('safezone', '../../images/zone.jpg')
+        this.load.image('attack','../../images/button_atk.png')
     }
 
     create() {
