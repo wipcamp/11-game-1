@@ -41,7 +41,6 @@ class GameScene extends Phaser.Scene {
 
     create() {
 
-
         let width = this.scene.scene.physics.world.bounds.width;
         let height = this.scene.scene.physics.world.bounds.height;
         map = new Map({ scene: this, });
@@ -66,26 +65,42 @@ class GameScene extends Phaser.Scene {
         };
 
         function scaleSprite(sprite, availableSpaceWidth, availableSpaceHeight, padding, scaleMultiplier) {
-            var scale = phasers.getSpriteScale(sprite._frame.width, sprite._frame.height, availableSpaceWidth, availableSpaceHeight, padding);
+            var scale = this.getSpriteScale(sprite._frame.width, sprite._frame.height, availableSpaceWidth, availableSpaceHeight, padding);
             sprite.scale.x = scale * scaleMultiplier;
             sprite.scale.y = scale * scaleMultiplier;
         }
 
         function resize() {
-            var canvas = document.querySelector("canvas");
-            var windowWidth = window.innerWidth;
-            var windowHeight = window.innerHeight;
-            var windowRatio = windowWidth / windowHeight;
-            var gameRatio = game.config.width / game.config.height;
+            // var canvas = document.querySelector("canvas");
+            // var windowWidth = window.innerWidth;
+            // var windowHeight = window.innerHeight;
+            // var windowRatio = windowWidth / windowHeight;
+            // var gameRatio = game.config.width / game.config.height;
 
-            if (windowRatio < gameRatio) {
-                canvas.style.width = windowWidth + "px";
-                canvas.style.height = (windowWidth / gameRatio) + "px";
-            }
-            else {
-                canvas.style.width = (windowHeight * gameRatio) + "px";
-                canvas.style.height = windowHeight + "px";
-            }
+            // if (windowRatio < gameRatio) {
+            //     canvas.style.width = windowWidth + "px";
+            //     canvas.style.height = (windowWidth / gameRatio) + "px";
+            // }
+            // else {
+            //     canvas.style.width = (windowHeight * gameRatio) + "px";
+            //     canvas.style.height = windowHeight + "px";
+            // }
+
+            this.scaleSprite(phasers.upButton, width, height / 3, 50, 1);
+            this.upButton.x = phasers.world.centerX;
+            this.upButton.y = phasers.world.centerY - height / 3;
+
+            this.scaleSprite(phasers.downButtonButton, width, height / 3, 50, 1);
+            this.downButton.x = phasers.world.centerX;
+            this.downButton.y = phasers.world.centerY;
+
+            this.scaleSprite(phasers.leftButtonButton, width, height / 3, 50, 0.5);
+            this.lefttButtonButton.x = phasers.world.centerX - phasers.leftButtonButton.width / 2;
+            this.leftButton.y = phasers.world.centerY + height / 3;
+
+            this.scaleSprite(phasers.rightButton, width, height / 3, 50, 0.5);
+            this.rightButton.x = phasers.world.centerX + phasers.rightButton.width / 2;
+            this.rightButton.y = phasers.world.centerY + height / 3;
         }
         // zone = new SafeZone({ scene: this, });
         // zone.create();

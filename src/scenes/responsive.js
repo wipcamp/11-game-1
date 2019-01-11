@@ -59,7 +59,7 @@ class responsive extends Phaser.Scene {
         }
 
         //ฟังก์ชั่นย่อส่วน object
-        function resize() {
+        /* function resize() {
             var canvas = document.querySelector("canvas");
             var windowWidth = window.innerWidth;
             var windowHeight = window.innerHeight;
@@ -73,7 +73,7 @@ class responsive extends Phaser.Scene {
                 canvas.style.width = (windowHeight * gameRatio) + "px";
                 canvas.style.height = windowHeight + "px";
             }
-        }
+        } */
     }
 
     check(sceneheight, scenewidth) {
