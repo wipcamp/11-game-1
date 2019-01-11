@@ -1,5 +1,5 @@
 import 'phaser';
-let hp;
+let hpPer5level;
 let hp2
 let num=1   
 let x=100
@@ -15,7 +15,7 @@ class hpPlus extends Phaser.Scene {
 
 
     create() {
-        hp = phaser.physics.add.image(x,y,'hp').setScale(5,5)
+        hpPer5level = phaser.physics.add.image(x,y,'hp').setScale(5,5)
         
         this.keyC = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
         
@@ -27,6 +27,9 @@ class hpPlus extends Phaser.Scene {
 
 
     update() {
+        
+        hpPer5level.setMaxVelocity(0)
+
         if(this.keyC.isDown){
 
             num++
@@ -34,10 +37,10 @@ class hpPlus extends Phaser.Scene {
         }
         if(num==5){
             if(x<=1000){
-                hp = phaser.physics.add.image(x+50,y,'hp').setScale(5,5)
+                hpPer5level = phaser.physics.add.image(x+50,y,'hp').setScale(5,5)
                 x += 50
             }else if(x>1000){
-                hp = phaser.physics.add.image(x,y+50,'hp').setScale(5,5)
+                hpPer5level = phaser.physics.add.image(x,y+50,'hp').setScale(5,5)
                 x = 100
                 y += 50
             
@@ -46,6 +49,9 @@ class hpPlus extends Phaser.Scene {
         }
 
 
+    }
+    getHpPer5Level() {
+        return hpPer5level
     }
 }
 
