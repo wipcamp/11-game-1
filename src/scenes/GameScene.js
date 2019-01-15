@@ -1,5 +1,6 @@
 import move_mobile from './move_mobile'
 import responsive from './responsive'
+import Boss from './Boss'
 
 let mobile
 let respon
@@ -10,7 +11,12 @@ import SafeZone from './Map/SafeZone'
 let player;
 let map;
 let zone
-let gameover = false;
+let monster,boss;
+let option;
+let hp;
+let bullet;
+
+
 class GameScene extends Phaser.Scene {
     constructor(test) {
         super({
@@ -38,6 +44,11 @@ class GameScene extends Phaser.Scene {
         this.load.image('map', '../../images/Background_long.jpg')
         this.load.image('safezone', '../../images/zone.jpg')
         this.load.image('attack','../../images/button_atk.png')
+
+        this.load.image('reticle','../../images/target.png')
+        this.load.image('bullet','../../images/bomb.png')
+
+        this.load.image('boss','../../images/boss.gif')
     }
 
     create() {
@@ -52,6 +63,9 @@ class GameScene extends Phaser.Scene {
 
         respon = new responsive({ width, height })
         respon.check(width, height)
+
+        boss = new Boss({ scene: this, });
+        boss.create();  
 
         function setupStage() {
             phasers.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
@@ -72,21 +86,6 @@ class GameScene extends Phaser.Scene {
         }
 
         function resize() {
-            // var canvas = document.querySelector("canvas");
-            // var windowWidth = window.innerWidth;
-            // var windowHeight = window.innerHeight;
-            // var windowRatio = windowWidth / windowHeight;
-            // var gameRatio = game.config.width / game.config.height;
-
-            // if (windowRatio < gameRatio) {
-            //     canvas.style.width = windowWidth + "px";
-            //     canvas.style.height = (windowWidth / gameRatio) + "px";
-            // }
-            // else {
-            //     canvas.style.width = (windowHeight * gameRatio) + "px";
-            //     canvas.style.height = windowHeight + "px";
-            // }
-
             this.scaleSprite(phasers.upButton, width, height / 3, 50, 1);
             this.upButton.x = phasers.world.centerX;
             this.upButton.y = phasers.world.centerY - height / 3;
@@ -103,18 +102,11 @@ class GameScene extends Phaser.Scene {
             this.rightButton.x = phasers.world.centerX + phasers.rightButton.width / 2;
             this.rightButton.y = phasers.world.centerY + height / 3;
         }
-        // zone = new SafeZone({ scene: this, });
-        // zone.create();
-        // player = new ControlPc({ scene: this, });
-        // player.create();
-        // this.physics.add.collider(player.getPlayer(), zone.getSafeZone());
-
     }
 
     update() {
         mobile.update()
-        // player.update();
-        // player.updateDirect();
+        boss.update()
     }
 
 }
