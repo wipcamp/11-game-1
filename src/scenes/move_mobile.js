@@ -51,50 +51,52 @@ class move_mobile extends Phaser.Scene {
         this.load.image('player', '../../images/player.png');
         this.load.image('bg', '../../images/bg.png');
 
-        this.load.image('reticle','../../images/target.png')
+        this.load.image('reticle', '../../images/target.png')
         this.load.image('bullet', '../../images/bomb.png');
 
-        this.load.image('boss', '../../images/boss.gif');1
+        this.load.image('boss', '../../images/boss.gif'); 1
     }
     create() {
 
         var Bullet = new Phaser.Class({
 
             Extends: Phaser.GameObjects.Image,
-    
+
             initialize:
-    
-            function Bullet (scene)
-            {
-                Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
-    
-                this.speed = Phaser.Math.GetSpeed(400, 1);
-            },
-    
-            fire: function (x, y)
-            {
-                this.setPosition(x, y - 50);
-    
+
+                function Bullet(scene) {
+                    Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
+
+                    this.speed = Phaser.Math.GetSpeed(400, 1);
+                    this.velocity = new Phaser.Geom.Point(0, 0);
+                },
+
+            fire: function (x, y, direction) {
+                this.setPosition(x, y);
+                this.setRotation(player.rotation);
+
                 this.setActive(true);
                 this.setVisible(true);
+
+                this.velocity.setTo(0, -this.speed)
+                Phaser.Math.Rotate(this.velocity, direction)
             },
-    
-            update: function (time, delta)
-            {
-                this.y -= this.speed * delta;
-    
-                if (this.y < -50)
-                {
+
+            update: function (time, delta) {
+                this.x += this.velocity.x * delta;
+                this.y += this.velocity.y * delta;
+
+                if (this.y < -50) {
                     this.setActive(false);
                     this.setVisible(false);
                 }
             }
-    
+
         });
 
         bullets = phasers.add.group({
             classType: Bullet,
-            maxSize: 10,
+            maxSize: 100,
             runChildUpdate: true
         });
 
@@ -116,12 +118,12 @@ class move_mobile extends Phaser.Scene {
         //กำหนดตัวละครเป็น physics
         player = phasers.physics.add.image(400, 600, 'player');
         player.setScale(scaleRatio + 0.2);
+        player.setCollideWorldBounds(true);
 
         reticle = phasers.physics.add.image(400, 500, 'reticle');
         reticle.setScale(scaleRatio + 0.2);
 
         //ไม่ให้ player ออกนอกโลก
-        player.setCollideWorldBounds(true);
 
         //กล้องตามตัว player
         phasers.cameras.main.setBounds(0, 0, 900, 900)
@@ -180,44 +182,46 @@ class move_mobile extends Phaser.Scene {
         function control_right() {
             player.setVelocityX(150);
             player.setAngle(90);
-            
+
             reticle.setVelocityX(150);
             reticle.x = player.x + 100
-            reticle.y = player.y  
+            reticle.y = player.y
+
         }
         function control_left() {
             player.setVelocityX(-150);
             player.setAngle(270)
-            
+
             reticle.setVelocityX(-150);
             reticle.x = player.x - 100
-            reticle.y = player.y 
+            reticle.y = player.y
         }
         function control_up() {
             player.setVelocityY(-150);
             player.setAngle(0)
-            
+
             reticle.setVelocityY(-150);
             reticle.x = player.x
             reticle.y = player.y - 100
-         
+
         }
         function control_down() {
             player.setVelocityY(150);
             player.setAngle(180)
-            
+
             reticle.setVelocityY(150);
             reticle.x = player.x
-            reticle.y = player.y + 100
+            reticle.y = player.y + 80;
         }
         function control_up_right() {
             player.setVelocityX(150);
             player.setVelocityY(-150);
-            player.setAngle(45)   
-            
+            player.setAngle(45)
+
             reticle.setVelocityX(150);
             reticle.setVelocityY(-150);
-            reticle.x = player.x + 100
+            reticle.x = player.x + 80;
+            reticle.y = player.y - 60;
         }
         function control_up_left() {
             player.setVelocityX(-150);
@@ -226,6 +230,8 @@ class move_mobile extends Phaser.Scene {
 
             reticle.setVelocityX(-150);
             reticle.setVelocityY(-150);
+            reticle.x = player.x - 100;
+            reticle.y = player.y - 100;
         }
         function control_down_left() {
             player.setVelocityX(-150);
@@ -234,6 +240,8 @@ class move_mobile extends Phaser.Scene {
 
             reticle.setVelocityX(-150);
             reticle.setVelocityY(150);
+            reticle.x = player.x - 100;
+            reticle.y = player.y + 80;
         }
         function control_down_right() {
             player.setVelocityX(150);
@@ -242,13 +250,15 @@ class move_mobile extends Phaser.Scene {
 
             reticle.setVelocityX(150);
             reticle.setVelocityY(150);
+            reticle.x = player.x + 100;
+            reticle.y = player.y + 80;
         }
 
         //ฟังก์ชั่นหยุดตัวละครเวลาเดินในแกน X และ แกน y
         function control_stopX() {
             player.setVelocityX(0);
             reticle.setVelocityX(0);
-            
+
         }
         function control_stopY() {
             player.setVelocityY(0);
@@ -257,7 +267,7 @@ class move_mobile extends Phaser.Scene {
         function control_stopXY() {
             player.setVelocityX(0);
             player.setVelocityY(0);
-            
+
             reticle.setVelocityX(0);
             reticle.setVelocityY(0);
         }
@@ -268,12 +278,15 @@ class move_mobile extends Phaser.Scene {
             let bullet = bullets.get()
 
             if (bullet) {
-                bullet.fire(player.x, player.y);
+
+                bullet.fire(player.x, player.y, player.rotation);
             }
+
         }
     }
 
     update() {
+
 
     }
 
