@@ -111,6 +111,8 @@ class MapDesign extends Phaser.Scene {
         levelText = phaser.add.text(x-310, y-137, 'Lv.1', { fontSize: '8px', fill: '#00FFFF' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1);
         nameText = phaser.add.text(x-310, y-128, 'แป้งมาเยือน อิอิ', { fontSize: '8px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1);
         nameText2 = phaser.add.text(x-25, y-30, 'แป้งมาเยือน อิอิ', { fontSize: '8px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1);
+
+        phaser.cameras.main.startFollow(nameText, true, 1, 1);
         
         
         

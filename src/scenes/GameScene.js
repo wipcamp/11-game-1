@@ -5,7 +5,8 @@ import Value from './HP/Value'
 import Monster from './Monster'
 import Boss from './Boss'
 
-let player, monster, bullets, mapDesign, option, hp, boss;
+let player, monsters, bullets, mapDesign, option, hp, boss
+let hpMonster=100
 
 
 class GameScene extends Phaser.Scene {
@@ -42,23 +43,27 @@ class GameScene extends Phaser.Scene {
         boss.create();        
         player = new ControlPc({ scene: this, });
         player.create();
-        monster = new Monster({ scene: this, });
-        monster.create();        
+        monsters = new Monster({ scene: this, });
+        monsters.create();        
         option = new Option({ scene: this, });
         option.create();        
         hp = new Value({ scene: this, });
         hp.create();        
 
-        this.physics.add.collider(monster.getMonster(), player.getPlayer(), hp.checkHeart);
-        this.physics.add.collider(monster.getMonster(), player.getBullet(), hp.checkHp);
-        this.physics.add.collider(monster.getMonster(), mapDesign.getPart());
-        this.physics.add.collider(monster.getMonster(), mapDesign.getPart2());
-        this.physics.add.collider(monster.getMonster(), mapDesign.getPart3());
-        this.physics.add.collider(monster.getMonster(), mapDesign.getPart4());
-        this.physics.add.collider(monster.getMonster(), mapDesign.getSafeZone());
-        this.physics.add.collider(monster.getMonster(), mapDesign.getWall());
-        this.physics.add.collider(monster.getMonster(), mapDesign.getFlower());
-        this.physics.add.collider(monster.getMonster(), mapDesign.getFlower2());
+        // this.physics.add.collider(monsters.getMonster(), player.getPlayer(), this.checkHp)
+        this.physics.add.collider(monsters.getMonster(), player.getPlayer(), this.exMonHp,null,this);
+        // this.physics.add.collider(monsters.getMonster(), player.getPlayer(), monsters.checkHpRed)
+
+        this.physics.add.collider(monsters.getMonster(), player.getPlayer(), hp.checkHeart);
+        this.physics.add.collider(monsters.getMonster(), player.getBullet(), hp.checkHp);
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getPart());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getPart2());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getPart3());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getPart4());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getSafeZone());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getWall());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getFlower());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getFlower2());
 
         this.physics.add.collider(player.getPlayer(), mapDesign.getPart());
         this.physics.add.collider(player.getPlayer(), mapDesign.getPart2());
@@ -70,19 +75,43 @@ class GameScene extends Phaser.Scene {
 
         this.physics.add.collider(boss.getBoss(), player.getPlayer(), hp.checkHeart);
         this.physics.add.collider(boss.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
-        this.physics.add.collider(boss.getBoss(), monster.getMonster());
+        this.physics.add.collider(boss.getBoss(), monsters.getMonster());
         this.physics.add.collider(boss.getBoss(), player.getWeapon(), hp.checkHpBoss);
        
     }
     
     update() {
         player.update();
-        monster.update();
+        monsters.update();
         mapDesign.update();
         hp.update();
-        boss.update();
+        boss.update();  
 
     }
+
+    exMonHp(player,monster){
+        // // hp.getHpMons() -= 10
+        // hp.checkHp()
+        // console.log(hp.getHpMons())
+        // if( hp.getHpMons() == 20){
+        //     monster.setTint(0xff0000);   
+        // }else if( hp.getHpMons() <= 0){
+        //     monster.disableBody(true,true)
+        //     // hp.getHpMons() = 100
+        // }
+        
+        console.log(hpMonster)
+        hpMonster -= 10
+        
+        if(hpMonster == 20){
+            monster.setTint(0xff0000);   
+        }else if(hpMonster == 0){
+            monster.disableBody(true,true)
+            hpMonster = 100
+        }
+    }
+
+
 }
 
 // function collect(monster, bullets) { 

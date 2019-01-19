@@ -102,6 +102,7 @@ class Value extends Phaser.Scene {
 
     checkHp () {
         hpMons -= 10;
+
         maxText.setText('Score: ' + hpMons);
 
         if (hpMons <= 0 ) {
@@ -124,6 +125,10 @@ class Value extends Phaser.Scene {
         } else {
             return hpBoss;
         }
+    }
+
+    getHpMons(){
+        return hpMons
     }
 
 }

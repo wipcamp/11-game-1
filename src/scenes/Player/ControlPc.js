@@ -35,7 +35,7 @@ class ControlPc extends Phaser.Scene {
         phaser.keyD = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         phaser.keyS = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
-        //phaser.cameras.main.setBounds(0, 0, 2000, 2048);
+        // phaser.cameras.main.setBounds(0, 0, 2000, 2048);
         phaser.cameras.main.startFollow(player, true, 1, 1);
         phaser.cameras.main.setZoom(2);
     }
