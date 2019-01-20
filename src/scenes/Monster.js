@@ -1,9 +1,8 @@
 
 let x, y, height, width;
 let monsters;
-let monster
+let hpMons = 100
 let phaser;
-let hpMonsR 
 class Monster extends Phaser.Scene {
 
     constructor(config) {
@@ -23,6 +22,11 @@ class Monster extends Phaser.Scene {
         height = phaser.scene.scene.physics.world.bounds.height;
         x = width * 0.5;
         y = height * 0.5;
+
+        monsters = phaser.physics.add.image(100,400,'monster')
+        // monsters.setCollider(true);
+        monsters.setBounce(1)
+        monsters.setVelocity(Phaser.Math.Between(10,40),Phaser.Math.Between(10,40))
         
 
         // this.gameitems = this.physics.add.group();
@@ -32,40 +36,59 @@ class Monster extends Phaser.Scene {
         //     var newobj = this.gameitems.create(x, y, 'monster');
         // }
 
-        monsters = phaser.physics.add.group({
-            key: 'monster',
-            frameQuantity: 20,
-            collideWorldBounds: true,
-            bounceX: 1,
-            bounceY: 1,
-            velocityX: 40,
-            velocityY: 40,
-            hpMonsR : 100,
-        });
+    //     monsters = phaser.physics.add.group({
+    //         key: 'monster',
+    //         frameQuantity: 20,
+    //         collideWorldBounds: true,
+    //         bounceX: 1,
+    //         bounceY: 1,
+    //         velocityX: 40,
+    //         velocityY: 40,
+    //         hpMonsR : 100,
+    //     });
 
-        Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
-        phaser.physics.add.collider(monsters);
-        console.log(monsters)
+    //     Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
+    //     phaser.physics.add.collider(monsters);
+    //     console.log(monsters)
 
     }
+    
+    // getMonster() {
+    //     return monsters
+    // }
+    // checkHpRed () {
+    //     hpMonsR -= 10;
+    //     console.log(hpMonsR)
+
+    //     if(hpMonsR == 20){
+    //         monsters.setTint(0xff0000);   
+    //     }else if(hpMonsR <= 0){
+    //         monsters.disableBody(true,true)
+    //         hpMonsR = 100
+    //     }
+    // }
+
     getMonster() {
         return monsters
     }
-    checkHpRed () {
-        hpMonsR -= 10;
-        console.log(hpMonsR)
 
-        if(hpMonsR == 20){
+    checkHpRed () {
+        hpMons -= 10;
+        console.log(hpMons)
+
+        if(hpMons == 20){
             monsters.setTint(0xff0000);   
-        }else if(hpMonsR <= 0){
+        }else if(hpMons <= 0){
             monsters.disableBody(true,true)
-            hpMonsR = 100
+            hpMons = 100
         }
     }
 
+
+
     
     update() {
-    
+        
 
     }
 
