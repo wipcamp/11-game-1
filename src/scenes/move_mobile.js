@@ -1,7 +1,7 @@
 import 'phaser';
 import responsive from "./responsive";
 import joystick from "./virtualjoystick"
-
+import Bullets from './Bullet'
 let phasers;
 let player;
 let button;
@@ -11,10 +11,12 @@ let y;
 let boss;
 let healthpoint;
 let enemyBullets;
+let playerBullets;
 let background;
 let bullets;
 let reticle;
 
+let time = 0
 let rightButton
 let leftButton
 let down_right_Button
@@ -24,8 +26,11 @@ let down_left_Button
 let attackButton
 let upButton
 let downButton
-
-
+let hp1
+let hp2
+let hp3
+let gameover = false;
+let overpic
 class move_mobile extends Phaser.Scene {
     constructor(config) {
         super(config.scene);
@@ -54,60 +59,17 @@ class move_mobile extends Phaser.Scene {
         this.load.image('reticle', '../../images/target.png')
         this.load.image('bullet', '../../images/bomb.png');
 
-        this.load.image('boss', '../../images/boss.gif'); 1
+        this.load.image('boss', '../../images/boss.gif');
+
+        this.load.image('over', '../../images/game_over.png');
     }
     create() {
-
-        var Bullet = new Phaser.Class({
-
-            Extends: Phaser.GameObjects.Image,
-
-            initialize:
-
-                function Bullet(scene) {
-                    Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
-
-                    this.speed = Phaser.Math.GetSpeed(400, 1);
-                    this.velocity = new Phaser.Geom.Point(0, 0);
-                },
-
-            fire: function (x, y, direction) {
-                this.setPosition(x, y);
-                this.setRotation(player.rotation);
-
-                this.setActive(true);
-                this.setVisible(true);
-
-                this.velocity.setTo(0, -this.speed)
-                Phaser.Math.Rotate(this.velocity, direction)
-            },
-
-            update: function (time, delta) {
-                this.x += this.velocity.x * delta;
-                this.y += this.velocity.y * delta;
-
-                if (this.y < -50) {
-                    this.setActive(false);
-                    this.setVisible(false);
-                }
-            }
-
-        });
-
-        bullets = phasers.add.group({
-            classType: Bullet,
-            maxSize: 100,
-            runChildUpdate: true
-        });
+        let Bullet = new Bullets(this)
+        Bullet.create()
 
         let width = phasers.scene.scene.physics.world.bounds.width;
         let height = phasers.scene.scene.physics.world.bounds.height;
         let x = phasers.scene.scene
-        console.log(phasers)
-
-        console.log(height, width)
-
-        console.log(phasers)
 
         phasers.physics.world.setBounds(0, 0, 1600, 1200);
 
@@ -116,26 +78,32 @@ class move_mobile extends Phaser.Scene {
         let scaleRatio = responsives.getScale()
 
         //กำหนดตัวละครเป็น physics
-        player = phasers.physics.add.image(400, 600, 'player');
+        player = phasers.physics.add.sprite(400, 600, 'player');
         player.setScale(scaleRatio + 0.2);
+        //ไม่ให้ player ออกนอกโลก
         player.setCollideWorldBounds(true);
 
         reticle = phasers.physics.add.image(400, 500, 'reticle');
         reticle.setScale(scaleRatio + 0.2);
 
-        //ไม่ให้ player ออกนอกโลก
+        // ตัวละคร boss
+        boss = phasers.physics.add.sprite(400, 200, 'boss').setScale(scaleRatio + 0.2)
+
+        hp1 = phasers.add.image(-350, -250, 'boss').setScrollFactor(0.5, 0.5);
+        hp2 = phasers.add.image(-300, -250, 'boss').setScrollFactor(0.5, 0.5);
+        hp3 = phasers.add.image(-250, -250, 'boss').setScrollFactor(0.5, 0.5);
+
+        overpic = phasers.add.image(player.x, player.y, 'over').setScale(scaleRatio)
+        overpic.setVisible(false);
 
         //กล้องตามตัว player
         phasers.cameras.main.setBounds(0, 0, 900, 900)
         phasers.cameras.main.startFollow(player, true, 1, 1);
 
-        // ตัวละคร boss
-        phasers.add.image(400, 200, 'boss').setScale(scaleRatio + 0.2)
+        // Add 2 groups for Bullet objects
+        playerBullets = phasers.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
+        enemyBullets = phasers.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
 
-        // bullets = phasers.add.group();
-        // bullets.enableBody = true;
-        // bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        // bullets.createMultiple(20, 'bullet');
 
         //ใส่ปุ่มในมือถือ และ ล็อกตัวปุ่มทั้งหมด
         // .setScrollFactor(0) = A sprite, doesn't scroll with the camera (is fixed to camera)  
@@ -177,6 +145,8 @@ class move_mobile extends Phaser.Scene {
         attackButton = phasers.add.image(width - 60, height - 60, 'attack').setInteractive().setScale(scaleRatio + 0.8).setScrollFactor(0);
         attackButton.on('pointerdown', control_attack);
         attackButton.on('pointerup', control_stopXY);
+
+
 
         //ฟังก์ชั่นของแต่ละปุ่ม
         function control_right() {
@@ -271,22 +241,35 @@ class move_mobile extends Phaser.Scene {
             reticle.setVelocityX(0);
             reticle.setVelocityY(0);
         }
+        // Set sprite variables
+
+        player.health = 3;
+        boss.health = 3;
+        boss.lastFired = 0;
 
         //ฟังก์ชั่นปุ่มยิง 
         function control_attack() {
-            console.log('fire')
-            let bullet = bullets.get()
+            console.log("fire");
+
+          let  bullet = playerBullets.get()
 
             if (bullet) {
-
-                bullet.fire(player.x, player.y, player.rotation);
+                bullet.fire(player.x, player.y, player.rotation)
+                phasers.physics.add.collider(boss, bullet, enemyHitCallback);
             }
 
         }
+
     }
 
     update() {
-
+        enemyFire(boss, player, phasers);
+        if (gameover == true) {
+            phasers.scene.pause();
+            overpic.x = player.x
+            overpic.y = player.y
+            overpic.setVisible(true)
+        }
 
     }
 
@@ -297,4 +280,70 @@ class move_mobile extends Phaser.Scene {
 
 }
 
+function enemyHitCallback(bossHit, bulletHit) {
+    // Reduce health of boss
+
+    if (bulletHit.active && bossHit.active) {
+        bossHit.health = bossHit.health - 1;
+        console.log("Boss hp: ", bossHit.health);
+
+        // Kill enemy if health <= 0
+        if (bossHit.health <= 0) {
+            bossHit.setActive(false).setVisible(false);
+        }
+
+        // Destroy bullet
+        bulletHit.setActive(false).setVisible(false);
+    }
+}
+
+function playerHitCallback(playerHit, bulletHit) {
+    // Reduce health of player
+    if (bulletHit.active === true && playerHit.active === true) {
+        playerHit.health = playerHit.health - 1;
+        console.log("Player hp: ", playerHit.health);
+
+        // Kill hp sprites and kill player if health <= 0
+        if (playerHit.health == 2) {
+            hp3.destroy();
+        }
+        else if (playerHit.health == 1) {
+            hp2.destroy();
+        }
+        else if (playerHit.health == 0) {
+            hp1.destroy();
+            gameover = true;
+            // Game over state should execute here
+        }
+
+        // Destroy bullet
+        bulletHit.setActive(false).setVisible(false);
+    }
+}
+
+function enemyFire(boss, player, gameObject) {
+    boss.lastFired += 50
+    if (boss.active === false) {
+        return;
+    } else {
+        if ((time + boss.lastFired) >= 1000) {
+            boss.lastFired = time;
+
+            // Get bullet from bullets group
+            var bullet = enemyBullets.get().setActive(true).setVisible(true);
+
+            if (bullet) {
+
+                bullet.fire(boss.x, boss.y, boss.rotation + Phaser.Math.Between(0, 300));
+
+                // Add collider between bullet and player
+                gameObject.physics.add.collider(player, bullet, playerHitCallback);
+            }
+        }
+    }
+
+}
+
+
 export default move_mobile;
+

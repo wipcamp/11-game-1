@@ -1,6 +1,8 @@
 import move_mobile from './move_mobile'
 import responsive from './responsive'
 import Boss from './Boss'
+import Bullet from './Bullet'
+import VirtualJoyStickPlugin from '../../plugins/virtualjoystick-plugin.js';
 
 let mobile
 let respon
@@ -49,6 +51,8 @@ class GameScene extends Phaser.Scene {
         this.load.image('bullet','../../images/bomb.png')
 
         this.load.image('boss','../../images/boss.gif')
+
+        this.load.image('over','../../images/game_over.png')        
     }
 
     create() {
@@ -64,7 +68,7 @@ class GameScene extends Phaser.Scene {
         respon = new responsive({ width, height })
         respon.check(width, height)
 
-        boss = new Boss({ scene: this, });
+        boss = new Boss({ scene: this });
         boss.create();  
 
         function setupStage() {

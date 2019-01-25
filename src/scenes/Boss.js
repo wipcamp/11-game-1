@@ -41,6 +41,9 @@ class Boss extends Phaser.Scene {
         });
         Phaser.Actions.PlaceOnRectangle(weaponBoss.getChildren(), new Phaser.Geom.Rectangle(x+270,y+120,100,50));
         weaponBoss.refresh();
+
+        
+
     }
     getBoss() {
         return bosses
