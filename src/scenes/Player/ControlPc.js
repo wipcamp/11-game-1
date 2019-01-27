@@ -26,8 +26,12 @@ class ControlPc extends Phaser.Scene {
         weapon = phaser.physics.add.image(x+320,y+150, 'weapon');
         weapon.setCollideWorldBounds(true);
         
-        bullets = phaser.physics.add.image(x, y, 'bullet'); 
-        bullets.setCollideWorldBounds(true);
+        bullets = phaser.physics.add.group({
+            key: 'bullet',
+            frameQuantity: 20,
+            collideWorldBounds: true
+        });
+        Phaser.Actions.RandomRectangle(bullets.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
 
         cursors = phaser.input.keyboard.createCursorKeys();
         phaser.keyW = phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);

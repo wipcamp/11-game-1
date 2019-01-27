@@ -32,14 +32,14 @@ class Monster extends Phaser.Scene {
 
         monsters = phaser.physics.add.group({
             key: 'monster',
-            frameQuantity: 20,
+            frameQuantity: 100,
             collideWorldBounds: true,
             bounceX: 1,
             bounceY: 1,
             velocityX: 40,
             velocityY: 40,
         });
-
+        console.log(monsters)
         Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
         phaser.physics.add.collider(monsters);
 
@@ -49,9 +49,22 @@ class Monster extends Phaser.Scene {
     }
     
     update() {
-    
+        
 
     }
+
+    // collectMons (bullets, monsters) {
+    //     bullets.disableBody(true, true);
+    //     score += 1;
+    //     monsterText.setText(monster.collectMons + ' /100 ');
+    
+    //     if (monsters.countActive(true) === 0) {
+    //         Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(50, 50, 1260, 500));
+           
+    //     }
+
+    //     return;
+    // }
 }
 
 export default Monster;
