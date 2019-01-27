@@ -65,8 +65,8 @@ class GameScene extends Phaser.Scene {
         // this.physics.add.collider(monsters.getMonster(), player.getPlayer(), this.checkHp)
         // this.physics.add.collider(monsters.getMonster(), player.getPlayer(), this.exMonHp,null,this);
         let mons =monsters.getMonster()
-        this.physics.add.collider(mons.getChildren() , player.getPlayer(), this.testHit, null, this);
-        this.physics.add.collider(mons.getChildren(),mons.getChildren())
+        this.physics.add.collider(mons.getChildren(), player.getPlayer(), this.testHit);
+        this.physics.add.collider(mons.getChildren())
         this.physics.add.collider(monsters.getMonster(), player.getBullet(), hp.checkHp);
         this.physics.add.collider(monsters.getMonster(), mapDesign.getPart());
         this.physics.add.collider(monsters.getMonster(), mapDesign.getPart2());
@@ -114,7 +114,7 @@ class GameScene extends Phaser.Scene {
     // let mons = monsters.getMonster()
     if( monster.hpMonsR == 20){
         // console.log(monsters.getMonster().getChildren())
-        // monster.setTint(0xff0000)
+        monster.setTint(0xff0000)
     }else if(monster.hpMonsR <= 0){
         // console.log(mons.getChildren())    
         // mons.getChildren().visible(false)

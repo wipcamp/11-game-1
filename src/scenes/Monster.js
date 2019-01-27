@@ -45,13 +45,17 @@ class Monster extends Phaser.Scene {
             velocityX: 40,
             velocityY: 40,
         });
+        monsters.children.iterate(function (child) {
+            child.hpMonsR=100
+        });
         Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
-        for (let index = 0; index < monsters.children.entries.length; index++) {
-            monsters.children.entries[index] = {
-                ...monsters.children.entries[index],
-                hpMonsR: 100,
-            }            
-        }
+        // for (let index = 0; index < monsters.children.entries.length; index++) {
+        //     monsters.children.entries[index] = {
+        //         ...monsters.children.entries[index],
+        //         hpMonsR: 100,
+        //     }            
+        // }
+       
        
         
         phaser.physics.add.collider(monsters.getChildren());
