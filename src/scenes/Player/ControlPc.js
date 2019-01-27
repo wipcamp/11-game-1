@@ -1,10 +1,13 @@
 import 'phaser';
+import Monster from './../Monster'
 
 let x, y, height, width;
 let cursors;
 let player, weapon;
 let bullets;
 let phaser;
+let monster
+
 
 class ControlPc extends Phaser.Scene {
     constructor(config) {
@@ -16,6 +19,9 @@ class ControlPc extends Phaser.Scene {
 
 
     create() {
+
+        // monsters = new Monster({ scene: this, });
+
         width = phaser.scene.scene.physics.world.bounds.width;
         height = phaser.scene.scene.physics.world.bounds.height;
         x = width * 0.5;
@@ -38,6 +44,8 @@ class ControlPc extends Phaser.Scene {
         // phaser.cameras.main.setBounds(0, 0, 2000, 2048);
         phaser.cameras.main.startFollow(player, true, 1, 1);
         phaser.cameras.main.setZoom(2);
+
+        // phaser.physics.add.colider(player,monster.getMonster())
     }
 
     getPlayer() {

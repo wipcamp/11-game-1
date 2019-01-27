@@ -23,11 +23,11 @@ class Monster extends Phaser.Scene {
         x = width * 0.5;
         y = height * 0.5;
 
-        monsters = phaser.physics.add.image(100,400,'monster')
-        // monsters.setCollider(true);
-        monsters.setBounce(1)
-        monsters.setVelocity(Phaser.Math.Between(10,40),Phaser.Math.Between(10,40))
-        
+        // monsters = phaser.physics.add.image(100, 400, 'monster')
+        // // monsters.setColliderWorldBounds(true);
+        // monsters.setBounce(1)
+        // monsters.setVelocity(Phaser.Math.Between(10, 40), Phaser.Math.Between(10, 40))
+
 
         // this.gameitems = this.physics.add.group();
         // for (var i = 0; i < 20; i++) {
@@ -36,23 +36,29 @@ class Monster extends Phaser.Scene {
         //     var newobj = this.gameitems.create(x, y, 'monster');
         // }
 
-    //     monsters = phaser.physics.add.group({
-    //         key: 'monster',
-    //         frameQuantity: 20,
-    //         collideWorldBounds: true,
-    //         bounceX: 1,
-    //         bounceY: 1,
-    //         velocityX: 40,
-    //         velocityY: 40,
-    //         hpMonsR : 100,
-    //     });
-
-    //     Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
-    //     phaser.physics.add.collider(monsters);
-    //     console.log(monsters)
+        monsters = phaser.physics.add.group({
+            key: 'monster',
+            frameQuantity: 10,
+            // collideWorldBounds: true,
+            bounceX: 1,
+            bounceY: 1,
+            velocityX: 40,
+            velocityY: 40,
+        });
+        Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
+        for (let index = 0; index < monsters.children.entries.length; index++) {
+            monsters.children.entries[index] = {
+                ...monsters.children.entries[index],
+                hpMonsR: 100,
+            }            
+        }
+       
+        
+        phaser.physics.add.collider(monsters.getChildren());
+        //     console.log(monsters)
 
     }
-    
+
     // getMonster() {
     //     return monsters
     // }
@@ -72,23 +78,28 @@ class Monster extends Phaser.Scene {
         return monsters
     }
 
-    checkHpRed () {
-        hpMons -= 10;
-        console.log(hpMons)
+    // checkHpRed() {
+    //     hpMons -= 10;
+    //     console.log(hpMons)
 
-        if(hpMons == 20){
-            monsters.setTint(0xff0000);   
-        }else if(hpMons <= 0){
-            monsters.disableBody(true,true)
-            hpMons = 100
-        }
+    //     if (hpMons == 20) {
+    //         monsters.setTint(0xff0000);
+    //     } else if (hpMons <= 0) {
+    //         monsters.disableBody(true, true)
+    //         hpMons = 100
+    //     }
+    // }
+    getColider(player) {
+        phaser.physics.add.collider(monsters, player.getPlayer(), monsters.checkHpRed)
+        // phaser.physics.add.collider(monsters, player.getPlayer(), hp.checkHeart);
+        // this.physics.add.collider(monster, player.getBullet(), hp.checkHp);
     }
 
 
 
-    
+
     update() {
-        
+
 
     }
 

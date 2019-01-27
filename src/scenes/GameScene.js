@@ -5,7 +5,7 @@ import Value from './HP/Value'
 import Monster from './Monster'
 import Boss from './Boss'
 
-let player, bullets, mapDesign, option, hp, boss,i
+let player, bullets, mapDesign, option, hp, boss, monster
 let monsters = []
 
 
@@ -38,41 +38,46 @@ class GameScene extends Phaser.Scene {
 
     create() {
         mapDesign = new MapDesign({ scene: this, });
-        mapDesign.create();        
+        mapDesign.create();
         boss = new Boss({ scene: this, });
-        boss.create();        
+        boss.create();
         player = new ControlPc({ scene: this, });
         player.create();
-        
-        for(i=0;i!=40;i++){
+
+        /*for (i = 0; i != 40; i++) {
             monsters[i] = new Monster({ scene: this, });
-            monsters[i].create() 
-        }
+            monsters[i].create()
+        }*/
+
+        monsters = new Monster({ scene: this, })
+        monsters.create()
 
         option = new Option({ scene: this, });
-        option.create();        
+        option.create();
         hp = new Value({ scene: this, });
-        hp.create();        
-        
+        hp.create();
 
+        // for (let index = 0; index < monsters.length; index++) {
+        //     this.physics.add.collider(player.getPlayer(), monsters[index].getMonster());
+
+        // }
 
         // this.physics.add.collider(monsters.getMonster(), player.getPlayer(), this.checkHp)
         // this.physics.add.collider(monsters.getMonster(), player.getPlayer(), this.exMonHp,null,this);
-        for(i=0;i!=40;i++){
-            this.physics.add.collider(monsters[i].getMonster(), player.getPlayer(), monsters.checkHpRed)
-            this.physics.add.collider(monsters[i].getMonster(), player.getPlayer(), hp.checkHeart);
-            this.physics.add.collider(monsters[i].getMonster(), player.getBullet(), hp.checkHp);
-            this.physics.add.collider(monsters[i].getMonster(), mapDesign.getPart());
-            this.physics.add.collider(monsters[i].getMonster(), mapDesign.getPart2());
-            this.physics.add.collider(monsters[i].getMonster(), mapDesign.getPart3());
-            this.physics.add.collider(monsters[i].getMonster(), mapDesign.getPart4());
-            this.physics.add.collider(monsters[i].getMonster(), mapDesign.getSafeZone());
-            this.physics.add.collider(monsters[i].getMonster(), mapDesign.getWall());
-            this.physics.add.collider(monsters[i].getMonster(), mapDesign.getFlower());
-            this.physics.add.collider(monsters[i].getMonster(), mapDesign.getFlower2());
-            this.physics.add.collider(boss.getBoss(), monsters[i].getMonster());
-        }    
-        
+        let mons =monsters.getMonster()
+        this.physics.add.collider(mons.getChildren() , player.getPlayer(), this.testHit, null, this);
+        this.physics.add.collider(mons.getChildren(),mons.getChildren())
+        this.physics.add.collider(monsters.getMonster(), player.getBullet(), hp.checkHp);
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getPart());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getPart2());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getPart3());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getPart4());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getSafeZone());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getWall());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getFlower());
+        this.physics.add.collider(monsters.getMonster(), mapDesign.getFlower2());
+
+
 
         this.physics.add.collider(player.getPlayer(), mapDesign.getPart());
         this.physics.add.collider(player.getPlayer(), mapDesign.getPart2());
@@ -85,17 +90,35 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(boss.getBoss(), player.getPlayer(), hp.checkHeart);
         this.physics.add.collider(boss.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
         this.physics.add.collider(boss.getBoss(), player.getWeapon(), hp.checkHpBoss);
-       
+        
+        // console.log(mons.getChildren())
+        // console.log(monsters)
     }
-    
+
     update() {
         player.update();
-        for(i=0;i!=40;i++){
-            monsters[i].update();
-        }
+        // for (i = 0; i != 40; i++) {
+        //     monsters[i].update();
+        // }
         mapDesign.update();
         hp.update();
-        boss.update();  
+        boss.update();
+
+
+
+    }
+
+    testHit(monster) {
+    console.log(monster)
+    monster.hpMonsR-=10
+    // let mons = monsters.getMonster()
+    if( monster.hpMonsR == 20){
+        // console.log(monsters.getMonster().getChildren())
+        // monster.setTint(0xff0000)
+    }else if(monster.hpMonsR <= 0){
+        // console.log(mons.getChildren())    
+        // mons.getChildren().visible(false)
+    }
 
     }
 
@@ -111,10 +134,10 @@ class GameScene extends Phaser.Scene {
     //     //     monster.disableBody(true,true)
     //     //     // hp.getHpMons() = 100
     //     // }
-        
+
     //     console.log(hpMonster)
     //     hpMonster -= 10
-        
+
     //     if(hpMonster == 20){
     //         monster.setTint(0xff0000);   
     //     }else if(hpMonster == 0){
