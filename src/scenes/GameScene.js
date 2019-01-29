@@ -1,23 +1,15 @@
 import move_mobile from './move_mobile'
 import responsive from './responsive'
+import Map from './Map/Map'
 import Boss from './Boss'
 import Bullet from './Bullet'
-import VirtualJoyStickPlugin from '../../plugins/virtualjoystick-plugin.js';
+import Player from './Player'
 
+let map
 let mobile
 let respon
-
-import ControlPc from './Player/ControlPc'
-import Map from './Map/Camera Player'
-import SafeZone from './Map/SafeZone'
-let player;
-let map;
-let zone
-let monster,boss;
-let option;
-let hp;
-let bullet;
-
+let player
+let boss
 
 class GameScene extends Phaser.Scene {
     constructor(test) {
@@ -56,20 +48,31 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
+        console.log(this.scene)
 
-        let width = this.scene.scene.physics.world.bounds.width;
-        let height = this.scene.scene.physics.world.bounds.height;
+        let width = this.scene.scene.game.config.width;
+        let height = this.scene.scene.game.config.height;
+
+
         map = new Map({ scene: this, });
         map.create();
 
         mobile = new move_mobile({ scene: this })
         mobile.create()
-
+        
         respon = new responsive({ width, height })
         respon.check(width, height)
-
+        
+        
         boss = new Boss({ scene: this });
         boss.create();  
+        
+        player = new Player({ scene: this})
+        player.create();
+        player.getBoss(boss);
+        boss.getPlayer(player)
+        mobile.getPlayer(player)
+        // mobile.test_control_right(player)
 
         function setupStage() {
             phasers.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
@@ -106,11 +109,12 @@ class GameScene extends Phaser.Scene {
             this.rightButton.x = phasers.world.centerX + phasers.rightButton.width / 2;
             this.rightButton.y = phasers.world.centerY + height / 3;
         }
+
     }
 
     update() {
-        mobile.update()
-        boss.update()
+        player.update();
+        boss.update();
     }
 
 }
