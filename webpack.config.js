@@ -3,8 +3,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var env = require('dotenv')
-
+var DoeEnv = require('dotenv-webpack')
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser/')
 var phaser = path.join(phaserModule, 'src/phaser.js')
@@ -34,6 +33,7 @@ module.exports = {
     watch: true, 
     plugins: [
         definePlugin,
+        new DoeEnv(),
         //new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */ }),
         new HtmlWebpackPlugin({
             filename: '../index.html',
@@ -53,8 +53,8 @@ module.exports = {
             hash: false
         }),
         new BrowserSyncPlugin({
-            host: env.IP || 'localhost',
-            port: env.PORT || 3000,
+            host: process.env.IP || 'localhost',
+            port: process.env.PORT || 3005,
             server: {
                 baseDir: ['./', './dev']
             }

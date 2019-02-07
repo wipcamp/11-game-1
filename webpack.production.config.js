@@ -3,7 +3,7 @@ var webpack = require('webpack')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
-
+const Dotenv = require('dotenv-webpack');
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser/')
 var phaser = path.join(phaserModule, 'src/phaser.js')
@@ -28,6 +28,7 @@ module.exports = {
     filename: 'js/bundle.js'
   },
   plugins: [
+    new Dotenv(),
     definePlugin,
     new CleanWebpackPlugin(['build']),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
