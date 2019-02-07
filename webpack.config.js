@@ -3,6 +3,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var env = require('dotenv')
 
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser/')
@@ -52,12 +53,13 @@ module.exports = {
             hash: false
         }),
         new BrowserSyncPlugin({
-            host: process.env.IP || 'localhost',
-            port: process.env.PORT || 3000,
+            host: env.IP || 'localhost',
+            port: env.PORT || 3000,
             server: {
                 baseDir: ['./', './dev']
             }
         })
+      
     ],
     module: {
         rules: [
