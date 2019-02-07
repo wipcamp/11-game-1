@@ -2,6 +2,7 @@
 let x, y, height, width;
 let bosses, weaponBoss;
 let phaser;
+let hpMonsB
 
 class Boss extends Phaser.Scene {
 
@@ -30,6 +31,10 @@ class Boss extends Phaser.Scene {
             bounceX: 1,
             bounceY: 1
         });
+        bosses.children.iterate(function (child) {
+            child.hpMonsB=100
+        });
+        // Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
         Phaser.Actions.PlaceOnLine(bosses.getChildren(), new Phaser.Geom.Line(x+320,y+150));
         bosses.refresh();
 
@@ -42,6 +47,7 @@ class Boss extends Phaser.Scene {
         Phaser.Actions.PlaceOnRectangle(weaponBoss.getChildren(), new Phaser.Geom.Rectangle(x+270,y+120,100,50));
         weaponBoss.refresh();
 
+        phaser.physics.add.collider(bosses.getChildren());
         
 
     }

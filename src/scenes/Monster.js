@@ -93,11 +93,11 @@ class Monster extends Phaser.Scene {
     //         hpMons = 100
     //     }
     // }
-    getColider(player) {
-        phaser.physics.add.collider(monsters, player.getPlayer(), monsters.checkHpRed)
-        // phaser.physics.add.collider(monsters, player.getPlayer(), hp.checkHeart);
-        // this.physics.add.collider(monster, player.getBullet(), hp.checkHp);
-    }
+    // getColider(player) {
+    //     phaser.physics.add.collider(monsters, player.getPlayer(), monsters.checkHpRed)
+    //     // phaser.physics.add.collider(monsters, player.getPlayer(), hp.checkHeart);
+    //     // this.physics.add.collider(monster, player.getBullet(), hp.checkHp);
+    // }
 
 
 
