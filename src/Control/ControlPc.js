@@ -1,0 +1,56 @@
+import 'phaser';
+let cursors;
+let player;
+let phasers;
+class ControlPc extends Phaser.Scene {
+    constructor(config) {
+        super(config.scene);
+        this.scene = config.scene;
+        this.scene.add.existing(this);
+        phasers = config.scene
+    }
+
+
+    create() {
+
+        // player = phaser.physics.add.image(100, 450, 'player').setScale(0.5);
+        // player.setCollideWorldBounds(true);
+
+        cursors = phasers.input.keyboard.createCursorKeys();
+        phasers.keyW = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        phasers.keyA = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        phasers.keyS = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        phasers.keyD = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+
+        phasers.cameras.main.setBounds(0, 0, 1024, 2048);
+        // phasers.cameras.main.startFollow(player, true, 1, 1);
+        phasers.cameras.main.setZoom(2);
+    }
+
+   
+    setPlayer(tempPlayer) {
+        player = tempPlayer;
+        
+    }
+
+    update() {
+        player.setVelocity(0)
+
+        if (cursors.left.isDown || phasers.keyA.isDown) {
+            player.setAngle(-90);
+            player.setVelocityX(-150);
+        } else if (cursors.right.isDown || phasers.keyD.isDown) {
+            player.setAngle(90);
+            player.setVelocityX(150);
+        } if (cursors.up.isDown || phasers.keyW.isDown) {
+            player.setAngle(0);
+            player.setVelocityY(-150);
+        } else if (cursors.down.isDown || phasers.keyS.isDown) {
+            player.setAngle(-180);
+            player.setVelocityY(150);
+        }
+
+    }
+}
+
+export default ControlPc;

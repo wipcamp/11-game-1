@@ -1,15 +1,20 @@
-import move_mobile from './move_mobile'
-import responsive from './responsive'
-import Map from './Map/Map'
-import Boss from './Boss'
-import Bullet from './Bullet'
-import Player from './Player'
+import move_mobile from '../Control/move_mobile'
+import ControlPc from '../Control/ControlPc'
+import responsive from './../core/responsive'
+import Map from '../Map/Map'
+import Boss from '../Enemy/Boss'
+import Player from '../Player/Player'
+import HP from '../Value/HP'
+import EXP from '../Value/EXP'
 
 let map
 let mobile
 let respon
 let player
 let boss
+let hp
+let exp
+let control
 
 class GameScene extends Phaser.Scene {
     constructor(test) {
@@ -37,14 +42,22 @@ class GameScene extends Phaser.Scene {
         this.load.image('player', '../../images/iconalive.png')
         this.load.image('map', '../../images/Background_long.jpg')
         this.load.image('safezone', '../../images/zone.jpg')
-        this.load.image('attack','../../images/button_atk.png')
+        this.load.image('attack', '../../images/button_atk.png')
 
-        this.load.image('reticle','../../images/target.png')
-        this.load.image('bullet','../../images/bomb.png')
+        this.load.image('reticle', '../../images/target.png')
+        this.load.image('bullet', '../../images/bomb.png')
 
-        this.load.image('boss','../../images/boss.gif')
+        this.load.image('boss', '../../images/boss.gif')
 
-        this.load.image('over','../../images/game_over.png')        
+        this.load.image('heart', '../../images/heart.png')
+        this.load.image('halfheart', '../../images/halfheart.png')
+
+        this.load.image('over', '../../images/game_over.png')
+
+        this.load.audio('bgm', '../sound/bgm.wav');
+        this.load.audio('throw', '../sound/throw.wav');
+        this.load.audio('hit', '../sound/hit.mp3');
+        this.load.audio('gameover', '../sound/gameover.mp3');
     }
 
     create() {
@@ -53,26 +66,58 @@ class GameScene extends Phaser.Scene {
         let width = this.scene.scene.game.config.width;
         let height = this.scene.scene.game.config.height;
 
+        if (width < 1536 && height < 864) {
+            map = new Map({ scene: this, });
+            map.create();
 
-        map = new Map({ scene: this, });
-        map.create();
+            mobile = new move_mobile({ scene: this })
+            mobile.create()
 
-        mobile = new move_mobile({ scene: this })
-        mobile.create()
-        
-        respon = new responsive({ width, height })
-        respon.check(width, height)
-        
-        
-        boss = new Boss({ scene: this });
-        boss.create();  
-        
-        player = new Player({ scene: this})
-        player.create();
-        player.getBoss(boss);
-        boss.getPlayer(player)
-        mobile.getPlayer(player)
-        // mobile.test_control_right(player)
+            respon = new responsive({ width, height })
+            respon.check(width, height)
+
+
+            boss = new Boss({ scene: this });
+            boss.create();
+
+            player = new Player({ scene: this })
+            player.create();
+            player.getBoss(boss);
+            boss.getPlayer(player)
+            mobile.getPlayer(player)
+            
+        } else {
+            map = new Map({ scene: this, });
+            map.create();
+
+            control = new ControlPc({ scene: this })
+            control.create();
+
+            player = new Player({ scene: this })
+            player.create();
+            control.setPlayer(player.getPlayer());
+            
+        }
+        // map = new Map({ scene: this, });
+        // map.create();
+
+        // mobile = new move_mobile({ scene: this })
+        // mobile.create()
+
+        // respon = new responsive({ width, height })
+        // respon.check(width, height)
+
+
+        // boss = new Boss({ scene: this });
+        // boss.create();  
+
+        // player = new Player({ scene: this})
+        // player.create();
+        // player.getBoss(boss);
+        // boss.getPlayer(player)
+        // mobile.getPlayer(player)
+
+
 
         function setupStage() {
             phasers.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
@@ -114,7 +159,8 @@ class GameScene extends Phaser.Scene {
 
     update() {
         player.update();
-        boss.update();
+        // boss.update();
+        control.update();
     }
 
 }
