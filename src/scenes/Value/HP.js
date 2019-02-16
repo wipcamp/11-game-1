@@ -98,6 +98,8 @@ class HP extends Phaser.Scene {
             heart2.setVisible(true);
             heart3.setVisible(true);
             currentHeart = 3;
+            exp.exp=0;
+
         }
         return currentHeart;
     }

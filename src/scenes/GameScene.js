@@ -1,11 +1,10 @@
-import ControlPc from './Player/ControlPc'
+import ControlPc from './Charecter/ControlPc'
 import MapDesign from './Map/MapDesign'
 import Option from './Data/Option'
 import Drop from './Data/Drop'
-import HP from './Value/HP'
 import EXP from './Value/EXP'
-import Monster from './Monster'
-import Boss from './Boss'
+import Monster from './Charecter/Monster'
+import Boss from './Charecter/Boss'
 
 let player, monster, mapDesign, option, hp, boss, drop, exp;
 
@@ -18,6 +17,8 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
+        this.load.audio('bg', '../../images/bg_sound.mp3');
+
         this.load.image('player', '../../images/player.png')
         this.load.image('weapon', '../../images/weapon.png');
         this.load.image('bullet', '../../images/bullet.png');
@@ -42,6 +43,10 @@ class GameScene extends Phaser.Scene {
 
         this.load.image('butOption', '../../images/button/butOption.png');
         this.load.image('butSound', '../../images/button/butSound.png');
+        this.load.image('butSoundNo', '../../images/button/butSoundNo.png');
+        this.load.image('butLogOut', '../../images/button/logOut.png');
+        this.load.image('butLogIn', '../../images/button/logIn.png');
+        this.load.image('butFull', '../../images/button/fullScreen.png');
     }
 
     create() {
@@ -52,23 +57,20 @@ class GameScene extends Phaser.Scene {
         monster = new Monster({ scene: this, });
         monster.create();        
         option = new Option({ scene: this, });
-        option.create();        
-        hp = new HP({ scene: this, });
-        hp.create();        
+        option.create();                
         drop = new Drop({ scene: this, });
         drop.create();        
         exp = new EXP({ scene: this, });
         exp.create();        
         player = new ControlPc({ scene: this, });
         player.create();
-        console.log(drop.getDropExp())
-        this.physics.add.collider(monster.getMonster(), player.getPlayer(), hp.checkHeart);
-        this.physics.add.collider(monster.getMonster(), player.getBullet(), hp.checkHp, drop.dropExp);
+       
+        this.physics.add.collider(monster.getMonster(), player.getPlayer(), exp.checkHeart);
+        this.physics.add.collider(monster.getMonster(), player.getBullet(), exp.checkHp, drop.dropExp);
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart());
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart2());
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart3());
         this.physics.add.collider(monster.getMonster(), mapDesign.getPart4());
-        this.physics.add.collider(monster.getMonster(), mapDesign.getSafeZone());
         this.physics.add.collider(monster.getMonster(), mapDesign.getWall());
         this.physics.add.collider(monster.getMonster(), mapDesign.getFlower());
         this.physics.add.collider(monster.getMonster(), mapDesign.getFlower2());
@@ -81,10 +83,10 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(player.getPlayer(), mapDesign.getFlower());
         this.physics.add.collider(player.getPlayer(), mapDesign.getFlower2());
 
-        this.physics.add.collider(boss.getBoss(), player.getPlayer(), hp.checkHeart);
-        this.physics.add.collider(boss.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
+        this.physics.add.collider(boss.getBoss(), player.getPlayer(), exp.checkHeart);
+        this.physics.add.collider(boss.getWeaponBoss(), player.getPlayer(), exp.checkHeart);
         this.physics.add.collider(boss.getBoss(), monster.getMonster());
-        this.physics.add.collider(boss.getBoss(), player.getWeapon(), hp.checkHpBoss, drop.GetRandom);
+        this.physics.add.collider(boss.getBoss(), player.getWeapon(), exp.checkHpBoss, drop.GetRandom);
 
         //this.physics.add.overlap(player.getBullet(), monster.getMonster(), monster.collectMons);
         this.physics.add.collider(player.getPlayer(), drop.getDropExp(), exp.expMons);
@@ -95,7 +97,6 @@ class GameScene extends Phaser.Scene {
         player.update();
         monster.update();
         mapDesign.update();
-        hp.update();
         boss.update();
         drop.update();
         exp.update();
