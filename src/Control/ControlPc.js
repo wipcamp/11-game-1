@@ -1,7 +1,12 @@
 import 'phaser';
+import Bullets from './../core/Bullet'
+import Player from './../Player/Player'
 let cursors;
 let player;
+let playerFunction;
+let weapon;
 let phasers;
+let throws;
 class ControlPc extends Phaser.Scene {
     constructor(config) {
         super(config.scene);
@@ -15,22 +20,26 @@ class ControlPc extends Phaser.Scene {
 
         // player = phaser.physics.add.image(100, 450, 'player').setScale(0.5);
         // player.setCollideWorldBounds(true);
+        let Bullet = new Bullets(this)
+        Bullet.create()
+
+        throws = phasers.sound.add('throw',  true);
 
         cursors = phasers.input.keyboard.createCursorKeys();
         phasers.keyW = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         phasers.keyA = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         phasers.keyS = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         phasers.keyD = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        phasers.keySpacebar = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         phasers.cameras.main.setBounds(0, 0, 1024, 2048);
         // phasers.cameras.main.startFollow(player, true, 1, 1);
         phasers.cameras.main.setZoom(2);
     }
 
-   
+
     setPlayer(tempPlayer) {
         player = tempPlayer;
-        
     }
 
     update() {
@@ -48,9 +57,23 @@ class ControlPc extends Phaser.Scene {
         } else if (cursors.down.isDown || phasers.keyS.isDown) {
             player.setAngle(-180);
             player.setVelocityY(150);
+        } else if (cursors.space.isDown || phasers.keySpacebar.isDown) {
+            playerFunction.fire();
+            throws.play({ loop: false });
         }
-
     }
+
+    getPlayer(p) {
+        player = p.getPlayer()
+        // reticle = p.getReticle()
+        playerFunction = p
+    }
+
+    getWeapon() {
+        return weapon
+    }
+
+
 }
 
 export default ControlPc;

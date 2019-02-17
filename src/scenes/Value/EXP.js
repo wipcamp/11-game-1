@@ -20,8 +20,8 @@ class EXP extends Phaser.Scene {
         x = width * 0.5;
         y = height * 0.5;
 
-        expText = phaser.add.text(x - 10, y - 175, exp, { font: '12px Arial', fill: '#000000' }).setScrollFactor(0);       
-        exp1Text  = phaser.add.text(x + 10, y - 175, maxExp, { font: '12px Arial', fill: '#000000' }).setScrollFactor(0); 
+        expText = phaser.add.text(x - 70, y - 135, exp, { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);       
+        exp1Text  = phaser.add.text(x - 40, y - 135, maxExp, { font: '10px Arial', fill: '#000000' }).setScrollFactor(0); 
     }
     
     

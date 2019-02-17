@@ -6,7 +6,6 @@ let phasers;
 let player;
 let reticle;
 let boss;
-// let map;
 let playerBullets;
 let gameover = false;
 let overpic;
@@ -14,7 +13,8 @@ let hp3;
 let hp2;
 let hp1;
 let weapon;
-
+let heart1 , heart1_2 , heart2 , heart2_2 , heart3 , heart3_2 
+let cursors;
 let bgm;
 let hits;
 let s_over;
@@ -44,7 +44,7 @@ class Player extends Phaser.Scene {
         bgm.play({ loop: true });
         bgm.volume -= 0.5;
         
-        hits = phasers.sound.add( 'hit',  true);
+        hits = phasers.sound.add('hit',  true);
         hits.volume -= 0.5;
 
         s_over = phasers.sound.add('gameover', true);
@@ -58,14 +58,22 @@ class Player extends Phaser.Scene {
         responsives.check(height, width)
         let scaleRatio = responsives.getScale()
 
+        cursors = phasers.input.keyboard.createCursorKeys();
+        phasers.keyW = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        phasers.keyA = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        phasers.keyS = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        phasers.keyD = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        phasers.keySpacebar = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+
         //กำหนดตัวละครเป็น physics
         player = phasers.physics.add.sprite(400, 600, 'player');
         player.setScale(scaleRatio + 0.2);
         //ไม่ให้ player ออกนอกโลก
         player.setCollideWorldBounds(true);
 
-        reticle = phasers.physics.add.image(400, 500, 'reticle');
-        reticle.setScale(scaleRatio + 0.2);
+        weapon = phasers.physics.add.image(410,600, 'weapon');
+        weapon.setCollideWorldBounds(true);
         
         hp1 = phasers.add.image(-350, -250, 'heart').setScrollFactor(0.5, 0.5);
         hp2 = phasers.add.image(-300, -250, 'heart').setScrollFactor(0.5, 0.5);
@@ -98,11 +106,6 @@ class Player extends Phaser.Scene {
         
     }
 
-    resize(width, height) {
-        phasers.cameras.resize(width, height);
-        this.bg.setDisplaySize(0, 0);
-    }
-
     getPlayer() {
         return player
     }
@@ -127,25 +130,37 @@ class Player extends Phaser.Scene {
             // Kill hp sprites and kill player if health <= 0
             if (playerHit.health == 2.5) {
                 hp3.destroy();
+                // heart3.setVisible(false);
+                // heart3_2.setVisible(true);
             }
             else if (playerHit.health == 2) {
                 hp2.destroy();
+                // heart3.setVisible(false);
+                // heart3_2.setVisible(false);
             }
             else if (playerHit.health == 1.5) {
                 hp2.destroy();
+                // heart2.setVisible(false);
+                // heart2_2.setVisible(true);
             }
             else if (playerHit.health == 1) {
                 hp2.destroy();
+                // heart2_2.setVisible(false);
             }
             else if (playerHit.health == 0.5) {
                 hp2.destroy();
+                // heart1_2.setVisible(true);
+                // heart1.setVisible(false);
             }
             else if (playerHit.health == 0) {
                 hp1.destroy();
+                // heart1_2.setVisible(false);
+                // heart1.setVisible(true);
+                // heart2.setVisible(true);
+                // heart3.setVisible(true);
                 gameover = true;
                 bgm.pause();
                 s_over.play({ loop: true});
-                // Game over state should execute here
             }
 
             // Destroy bullet

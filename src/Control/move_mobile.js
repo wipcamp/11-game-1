@@ -39,7 +39,7 @@ class move_mobile extends Phaser.Scene {
         let Bullet = new Bullets(this)
         Bullet.create()
 
-        throws = phasers.sound.add( 'throw',  true);
+        throws = phasers.sound.add('throw',  true);
 
         let width = phasers.scene.scene.physics.world.bounds.width;
         let height = phasers.scene.scene.physics.world.bounds.height;
@@ -64,7 +64,7 @@ class move_mobile extends Phaser.Scene {
         upButton = phasers.physics.add.image(scaleRatio * 200, height - 100, 'up').setInteractive().setScale(scaleRatio + 0.5).setScrollFactor(0);
         upButton.on('pointerdown', this.control_up);
         upButton.on('pointerup', this.control_stopY);
-        upButton.setCollideWorldBounds(true)
+        // upButton.setCollideWorldBounds(true)
 
         downButton = phasers.add.image(scaleRatio * 200, height - 30, 'down').setInteractive().setScale(scaleRatio + 0.5).setScrollFactor(0);
         downButton.on('pointerdown', this.control_down);
@@ -109,10 +109,10 @@ class move_mobile extends Phaser.Scene {
         reticle = r.getReticle()
     }
 
-    resize(width, height) {
-        phasers.cameras.resize(width, height);
-        this.bg.setDisplaySize(0, 0);
-    }
+    // resize(width, height) {
+    //     phasers.cameras.resize(width, height);
+    //     this.bg.setDisplaySize(0, 0);
+    // }
 
     //ฟังก์ชั่นของแต่ละปุ่ม
     control_right() {

@@ -67,7 +67,7 @@ class Boss extends Phaser.Scene {
 
     getPlayer(p) {
         player = p
-        console.log(player.getPlayer())
+        // console.log(player.getPlayer())
     }
 
     getBoss(){
@@ -82,7 +82,7 @@ class Boss extends Phaser.Scene {
             console.log("Boss hp: ", bossHit.health);
 
             // Kill enemy if health <= 0
-            if (bossHit.health <= 0) {
+            if (bossHit.health == 0) {
                 bossHit.setActive(false).setVisible(false);
             }
 
