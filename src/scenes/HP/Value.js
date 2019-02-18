@@ -5,6 +5,7 @@ let maxText, currentText, bossText;
 let playimage1, playimage2, playimage3;
 let heart1_2, heart1, heart2_2, heart2, heart3_2, heart3;
 let currentHeart = 3;
+let gameover = false;
 let hpMons = 100;
 let hpBoss = 1000;
 let phaser;
@@ -68,6 +69,7 @@ class Value extends Phaser.Scene {
     }
 
     checkHeart () {
+        console.log(currentHeart)
         currentHeart -= 0.5;
         currentText.setText('Score: ' + currentHeart);
 
@@ -91,11 +93,13 @@ class Value extends Phaser.Scene {
             heart1.setVisible(false);
             return currentHeart;
         } else {
+            phaser.physics.pause();
             heart1_2.setVisible(false);
-            heart1.setVisible(true);
-            heart2.setVisible(true);
-            heart3.setVisible(true);
-            currentHeart = 3;
+            // heart1.setVisible(true);
+            // heart2.setVisible(true);
+            // heart3.setVisible(true);
+            // currentHeart = 3;
+
         }
         return currentHeart;
     }

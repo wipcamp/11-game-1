@@ -8,6 +8,7 @@ import Boss from './Boss'
 let player, bullets, mapDesign, option, hp, bos
 let bosses = []
 let monsters = []
+let countBoss = 0
 
 
 class GameScene extends Phaser.Scene {
@@ -49,6 +50,7 @@ class GameScene extends Phaser.Scene {
             monsters[i] = new Monster({ scene: this, });
             monsters[i].create()
         }*/
+        // console.log(physics)
 
         monsters = new Monster({ scene: this, })
         monsters.create()
@@ -67,10 +69,10 @@ class GameScene extends Phaser.Scene {
         // this.physics.add.collider(monsters.getMonster(), player.getPlayer(), this.exMonHp,null,this);
         let mons = monsters.getMonster()
         let boss = bosses.getBoss()
-        this.physics.add.collider(mons.getChildren(), player.getPlayer(), this.testHit);
+        // this.physics.add.collider(mons.getChildren(), player.getPlayer(), hp.checkHeart);
+        this.physics.add.collider(mons.getChildren(), player.getPlayer(), this.testHit, hp.checkHeart);
         this.physics.add.collider(boss.getChildren(), player.getPlayer(), this.testHitBoss);
         this.physics.add.collider(mons.getChildren())
-        this.physics.add.collider(mons.getChildren(), player.getPlayer(), hp.checkHeart);
         this.physics.add.collider(mons.getChildren(), player.getBullet(), hp.checkHp);
         this.physics.add.collider(mons.getChildren(), mapDesign.getPart());
         this.physics.add.collider(mons.getChildren(), mapDesign.getPart2());
@@ -90,10 +92,10 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(player.getPlayer(), mapDesign.getFlower2());
 
         this.physics.add.collider(boss.getChildren(), player.getPlayer(), hp.checkHeart);
-        this.physics.add.collider(bosses.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
+        // this.physics.add.collider(bosses.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
         this.physics.add.collider(boss.getChildren(), mons.getChildren());
         this.physics.add.collider(boss.getChildren(), player.getWeapon(), hp.checkHpBoss);
-
+        
         // console.log(mons.getChildren())
         // console.log(monsters)
     }
@@ -120,9 +122,20 @@ class GameScene extends Phaser.Scene {
             monster.setTint(0xff0000)
         } else if (monster.hpMonsR <= 0) {
             monster.disableBody(true, true)
+            countBoss++
+            console.log(countBoss)
+            if(countBoss==2){
+                if(bos.disableBody(true)){
+                    console.log(bosses)
+                    boshpMonB = 100
+                    // bos.disableBody(false,false);
+                    countBoss = 0
+                    
+                }
+            }
             // console.log(mons.getChildren())    
             // mons.getChildren().visible(false)
-        }
+        } 
 
     }
 
@@ -135,7 +148,20 @@ class GameScene extends Phaser.Scene {
         } else if (bos.hpMonsB <= 0) {
             bos.disableBody(true, true)
         }
+        
 
+    }
+
+    spawnBoss(bos){ 
+
+        if(bos.disableBody(true)){
+            console.log(bosses)
+            boshpMonB = 100
+            bos.disableBody(false);
+            countBoss = 0
+            
+        }
+        
     }
 
 
