@@ -23,7 +23,8 @@ class ControlPc extends Phaser.Scene {
         let Bullet = new Bullets(this)
         Bullet.create()
 
-        throws = phasers.sound.add('throw',  true);
+        throws = phasers.sound.add('throw',{volume: 0.5});
+        throws.setVolume(0.5);
 
         cursors = phasers.input.keyboard.createCursorKeys();
         phasers.keyW = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);

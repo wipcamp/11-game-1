@@ -19,11 +19,12 @@ let boss
 let hp
 let exp
 let control
-let monster
+// let monster
 let option
 let drop
 let mapDesign
-
+let monsters = []
+let bosses = []
 
 class GameScene extends Phaser.Scene {
     constructor(test) {
@@ -96,8 +97,8 @@ class GameScene extends Phaser.Scene {
             respon.check(width, height)
 
 
-            boss = new Boss({ scene: this });
-            boss.create();
+            bosses = new Boss({ scene: this });
+            bosses.create();
 
             player = new Player({ scene: this })
             player.create();
@@ -108,10 +109,10 @@ class GameScene extends Phaser.Scene {
             hp = new HP({ scene: this, });
             hp.create();
             hp.checkHeart();
-            
+
         } else {
-            map = new MapDesign({ scene: this, });
-            map.create();
+            mapDesign = new MapDesign({ scene: this, });
+            mapDesign.create();
 
             control = new ControlPc({ scene: this })
             control.create();
@@ -125,27 +126,28 @@ class GameScene extends Phaser.Scene {
             boss.getPlayer(player)
             control.getPlayer(player)
 
-            hp = new HP({ scene: this, });
-            hp.create();        
-            
-            monster = new Monster({ scene: this, });
-            monster.create();  
-
             option = new Option({ scene: this, });
-            option.create();        
+            option.create();
 
+            hp = new HP({ scene: this, });
+            hp.create();
+
+            monsters = new Monster({ scene: this, });
+            monsters.create();
 
             drop = new Drop({ scene: this, });
-            drop.create();        
+            drop.create();
 
             exp = new EXP({ scene: this, });
-            exp.create();        
-            
+            exp.create();
+
 
             //Object in map
-            // console.log(drop.getDropExp())
+            console.log(drop.getDropExp())
+            let mons = monsters.getMonster()
+            // let boss = bosses.getBoss()
             // this.physics.add.collider(monster.getMonster(), player.getPlayer(), hp.checkHeart);
-            // this.physics.add.collider(monster.getMonster(), player.fire(),hp.checkHp, drop.dropExp);
+            // this.physics.add.collider(mons.getChildren(), player.fire(),hp.checkHp, drop.dropExp);
             // this.physics.add.collider(monster.getMonster(), map.getPart());
             // this.physics.add.collider(monster.getMonster(), map.getPart2());
             // this.physics.add.collider(monster.getMonster(), map.getPart3());
@@ -154,7 +156,7 @@ class GameScene extends Phaser.Scene {
             // this.physics.add.collider(monster.getMonster(), map.getWall());
             // this.physics.add.collider(monster.getMonster(), map.getFlower());
             // this.physics.add.collider(monster.getMonster(), map.getFlower2());
-    
+
             // this.physics.add.collider(player.getPlayer(), map.getPart());
             // this.physics.add.collider(player.getPlayer(), map.getPart2());
             // this.physics.add.collider(player.getPlayer(), map.getPart3());
@@ -162,19 +164,46 @@ class GameScene extends Phaser.Scene {
             // this.physics.add.collider(player.getPlayer(), map.getWall());
             // this.physics.add.collider(player.getPlayer(), map.getFlower());
             // this.physics.add.collider(player.getPlayer(), map.getFlower2());
-    
+
             // this.physics.add.collider(boss.getBoss(), player.getPlayer(), hp.checkHeart);
             // this.physics.add.collider(boss.getPlayer(), player.getPlayer(), hp.checkHeart);
             // this.physics.add.collider(boss.getBoss(), monster.getMonster());
             // this.physics.add.collider(boss.getBoss(), control.getWeapon(), hp.checkHpBoss, drop.GetRandom);
-    
+
             // //this.physics.add.overlap(player.getBullet(), monster.getMonster(), monster.collectMons);
             // this.physics.add.collider(player.getPlayer(), drop.getDropExp(), exp.expMons);
             
+            // this.physics.add.collider(mons.getChildren(), player.getPlayer(), this.testHit);
+            // this.physics.add.collider(boss.getChildren(), player.getPlayer(), this.testHitBoss);
+            // this.physics.add.collider(mons.getChildren())
+            // this.physics.add.collider(mons.getChildren(), player.getPlayer(), hp.checkHeart);
+            // this.physics.add.collider(mons.getChildren(), player.getBullet(), hp.checkHp);
+            // this.physics.add.collider(mons.getChildren(), mapDesign.getPart());
+            // this.physics.add.collider(mons.getChildren(), mapDesign.getPart2());
+            // this.physics.add.collider(mons.getChildren(), mapDesign.getPart3());
+            // this.physics.add.collider(mons.getChildren(), mapDesign.getPart4());
+            // this.physics.add.collider(mons.getChildren(), mapDesign.getSafeZone());
+            // this.physics.add.collider(mons.getChildren(), mapDesign.getWall());
+            // this.physics.add.collider(mons.getChildren(), mapDesign.getFlower());
+            // this.physics.add.collider(mons.getChildren(), mapDesign.getFlower2());
+
+            // this.physics.add.collider(player.getPlayer(), mapDesign.getPart());
+            // this.physics.add.collider(player.getPlayer(), mapDesign.getPart2());
+            // this.physics.add.collider(player.getPlayer(), mapDesign.getPart3());
+            // this.physics.add.collider(player.getPlayer(), mapDesign.getPart4());
+            // this.physics.add.collider(player.getPlayer(), mapDesign.getWall());
+            // this.physics.add.collider(player.getPlayer(), mapDesign.getFlower());
+            // this.physics.add.collider(player.getPlayer(), mapDesign.getFlower2());
+
+            // this.physics.add.collider(boss.getChildren(), player.getPlayer(), hp.checkHeart);
+            // // this.physics.add.collider(bosses.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
+            // this.physics.add.collider(boss.getChildren(), mons.getChildren());
+            // this.physics.add.collider(boss.getChildren(), player.getWeapon(), hp.checkHpBoss);
+
         }
 
     }
-    
+
     update() {
         player.update();
         boss.update();

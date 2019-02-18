@@ -29,20 +29,20 @@ class HP extends Phaser.Scene {
         responsives.check(height, width)
         let scaleRatio = responsives.getScale()
 
-        heart1_2 = phaser.physics.add.image(scaleRatio + 700, y-275, 'halfheart').setScrollFactor(0).setScale(0.7);
+        heart1_2 = phaser.physics.add.image(scaleRatio + 720, y-170, 'halfheart').setScrollFactor(0).setScale(0.7);
         heart1_2.setVisible(false);
-        heart1 = phaser.physics.add.image(scaleRatio + 700, y-175, 'heart').setScrollFactor(0).setScale(0.7);
+        heart1 = phaser.physics.add.image(scaleRatio + 720, y-170, 'heart').setScrollFactor(0).setScale(0.7);
         heart1.setVisible(true);
 
-        heart2_2 = phaser.physics.add.image(x-210, y-175, 'halfheart').setScrollFactor(0).setScale(0.7);
+        heart2_2 = phaser.physics.add.image(scaleRatio + 735, y-170, 'halfheart').setScrollFactor(0).setScale(0.7);
         heart2_2.setVisible(false);
-        heart2 = phaser.physics.add.image(x-210, y-175, 'heart').setScrollFactor(0).setScale(0.7);
+        heart2 = phaser.physics.add.image(scaleRatio + 735, y-170, 'heart').setScrollFactor(0).setScale(0.7);
         heart2.setVisible(true);
 
 
-        heart3_2 = phaser.physics.add.image(x-190, y-175, 'halfheart').setScrollFactor(0).setScale(0.7);
+        heart3_2 = phaser.physics.add.image(scaleRatio + 750, y-170, 'halfheart').setScrollFactor(0).setScale(0.7);
         heart3_2.setVisible(false);
-        heart3 = phaser.physics.add.image(x-190, y-175, 'heart').setScrollFactor(0).setScale(0.7);
+        heart3 = phaser.physics.add.image(scaleRatio + 750, y-170, 'heart').setScrollFactor(0).setScale(0.7);
         heart3.setVisible(true);
 
         //test ว่าถ้าทำเงื่อนไข แล้วลดเปล่า

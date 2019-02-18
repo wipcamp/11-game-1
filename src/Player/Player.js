@@ -40,9 +40,10 @@ class Player extends Phaser.Scene {
         let Bullet = new Bullets(this)
         Bullet.create()
 
-        bgm = phasers.sound.add('bgm', true);
+        bgm = phasers.sound.add('bgm', {volume : 0.5});
+        bgm.setVolume(0.5);
         bgm.play({ loop: true });
-        bgm.volume -= 0.5;
+        
         
         hits = phasers.sound.add('hit',  true);
         hits.volume -= 0.5;
