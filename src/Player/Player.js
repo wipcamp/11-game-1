@@ -87,7 +87,7 @@ class Player extends Phaser.Scene {
         overpic.setVisible(false);
 
         //กล้องตามตัว player
-        // phasers.cameras.main.setBounds(0, 0, 900, 900);
+        phasers.cameras.main.setBounds(0, 0, 1024, 2048);
         phasers.cameras.main.startFollow(player, true, 1, 1);
         // phasers.cameras.mains.setZoom(2);
 

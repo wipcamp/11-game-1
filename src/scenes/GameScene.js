@@ -64,7 +64,7 @@ class GameScene extends Phaser.Scene {
         this.load.audio('gameover', '../sound/gameover.mp3');
 
         // this.load.image('weapon', '../../images/weapon.png');
-        // this.load.image('monster', '../../images/monster.png');
+        this.load.spritedheet('monster', '../../images/asset/mon.png', 463, 500, 2);
         // this.load.image('platform', '../../images/platform.png');
         this.load.image('longlog', '../../images/asset/tonpaiside.png');
         this.load.image('ontablog', '../../images/asset/tonpai.png');

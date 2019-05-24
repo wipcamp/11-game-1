@@ -44,7 +44,7 @@ class Monster extends Phaser.Scene {
         // Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
         // // phaser.physics.add.collider(monsters);
 
-        // phaser.physics.add.collider(monsters.getChildren());
+
         monsters = phaser.physics.add.group({
             key: 'monster',
             frameQuantity: 10,
@@ -61,6 +61,7 @@ class Monster extends Phaser.Scene {
                 hpMonsR: 100,
             }
         }
+        // phaser.physics.add.collider(monsters.getChildren());
 
     }
     getMonster() {

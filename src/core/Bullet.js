@@ -34,7 +34,7 @@ class Bullet extends Phaser.Scene {
                     this.velocity = new Phaser.Geom.Point(0, 0);
                 },
 
-            fire: function (x, y, direction) {
+            fire: function(x, y, direction) {
                 this.setPosition(x, y);
                 this.setAngle(-direction*2000)
                 this.setActive(true);

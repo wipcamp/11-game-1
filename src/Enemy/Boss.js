@@ -69,7 +69,7 @@ class Boss extends Phaser.Scene {
         player = p
     }
 
-    getBoss(){
+    getBoss() {
         return boss
     }
 

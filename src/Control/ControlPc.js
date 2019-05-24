@@ -34,7 +34,7 @@ class ControlPc extends Phaser.Scene {
         phasers.keyD = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         phasers.keySpacebar = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        phasers.cameras.main.setBounds(0, 0, 1024, 2048);
+        // phasers.cameras.main.setBounds(0, 0, 1024, 2048);
         // phasers.cameras.main.startFollow(player, true, 1, 1);
         // phasers.cameras.main.setZoom(2);
     }
@@ -56,7 +56,8 @@ class ControlPc extends Phaser.Scene {
             player.setAngle(90);
 
             player.setVelocityX(150);
-        } if (cursors.up.isDown || phasers.keyW.isDown) {
+        }
+        if (cursors.up.isDown || phasers.keyW.isDown) {
             player.setAngle(0);
 
             player.setVelocityY(-150);
@@ -78,7 +79,7 @@ class ControlPc extends Phaser.Scene {
 
     getPlayer(p) {
         player = p.getPlayer()
-        // reticle = p.getReticle()
+            // reticle = p.getReticle()
         playerFunction = p
     }
 
