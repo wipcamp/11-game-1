@@ -66,11 +66,11 @@ class GameScene extends Phaser.Scene {
         // this.load.image('weapon', '../../images/weapon.png');
         // this.load.image('monster', '../../images/monster.png');
         // this.load.image('platform', '../../images/platform.png');
-        // this.load.image('part', '../../images/part.png');
-        // this.load.image('part2', '../../images/part2.png');
-        // this.load.image('flower', '../../images/flower.png');
+        this.load.image('longlog', '../../images/asset/tonpaiside.png');
+        // this.load.image('part2', '../../images/asset/singletree.png');
+        this.load.image('flower', '../../images/asset/singletree.png');
         // this.load.image('wall', '../../images/wall.png');
-        // this.load.image('safezone', '../../images/safezone.png');
+        this.load.image('safezone', '../../images/safezone.png');
         this.load.image('dropExp', '../../images/Item/exp.png');
         this.load.image('dropGold', '../../images/Item/gold.png');
         this.load.image('butOption', '../../images/button/butOption.png');

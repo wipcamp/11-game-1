@@ -8,6 +8,7 @@ let part, part2, part3, part4;
 let levelText;
 let nameText, nameText2;
 let phaser;
+let longlog
 
 class MapDesign extends Phaser.Scene {
 
@@ -40,25 +41,25 @@ class MapDesign extends Phaser.Scene {
             key: 'safezone',
             frameQuantity: 1,
             collideWorldBounds: true,
-            visible: false
+            visible: true
         });
-        Phaser.Actions.PlaceOnRectangle(safezone.getChildren(), new Phaser.Geom.Rectangle(50, 210));
+        Phaser.Actions.PlaceOnRectangle(safezone.getChildren(), new Phaser.Geom.Rectangle(50, 600));
         safezone.refresh();
         
-        part = phaser.physics.add.staticGroup({
-            key: 'part',
-            frameQuantity: 1,
+        longlog = phaser.physics.add.staticGroup({
+            key: 'longlog',
+            frameQuantity: 3,
             collideWorldBounds: true,
-            visible: false
+            visible: true
         });
-        Phaser.Actions.PlaceOnRectangle(part.getChildren(), new Phaser.Geom.Rectangle(x+600, 35, x, 10));
-        part.refresh();
+        Phaser.Actions.PlaceOnRectangle(longlog.getChildren(), new Phaser.Geom.Rectangle(35, 200));
+        longlog.refresh();
 
         part2 = phaser.physics.add.staticGroup({
             key: 'part2',
             frameQuantity: 1,
             collideWorldBounds: true,
-            visible: false
+            visible: true
         });
         Phaser.Actions.PlaceOnRectangle(part2.getChildren(), new Phaser.Geom.Rectangle(x-595, y, x, 10));
         part2.refresh();
@@ -67,7 +68,7 @@ class MapDesign extends Phaser.Scene {
             key: 'part2',
             frameQuantity: 1,
             collideWorldBounds: true,
-            visible: false
+            visible: true
         });
         Phaser.Actions.PlaceOnRectangle(part3.getChildren(), new Phaser.Geom.Rectangle(x+1225, y, x, 10));
         part3.refresh();
@@ -76,7 +77,7 @@ class MapDesign extends Phaser.Scene {
             key: 'part',
             frameQuantity: 1,
             collideWorldBounds: true,
-            visible: false
+            visible: true
         });
         Phaser.Actions.PlaceOnRectangle(part4.getChildren(), new Phaser.Geom.Rectangle(x, y+523, x, 10));
         part4.refresh();
