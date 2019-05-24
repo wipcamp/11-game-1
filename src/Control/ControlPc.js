@@ -65,7 +65,8 @@ class ControlPc extends Phaser.Scene {
             player.setAngle(-180);
             player.setVelocityY(150);
 
-        } else if (holdown == false) {
+        }
+        if (holdown == false) {
             if (cursors.space.isDown || phasers.keySpacebar.isDown) {
                 holdown = true
                 console.log(holdown)

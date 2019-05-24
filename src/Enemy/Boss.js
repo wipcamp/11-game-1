@@ -52,6 +52,8 @@ class Boss extends Phaser.Scene {
         boss.health = 1000;
         boss.lastFired = 0;
 
+        // gameObject.physics.add.collider(player.getPlayer(), boss, player.playerHitCallback);
+
     }
 
     update() {

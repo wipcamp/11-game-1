@@ -64,7 +64,7 @@ class GameScene extends Phaser.Scene {
         this.load.audio('gameover', '../sound/gameover.mp3');
 
         // this.load.image('weapon', '../../images/weapon.png');
-        // this.load.spritedheet('monster', '../../images/asset/mon.png', 463, 500, 2);
+        this.load.spritesheet('monster', '../images/asset/mon.png', { frameWidth: 463, frameHeight: 500 }, 2);
         // this.load.image('platform', '../../images/platform.png');
         this.load.image('longlog', '../../images/asset/tonpaiside.png');
         this.load.image('ontablog', '../../images/asset/tonpai.png');
@@ -194,7 +194,7 @@ class GameScene extends Phaser.Scene {
             let mons = monsters.getMonster()
             let boss = bosses.getBoss()
             this.physics.add.collider(mons.getChildren(), player.getPlayer(), this.testHit);
-            this.physics.add.collider(player.getPlayer(), this.testHitBoss);
+            // this.physics.add.collider(player.getPlayer(), this.testHitBoss);
             this.physics.add.collider(mons.getChildren())
             this.physics.add.collider(mons.getChildren(), player.getPlayer(), hp.checkHeart);
             this.physics.add.collider(mons.getChildren(), hp.checkHp);
@@ -284,41 +284,42 @@ class GameScene extends Phaser.Scene {
     }
 
     testHit(monster) {
-        // console.log(monster)
+        console.log(monster)
         monster.hpMonsR -= 10
             // let mons = monsters.getMonster()
         if (monster.hpMonsR == 20) {
             // console.log(monsters.getMonster().getChildren())
             // monster.setTint(0xff0000)
         } else if (monster.hpMonsR <= 0) {
-            monster.disableBody(true, true)
-            countBoss++
-            console.log(countBoss)
-            if (countBoss == 2) {
-                if (bos.disableBody(true)) {
-                    console.log(bosses)
-                    boshpMonB = 100
-                    bos.disableBody(false, false);
-                    countBoss = 0
+            monster.body.gameObject.disableBody(true, true)
+                // monster.visible = false
+                // countBoss++
+                // console.log(countBoss)
+                // if (countBoss == 2) {
+                //     if (bos.disableBody(true)) {
+                //         console.log(bosses)
+                //         boshpMonB = 100
+                //         bos.disableBody(false, false);
+                //         countBoss = 0
 
-                }
-            }
+            //     }
+            // }
             // console.log(mons.getChildren())    
             // mons.getChildren().visible(false)
         }
 
     }
 
-    testHitBoss(bos) {
-        console.log(bos)
-        bos.hpMonsB -= 10
+    // testHitBoss(bos) {
+    //     console.log(bos)
+    //     bos.hpMonsB -= 10
 
-        if (bos.hpMonsB == 20) {
-            bos.setTint(0xff0000)
-        } else if (bos.hpMonsB <= 0) {
-            bos.disableBody(true, true)
-        }
-    }
+    //     if (bos.hpMonsB == 20) {
+    //         bos.setTint(0xff0000)
+    //     } else if (bos.hpMonsB <= 0) {
+    //         bos.disableBody(true, true)
+    //     }
+    // }
 
     spawnBoss(bos) {
         if (bos.disableBody(true)) {
