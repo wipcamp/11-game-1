@@ -16,9 +16,9 @@ class Bullet extends Phaser.Scene {
 
     preload() {
 
-        this.load.image('reticle', '../../images/target.png');
-        this.load.image('bullet', '../../images/weapon.png');
-
+        // this.load.image('reticle', '../../images/target.png');
+        // this.load.image('bullet', '../../images/weapon.png');
+        // // this.load.image('bomb', '../../images/bomb.png');
     }
 
     create() {
@@ -30,21 +30,31 @@ class Bullet extends Phaser.Scene {
 
                 function Bullet(scene) {
                     Phaser.GameObjects.Image.call(this, scene, 0, 0, 'bullet');
-
                     this.speed = Phaser.Math.GetSpeed(400, 1);
                     this.velocity = new Phaser.Geom.Point(0, 0);
                 },
 
             fire: function (x, y, direction) {
                 this.setPosition(x, y);
-                this.setRotation(direction.rotation);
-
+                this.setAngle(-direction*2000)
                 this.setActive(true);
                 this.setVisible(true);
 
                 this.velocity.setTo(0, -this.speed)
                 Phaser.Math.Rotate(this.velocity, direction)
             },
+
+            bossfire: function (x, y, direction) {
+                this.setPosition(x, y);
+                this.setRotation(direction);
+                
+                this.setActive(true);
+                this.setVisible(true);
+
+                this.velocity.setTo(0, -this.speed)
+                Phaser.Math.Rotate(this.velocity, direction)
+            },
+
 
             update: function (time, delta) {
                 this.x += this.velocity.x * delta;

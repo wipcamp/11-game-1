@@ -7,6 +7,7 @@ let playerFunction;
 let weapon;
 let phasers;
 let throws;
+let holdown;
 class ControlPc extends Phaser.Scene {
     constructor(config) {
         super(config.scene);
@@ -23,7 +24,7 @@ class ControlPc extends Phaser.Scene {
         let Bullet = new Bullets(this)
         Bullet.create()
 
-        throws = phasers.sound.add('throw',{volume: 0.5});
+        throws = phasers.sound.add('throw', { volume: 0.5 });
         throws.setVolume(0.5);
 
         cursors = phasers.input.keyboard.createCursorKeys();
@@ -35,7 +36,7 @@ class ControlPc extends Phaser.Scene {
 
         phasers.cameras.main.setBounds(0, 0, 1024, 2048);
         // phasers.cameras.main.startFollow(player, true, 1, 1);
-        phasers.cameras.main.setZoom(2);
+        // phasers.cameras.main.setZoom(2);
     }
 
 
@@ -48,24 +49,30 @@ class ControlPc extends Phaser.Scene {
 
         if (cursors.left.isDown || phasers.keyA.isDown) {
             player.setAngle(-90);
-            
-           
+
+
             player.setVelocityX(-150);
         } else if (cursors.right.isDown || phasers.keyD.isDown) {
             player.setAngle(90);
-           
+
             player.setVelocityX(150);
         } if (cursors.up.isDown || phasers.keyW.isDown) {
             player.setAngle(0);
-           
+
             player.setVelocityY(-150);
         } else if (cursors.down.isDown || phasers.keyS.isDown) {
             player.setAngle(-180);
-            
             player.setVelocityY(150);
-        } else if (cursors.space.isDown || phasers.keySpacebar.isDown) {
-            playerFunction.fire();
-            throws.play({ loop: false });
+
+        } else if (holdown == false) {
+            if (cursors.space.isDown || phasers.keySpacebar.isDown) {
+                holdown = true
+                console.log(holdown)
+                playerFunction.fire();
+                throws.play({ loop: false });
+            }
+        } else if (cursors.space.isUp || phasers.keySpacebar.isUp) {
+            holdown = false
         }
     }
 

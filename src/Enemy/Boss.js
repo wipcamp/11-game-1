@@ -43,7 +43,7 @@ class Boss extends Phaser.Scene {
         let scaleRatio = responsives.getScale()
 
         // ตัวละคร boss
-        boss = phasers.physics.add.sprite(400, 200, 'boss').setScale(scaleRatio + 0.2)
+        boss = phasers.physics.add.sprite(1000, 400, 'boss').setScale(scaleRatio + 0.2)
 
         // Add groups for Bullet objects
         bossBullets = phasers.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
@@ -67,7 +67,6 @@ class Boss extends Phaser.Scene {
 
     getPlayer(p) {
         player = p
-        // console.log(player.getPlayer())
     }
 
     getBoss(){
@@ -104,7 +103,7 @@ class Boss extends Phaser.Scene {
 
                 if (bullet) {
 
-                    bullet.fire(boss.x, boss.y, boss.rotation + Phaser.Math.Between(0, 300));
+                    bullet.bossfire(boss.x, boss.y, Phaser.Math.Between(0, 360));
 
                     // Add collider between bullet and player
                     gameObject.physics.add.collider(player.getPlayer(), bullet, player.playerHitCallback);

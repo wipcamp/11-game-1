@@ -166,7 +166,6 @@ class Player extends Phaser.Scene {
 
         if (bullet) {
             bullet.fire(player.x, player.y, player.rotation)
-            bullet.setAngle(player)
             phasers.physics.add.collider(boss.getBoss(), bullet, boss.enemyHitCallback);
         }
     }

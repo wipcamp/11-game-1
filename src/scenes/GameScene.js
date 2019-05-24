@@ -67,12 +67,13 @@ class GameScene extends Phaser.Scene {
         // this.load.image('monster', '../../images/monster.png');
         // this.load.image('platform', '../../images/platform.png');
         this.load.image('longlog', '../../images/asset/tonpaiside.png');
-        this.load.image('part2', '../../images/asset/singletree.png');
+        this.load.image('ontablog', '../../images/asset/tonpai.png');
+        // this.load.image('part2', '../../images/asset/singletree.png');
         this.load.image('flower', '../../images/asset/singletree.png');
         // this.load.image('wall', '../../images/wall.png');
         this.load.image('safezone', '../../images/safezone.png');
-        this.load.image('dropExp', '../../images/Item/exp.png');
-        this.load.image('dropGold', '../../images/Item/gold.png');
+        // this.load.image('dropExp', '../../images/Item/exp.png');
+        // this.load.image('dropGold', '../../images/Item/gold.png');
         this.load.image('butOption', '../../images/button/butOption.png');
         this.load.image('butSound', '../../images/button/butSound.png');
     }
@@ -84,8 +85,8 @@ class GameScene extends Phaser.Scene {
         let height = this.scene.scene.game.config.height;
 
         if (width < 1536 && height < 864) {
-            map = new MapDesign({ scene: this, });
-            map.create();
+            mapDesign = new MapDesign({ scene: this, });
+            mapDesign.create();
 
             control = new move_mobile({ scene: this })
             control.create()
@@ -102,11 +103,68 @@ class GameScene extends Phaser.Scene {
             bosses.getPlayer(player)
             control.getPlayer(player)
 
+            monsters = new Monster({ scene: this, });
+            monsters.create();
+
             option = new Option({ scene: this, });
             option.create();
-
+            
             hp = new HP({ scene: this, });
             hp.create();
+
+            //monster collider
+            let mons = monsters.getMonster()
+            this.physics.add.collider(mons.getChildren(), player.getPlayer());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getLonglog());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getLonglog2());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getLonglog3());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getLonglog4());
+
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog2());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog3());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog4());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog5());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog6());
+
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog2());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog3());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog4());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog5());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog6());
+
+
+            this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog2());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog3());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog4());
+
+            //player collider
+            this.physics.add.collider(player.getPlayer(), mapDesign.getLonglog())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getLonglog2())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getLonglog3())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getLonglog4())
+
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog2())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog3())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog4())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog5())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog6())
+
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog2())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog3())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog4())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog5())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog6())
+
+            this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog2())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog3())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog4())
+
         } else {
             mapDesign = new MapDesign({ scene: this, });
             mapDesign.create();
@@ -140,6 +198,7 @@ class GameScene extends Phaser.Scene {
             this.physics.add.collider(mons.getChildren())
             this.physics.add.collider(mons.getChildren(), player.getPlayer(), hp.checkHeart);
             this.physics.add.collider(mons.getChildren(), hp.checkHp);
+            this.physics.add.collider(mons.getChildren(), mapDesign.getSafeZone());
             this.physics.add.collider(mons.getChildren(), mapDesign.getPart());
             this.physics.add.collider(mons.getChildren(), mapDesign.getPart2());
             this.physics.add.collider(mons.getChildren(), mapDesign.getPart3());
@@ -149,6 +208,30 @@ class GameScene extends Phaser.Scene {
             this.physics.add.collider(mons.getChildren(), mapDesign.getFlower());
             this.physics.add.collider(mons.getChildren(), mapDesign.getFlower2());
             this.physics.add.collider(mons.getChildren(), mapDesign.getLonglog());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getLonglog2());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getLonglog3());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getLonglog4());
+
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog2());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog3());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog4());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog5());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getOntablog6());
+
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog2());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog3());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog4());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog5());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getDowntablog6());
+
+
+            this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog2());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog3());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog4());
+            
 
             this.physics.add.collider(player.getPlayer(), mapDesign.getPart());
             this.physics.add.collider(player.getPlayer(), mapDesign.getPart2());
@@ -158,6 +241,28 @@ class GameScene extends Phaser.Scene {
             this.physics.add.collider(player.getPlayer(), mapDesign.getFlower());
             this.physics.add.collider(player.getPlayer(), mapDesign.getFlower2());
             this.physics.add.collider(player.getPlayer(), mapDesign.getLonglog())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getLonglog2())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getLonglog3())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getLonglog4())
+
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog2())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog3())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog4())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog5())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getOntablog6())
+
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog2())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog3())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog4())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog5())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getDowntablog6())
+
+            this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog2())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog3())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog4())
 
             this.physics.add.collider(player.getPlayer(), hp.checkHeart);
             // this.physics.add.collider(bosses.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
@@ -184,7 +289,7 @@ class GameScene extends Phaser.Scene {
             // let mons = monsters.getMonster()
         if (monster.hpMonsR == 20) {
             // console.log(monsters.getMonster().getChildren())
-            monster.setTint(0xff0000)
+            // monster.setTint(0xff0000)
         } else if (monster.hpMonsR <= 0) {
             monster.disableBody(true, true)
             countBoss++
