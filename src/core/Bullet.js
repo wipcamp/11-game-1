@@ -17,7 +17,7 @@ class Bullet extends Phaser.Scene {
     preload() {
 
         this.load.image('reticle', '../../images/target.png');
-        this.load.image('bullet', '../../images/bomb.png');
+        this.load.image('bullet', '../../images/weapon.png');
 
     }
 

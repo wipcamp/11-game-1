@@ -73,8 +73,8 @@ class Player extends Phaser.Scene {
         //ไม่ให้ player ออกนอกโลก
         player.setCollideWorldBounds(true);
 
-        weapon = phasers.physics.add.image(410,600, 'weapon');
-        weapon.setCollideWorldBounds(true);
+        //weapon = phasers.physics.add.image(410,600, 'weapon');
+        //weapon.setCollideWorldBounds(true);
         
         hp1 = phasers.add.image(-350, -250, 'heart').setScrollFactor(0.5, 0.5);
         hp2 = phasers.add.image(-300, -250, 'heart').setScrollFactor(0.5, 0.5);
@@ -109,10 +109,6 @@ class Player extends Phaser.Scene {
 
     getPlayer() {
         return player
-    }
-
-    getReticle(){
-        return reticle
     }
 
     getBoss(b){
@@ -175,6 +171,7 @@ class Player extends Phaser.Scene {
 
         if (bullet) {
             bullet.fire(player.x, player.y, player.rotation)
+            bullet.setAngle(player)
             phasers.physics.add.collider(boss.getBoss(), bullet, boss.enemyHitCallback);
         }
     }

@@ -21,6 +21,7 @@ let upButton
 let downButton
 let playerFunction
 let throws
+let bullet;
 
 class move_mobile extends Phaser.Scene {
     constructor(config) {
@@ -101,12 +102,11 @@ class move_mobile extends Phaser.Scene {
 
     getPlayer(p) {
         player = p.getPlayer()
-        reticle = p.getReticle()
         playerFunction = p
     }
 
-    getReticle(r) {
-        reticle = r.getReticle()
+    getBullet(b){
+        bullet = b.getBullet();
     }
 
     // resize(width, height) {
@@ -118,99 +118,55 @@ class move_mobile extends Phaser.Scene {
     control_right() {
         player.setVelocityX(150);
         player.setAngle(90);
-
-        reticle.setVelocityX(150);
-        reticle.x = player.x + 100
-        reticle.y = player.y
-
     }
     control_left() {
         player.setVelocityX(-150);
-        player.setAngle(270)
-
-        reticle.setVelocityX(-150);
-        reticle.x = player.x - 100
-        reticle.y = player.y
+        player.setAngle(270)       
     }
     control_up() {
         player.setVelocityY(-150);
-        player.setAngle(0)
-
-        reticle.setVelocityY(-150);
-        reticle.x = player.x
-        reticle.y = player.y - 100
-
+        player.setAngle(0)       
     }
     control_down() {
         player.setVelocityY(150);
-        player.setAngle(180)
-
-        reticle.setVelocityY(150);
-        reticle.x = player.x
-        reticle.y = player.y + 80;
+        player.setAngle(180)       
     }
     control_up_right() {
         player.setVelocityX(150);
         player.setVelocityY(-150);
-        player.setAngle(45)
-
-        reticle.setVelocityX(150);
-        reticle.setVelocityY(-150);
-        reticle.x = player.x + 80;
-        reticle.y = player.y - 60;
+        player.setAngle(45)       
     }
     control_up_left() {
         player.setVelocityX(-150);
         player.setVelocityY(-150);
-        player.setAngle(300)
-
-        reticle.setVelocityX(-150);
-        reticle.setVelocityY(-150);
-        reticle.x = player.x - 100;
-        reticle.y = player.y - 100;
+        player.setAngle(300)       
     }
     control_down_left() {
         player.setVelocityX(-150);
         player.setVelocityY(150);
         player.setAngle(225)
-
-        reticle.setVelocityX(-150);
-        reticle.setVelocityY(150);
-        reticle.x = player.x - 100;
-        reticle.y = player.y + 80;
     }
     control_down_right() {
         player.setVelocityX(150);
         player.setVelocityY(150);
-        player.setAngle(120)
-
-        reticle.setVelocityX(150);
-        reticle.setVelocityY(150);
-        reticle.x = player.x + 100;
-        reticle.y = player.y + 80;
+        player.setAngle(120)       
     }
 
     //ฟังก์ชั่นหยุดตัวละครเวลาเดินในแกน X และ แกน y
     control_stopX() {
         player.setVelocityX(0);
-        reticle.setVelocityX(0);
-
     }
     control_stopY() {
         player.setVelocityY(0);
-        reticle.setVelocityY(0);
     }
     control_stopXY() {
         player.setVelocityX(0);
         player.setVelocityY(0);
-
-        reticle.setVelocityX(0);
-        reticle.setVelocityY(0);
     }
 
     //ฟังก์ชั่นปุ่มยิง 
     control_attack() {        
-        playerFunction.fire();
+        playerFunction.fire();           
         throws.play({ loop: false });
     }
 }

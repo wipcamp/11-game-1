@@ -42,25 +42,25 @@ class HP extends Phaser.Scene {
         heart3.setVisible(true);
 
         //test ว่าถ้าทำเงื่อนไข แล้วลดเปล่า
-        playimage1 = phaser.add.image(x, y-20, 'heart');
-        playimage1.setInteractive();
-        playimage1.input.useHandCursor = true;
-        phaser.input.on('gameobjectup', this.checkHeart, this);
-        currentText = phaser.add.text(x, y-175, 'manyheart: '+ currentHeart, { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);
+        // playimage1 = phaser.add.image(x, y-20, 'heart');
+        // playimage1.setInteractive();
+        // playimage1.input.useHandCursor = true;
+        // phaser.input.on('gameobjectup', this.checkHeart, this);
+        // currentText = phaser.add.text(x, y-175, 'manyheart: '+ currentHeart, { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);
         
-        playimage2 = phaser.add.image(x-20, y-20, 'heart');
-        playimage2.setInteractive();
-        playimage2.input.useHandCursor = true;
-        phaser.input.on('gameobjectup', this.checkHp, this);
-        maxText = phaser.add.text(x+70, y-135, 'HP Monster: '+ hpMons, { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);
+        // playimage2 = phaser.add.image(x-20, y-20, 'heart');
+        // playimage2.setInteractive();
+        // playimage2.input.useHandCursor = true;
+        // phaser.input.on('gameobjectup', this.checkHp, this);
+        // maxText = phaser.add.text(x+70, y-135, 'HP Monster: '+ hpMons, { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);
         
-        playimage3 = phaser.add.image(x-40, y-20, 'heart');
-        playimage3.setInteractive();
-        playimage3.input.useHandCursor = true;
-        phaser.input.on('gameobjectup', this.checkHpBoss, this);
-        bossText = phaser.add.text(x+160, y-135, 'HP Boss: '+ hpBoss, { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);
+        // playimage3 = phaser.add.image(x-40, y-20, 'heart');
+        // playimage3.setInteractive();
+        // playimage3.input.useHandCursor = true;
+        // phaser.input.on('gameobjectup', this.checkHpBoss, this);
+        // bossText = phaser.add.text(x+160, y-135, 'HP Boss: '+ hpBoss, { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);
         
-        monsterText = phaser.add.text(x+230   , y-135, score + ' /100 ', { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);
+        // monsterText = phaser.add.text(x+230   , y-135, score + ' /100 ', { font: '10px Arial', fill: '#000000' }).setScrollFactor(0);
 
     }
 
@@ -71,7 +71,7 @@ class HP extends Phaser.Scene {
 
     checkHeart () {
         currentHeart -= 0.5;
-        currentText.setText('Score: ' + currentHeart);
+        // currentText.setText('Score: ' + currentHeart);
 
         if (currentHeart >= 2.5 && currentHeart < 3) {
             heart3.setVisible(false);
@@ -104,10 +104,10 @@ class HP extends Phaser.Scene {
 
     checkHp () {
         hpMons -= 10;
-        maxText.setText('Score: ' + hpMons);
+        // maxText.setText('Score: ' + hpMons);
 
         if (hpMons <= 0 ) {
-            playimage2.setVisible(false);
+            // playimage2.setVisible(false);
             hpMons =100;
             return hpMons;
         } else {
@@ -117,10 +117,10 @@ class HP extends Phaser.Scene {
 
     checkHpBoss () {
         hpBoss -= 10;
-        bossText.setText('Score: ' + hpBoss);
+        // bossText.setText('Score: ' + hpBoss);
 
         if (hpBoss <= 0 ) {
-            playimage3.setVisible(false);
+            // playimage3.setVisible(false);
             hpBoss =1000;
             return hpBoss;
         } else {

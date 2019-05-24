@@ -35,15 +35,6 @@ class Monster extends Phaser.Scene {
         //     var newobj = this.gameitems.create(x, y, 'monster');
         // }
 
-        platforms = phaser.physics.add.staticGroup({
-            key: 'platform',
-            frameQuantity: 20,
-            collideWorldBounds: true,
-
-        });
-        Phaser.Actions.PlaceOnRectangle(platforms.getChildren(), new Phaser.Geom.Rectangle(100, 100, 600, 400));
-        platforms.refresh();
-
         monsters = phaser.physics.add.group({
             key: 'monster',
             frameQuantity: 20,
@@ -54,15 +45,16 @@ class Monster extends Phaser.Scene {
             velocityY: 40
         });
 
-        Phaser.Actions.RandomRectangle(monsters.getChildren(), phaser.physics.world.bounds);
-        phaser.physics.add.collider(monsters);
+        monsters.children.iterate(function (child) {
+            child.hpMonsR=100
+        });
+
+        Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
+        phaser.physics.add.collider(monsters.getChildren());
 
     }
     getMonster() {
         return monsters
-    }
-    getPlatforms() {
-        return platforms
     }
     
     update() {

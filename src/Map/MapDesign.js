@@ -114,11 +114,11 @@ class MapDesign extends Phaser.Scene {
         exp.destroy();
         phaser.add.image(x, y+133, 'exp').setScrollFactor(0);
         
-        levelText = phaser.add.text(x-380, y-175, 'Lv.1', { fontSize: '16px', fill: '#00FFFF' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.2);
-        nameText = phaser.add.text(x-320, y-175, 'แป้งมาเยือน อิอิ', { fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.2);
-        nameText2 = phaser.add.text(x-47, y-30, 'แป้งมาเยือน อิอิ', { fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.2);
+        levelText = phaser.add.text(x-380, y-175, 'Lv.1', { fontSize: '16px', fill: '#00FFFF' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.4);
+        nameText = phaser.add.text(x-320, y-175, 'แป้งมาเยือน อิอิ', { fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.4);
+        nameText2 = phaser.add.text(x-47, y-30, 'แป้งมาเยือน อิอิ', { fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.4);
         
-        
+        // phaser.cameras.main.startFollow(nextText, true, 1,1)
         
     }
 

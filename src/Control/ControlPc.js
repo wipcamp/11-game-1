@@ -48,15 +48,20 @@ class ControlPc extends Phaser.Scene {
 
         if (cursors.left.isDown || phasers.keyA.isDown) {
             player.setAngle(-90);
+            
+           
             player.setVelocityX(-150);
         } else if (cursors.right.isDown || phasers.keyD.isDown) {
             player.setAngle(90);
+           
             player.setVelocityX(150);
         } if (cursors.up.isDown || phasers.keyW.isDown) {
             player.setAngle(0);
+           
             player.setVelocityY(-150);
         } else if (cursors.down.isDown || phasers.keyS.isDown) {
             player.setAngle(-180);
+            
             player.setVelocityY(150);
         } else if (cursors.space.isDown || phasers.keySpacebar.isDown) {
             playerFunction.fire();
