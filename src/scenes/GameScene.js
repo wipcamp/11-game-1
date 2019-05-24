@@ -64,7 +64,7 @@ class GameScene extends Phaser.Scene {
         this.load.audio('gameover', '../sound/gameover.mp3');
 
         // this.load.image('weapon', '../../images/weapon.png');
-        this.load.spritedheet('monster', '../../images/asset/mon.png', 463, 500, 2);
+        // this.load.spritedheet('monster', '../../images/asset/mon.png', 463, 500, 2);
         // this.load.image('platform', '../../images/platform.png');
         this.load.image('longlog', '../../images/asset/tonpaiside.png');
         this.load.image('ontablog', '../../images/asset/tonpai.png');
@@ -108,7 +108,7 @@ class GameScene extends Phaser.Scene {
 
             option = new Option({ scene: this, });
             option.create();
-            
+
             hp = new HP({ scene: this, });
             hp.create();
 
@@ -231,7 +231,7 @@ class GameScene extends Phaser.Scene {
             this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog2());
             this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog3());
             this.physics.add.collider(mons.getChildren(), mapDesign.getRighttablog4());
-            
+
 
             this.physics.add.collider(player.getPlayer(), mapDesign.getPart());
             this.physics.add.collider(player.getPlayer(), mapDesign.getPart2());
