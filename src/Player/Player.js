@@ -13,7 +13,7 @@ let hp3;
 let hp2;
 let hp1;
 let weapon;
-let heart1 , heart1_2 , heart2 , heart2_2 , heart3 , heart3_2 
+let heart1, heart1_2, heart2, heart2_2, heart3, heart3_2
 let cursors;
 let bgm;
 let hits;
@@ -31,7 +31,7 @@ class Player extends Phaser.Scene {
 
     preload() {
 
-    
+
 
     }
 
@@ -40,12 +40,12 @@ class Player extends Phaser.Scene {
         let Bullet = new Bullets(this)
         Bullet.create()
 
-        bgm = phasers.sound.add('bgm', {volume : 0.5});
+        bgm = phasers.sound.add('bgm', { volume: 0.5 });
         bgm.setVolume(0.5);
         bgm.play({ loop: true });
-        
-        
-        hits = phasers.sound.add('hit',  true);
+
+
+        hits = phasers.sound.add('hit', true);
         hits.volume -= 0.5;
 
         s_over = phasers.sound.add('gameover', true);
@@ -75,21 +75,21 @@ class Player extends Phaser.Scene {
 
         //weapon = phasers.physics.add.image(410,600, 'weapon');
         //weapon.setCollideWorldBounds(true);
-        
+
         hp1 = phasers.add.image(-350, -250, 'heart').setScrollFactor(0.5, 0.5);
         hp2 = phasers.add.image(-300, -250, 'heart').setScrollFactor(0.5, 0.5);
-        hp3 = phasers.add.image(-250, -250, 'heart').setScrollFactor(0.5, 0.5);        
-        
+        hp3 = phasers.add.image(-250, -250, 'heart').setScrollFactor(0.5, 0.5);
+
         // Add groups for Bullet objects
         playerBullets = phasers.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
-        
+
         overpic = phasers.add.image(player.x, player.y, 'over').setScale(scaleRatio + 0.2)
         overpic.setVisible(false);
 
         //กล้องตามตัว player
         // phasers.cameras.main.setBounds(0, 0, 900, 900);
         phasers.cameras.main.startFollow(player, true, 1, 1);
-        // phasers.cameras.mains.setZoom(2); 
+        // phasers.cameras.mains.setZoom(2);
 
         // Set sprite variables
         player.health = 3;
@@ -104,14 +104,14 @@ class Player extends Phaser.Scene {
             overpic.y = player.y
             overpic.setVisible(true)
         }
-        
+
     }
 
     getPlayer() {
         return player
     }
 
-    getBoss(b){
+    getBoss(b) {
         boss = b
     }
 
@@ -129,27 +129,22 @@ class Player extends Phaser.Scene {
                 hp3.destroy();
                 // heart3.setVisible(false);
                 // heart3_2.setVisible(true);
-            }
-            else if (playerHit.health == 2) {
+            } else if (playerHit.health == 2) {
                 hp2.destroy();
                 // heart3.setVisible(false);
                 // heart3_2.setVisible(false);
-            }
-            else if (playerHit.health == 1.5) {
+            } else if (playerHit.health == 1.5) {
                 hp2.destroy();
                 // heart2.setVisible(false);
                 // heart2_2.setVisible(true);
-            }
-            else if (playerHit.health == 1) {
+            } else if (playerHit.health == 1) {
                 hp2.destroy();
                 // heart2_2.setVisible(false);
-            }
-            else if (playerHit.health == 0.5) {
+            } else if (playerHit.health == 0.5) {
                 hp2.destroy();
                 // heart1_2.setVisible(true);
                 // heart1.setVisible(false);
-            }
-            else if (playerHit.health == 0) {
+            } else if (playerHit.health == 0) {
                 hp1.destroy();
                 // heart1_2.setVisible(false);
                 // heart1.setVisible(true);
@@ -157,7 +152,7 @@ class Player extends Phaser.Scene {
                 // heart3.setVisible(true);
                 gameover = true;
                 bgm.pause();
-                s_over.play({ loop: true});
+                s_over.play({ loop: true });
             }
 
             // Destroy bullet
@@ -165,7 +160,7 @@ class Player extends Phaser.Scene {
         }
     }
 
-    fire(){
+    fire() {
 
         let bullet = playerBullets.get()
 

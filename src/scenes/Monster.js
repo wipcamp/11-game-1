@@ -1,4 +1,3 @@
-
 let x, y, height, width;
 let monsters;
 let phaser;
@@ -30,30 +29,46 @@ class Monster extends Phaser.Scene {
         //     var newobj = this.gameitems.create(x, y, 'monster');
         // }
 
+        // monsters = phaser.physics.add.group({
+        //     key: 'monster',
+        //     frameQuantity: 100,
+        //     collideWorldBounds: true,
+        //     bounceX: 1,
+        //     bounceY: 1,
+        //     velocityX: 40,
+        //     velocityY: 40,
+        // });
+        // monsters.children.iterate(function (child) {
+        //     child.hpMonsR=100
+        // });
+        // Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
+        // // phaser.physics.add.collider(monsters);
+
+        // phaser.physics.add.collider(monsters.getChildren());
         monsters = phaser.physics.add.group({
             key: 'monster',
-            frameQuantity: 100,
-            collideWorldBounds: true,
+            frameQuantity: 10,
+            // collideWorldBounds: true,
             bounceX: 1,
             bounceY: 1,
             velocityX: 40,
             velocityY: 40,
         });
-        monsters.children.iterate(function (child) {
-            child.hpMonsR=100
-        });
         Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
-        // phaser.physics.add.collider(monsters);
+        for (let index = 0; index < monsters.children.entries.length; index++) {
+            monsters.children.entries[index] = {
+                ...monsters.children.entries[index],
+                hpMonsR: 100,
+            }
+        }
 
-        phaser.physics.add.collider(monsters.getChildren());
-        
     }
     getMonster() {
         return monsters
     }
-    
+
     update() {
-        
+
 
     }
 
@@ -61,10 +76,10 @@ class Monster extends Phaser.Scene {
     //     bullets.disableBody(true, true);
     //     score += 1;
     //     monsterText.setText(monster.collectMons + ' /100 ');
-    
+
     //     if (monsters.countActive(true) === 0) {
     //         Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(50, 50, 1260, 500));
-           
+
     //     }
 
     //     return;
