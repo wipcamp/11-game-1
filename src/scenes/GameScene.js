@@ -67,7 +67,7 @@ class GameScene extends Phaser.Scene {
         // this.load.image('monster', '../../images/monster.png');
         // this.load.image('platform', '../../images/platform.png');
         this.load.image('longlog', '../../images/asset/tonpaiside.png');
-        // this.load.image('part2', '../../images/asset/singletree.png');
+        this.load.image('part2', '../../images/asset/singletree.png');
         this.load.image('flower', '../../images/asset/singletree.png');
         // this.load.image('wall', '../../images/wall.png');
         this.load.image('safezone', '../../images/safezone.png');
@@ -148,7 +148,8 @@ class GameScene extends Phaser.Scene {
             this.physics.add.collider(mons.getChildren(), mapDesign.getWall());
             this.physics.add.collider(mons.getChildren(), mapDesign.getFlower());
             this.physics.add.collider(mons.getChildren(), mapDesign.getFlower2());
-    
+            this.physics.add.collider(mons.getChildren(), mapDesign.getLonglog());
+
             this.physics.add.collider(player.getPlayer(), mapDesign.getPart());
             this.physics.add.collider(player.getPlayer(), mapDesign.getPart2());
             this.physics.add.collider(player.getPlayer(), mapDesign.getPart3());
@@ -156,7 +157,8 @@ class GameScene extends Phaser.Scene {
             this.physics.add.collider(player.getPlayer(), mapDesign.getWall());
             this.physics.add.collider(player.getPlayer(), mapDesign.getFlower());
             this.physics.add.collider(player.getPlayer(), mapDesign.getFlower2());
-    
+            this.physics.add.collider(player.getPlayer(), mapDesign.getLonglog())
+
             this.physics.add.collider(player.getPlayer(), hp.checkHeart);
             // this.physics.add.collider(bosses.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
             this.physics.add.collider(mons.getChildren());
@@ -179,7 +181,7 @@ class GameScene extends Phaser.Scene {
     testHit(monster) {
         // console.log(monster)
         monster.hpMonsR -= 10
-        // let mons = monsters.getMonster()
+            // let mons = monsters.getMonster()
         if (monster.hpMonsR == 20) {
             // console.log(monsters.getMonster().getChildren())
             monster.setTint(0xff0000)
@@ -187,18 +189,18 @@ class GameScene extends Phaser.Scene {
             monster.disableBody(true, true)
             countBoss++
             console.log(countBoss)
-            if(countBoss==2){
-                if(bos.disableBody(true)){
+            if (countBoss == 2) {
+                if (bos.disableBody(true)) {
                     console.log(bosses)
                     boshpMonB = 100
-                    bos.disableBody(false,false);
+                    bos.disableBody(false, false);
                     countBoss = 0
-                    
+
                 }
             }
             // console.log(mons.getChildren())    
             // mons.getChildren().visible(false)
-        } 
+        }
 
     }
 
@@ -210,16 +212,16 @@ class GameScene extends Phaser.Scene {
             bos.setTint(0xff0000)
         } else if (bos.hpMonsB <= 0) {
             bos.disableBody(true, true)
-        }   
+        }
     }
 
-    spawnBoss(bos){ 
-        if(bos.disableBody(true)){
+    spawnBoss(bos) {
+        if (bos.disableBody(true)) {
             console.log(bosses)
             boshpMonB = 100
             bos.disableBody(false);
-            countBoss = 0           
-        }      
+            countBoss = 0
+        }
     }
 
 }
