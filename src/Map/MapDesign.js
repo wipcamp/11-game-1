@@ -12,6 +12,7 @@ let longlog, longlog2, longlog3, longlog4;
 let ontablog, ontablog2, ontablog3, ontablog4, ontablog5, ontablog6;
 let downtablog, downtablog2, downtablog3, downtablog4, downtablog5, downtablog6;
 let righttablog, righttablog2,righttablog3, righttablog4;
+let blanker, blanker2, blanker3, blanker4, blanker5, blanker6, blanker7, blanker8, blanker9, blanker10;
 
 class MapDesign extends Phaser.Scene {
 
@@ -233,7 +234,33 @@ class MapDesign extends Phaser.Scene {
         Phaser.Actions.PlaceOnRectangle(righttablog4.getChildren(), new Phaser.Geom.Rectangle(1590, 1000));
         righttablog4.refresh();
 
-        //ของภายใน map สิ่งกีดขวาง        
+        //ของภายใน map สิ่งกีดขวาง     
+        blanker = phaser.physics.add.staticGroup({
+            key: 'blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker.getChildren(), new Phaser.Geom.Rectangle(650, 820));
+        blanker.refresh();  
+
+        blanker2 = phaser.physics.add.staticGroup({
+            key: 'blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker2.getChildren(), new Phaser.Geom.Rectangle(598, 820));
+        blanker2.refresh();
+
+        blanker3 = phaser.physics.add.staticGroup({
+            key: 'blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker3.getChildren(), new Phaser.Geom.Rectangle(544, 820));
+        blanker3.refresh();   
         
         //Tab status player
         graphics = phaser.make.graphics().fillStyle(0xF0FFFF).fillRect(0, 0, 700, 25);
@@ -255,6 +282,18 @@ class MapDesign extends Phaser.Scene {
         nameText = phaser.add.text(scaleRatio + 20, y-320, 'แป้งมาเยือน อิอิ', { fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.4);
         nameText2 = phaser.add.text(x-47, y-30, 'แป้งมาเยือน อิอิ', { fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.4);
         
+    }
+
+    getBlanker(){
+        return blanker
+    }
+
+    getBlanker2(){
+        return blanker2
+    }
+
+    getBlanker3(){
+        return blanker3
     }
 
     getLonglog(){

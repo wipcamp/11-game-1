@@ -1,11 +1,13 @@
 import responsive from "./../core/responsive";
 import Bullets from './../core/Bullet'
 import Player from '../Player/Player'
+import MapDesign from '../Map/MapDesign'
 
 let phasers;
 let x, y, height, width;
 let boss;
 let player;
+let blanker;
 let bossBullets;
 let hp1;
 let hp2;
@@ -57,8 +59,8 @@ class Boss extends Phaser.Scene {
     }
 
     update() {
-
-        this.enemyFire(boss, player, phasers);
+        
+        this.enemyFire(boss, player, phasers,blanker);
 
     }
 
@@ -69,9 +71,13 @@ class Boss extends Phaser.Scene {
 
     getPlayer(p) {
         player = p
+
+    }
+    getBlanker(bk){
+        blanker = bk     
     }
 
-    getBoss() {
+    getBoss(){
         return boss
     }
 
@@ -92,7 +98,7 @@ class Boss extends Phaser.Scene {
         }
     }
 
-    enemyFire(boss, player, gameObject) {
+    enemyFire(boss, player, gameObject, blanker) {
         boss.lastFired += 50
         if (boss.active === false) {
             return;
@@ -109,6 +115,17 @@ class Boss extends Phaser.Scene {
 
                     // Add collider between bullet and player
                     gameObject.physics.add.collider(player.getPlayer(), bullet, player.playerHitCallback);
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker2(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker3(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    
                 }
             }
         }

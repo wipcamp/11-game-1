@@ -10,6 +10,7 @@ import HP from '../Value/HP'
 import EXP from '../Value/EXP'
 import Option from './Data/Option'
 import Drop from './Data/Drop'
+import Bullet from '../core/Bullet';
 
 let map
 let mobile
@@ -69,8 +70,8 @@ class GameScene extends Phaser.Scene {
         this.load.image('longlog', '../../images/asset/tonpaiside.png');
         this.load.image('ontablog', '../../images/asset/tonpai.png');
         // this.load.image('part2', '../../images/asset/singletree.png');
-        this.load.image('flower', '../../images/asset/singletree.png');
-        // this.load.image('wall', '../../images/wall.png');
+        this.load.image('blanker', '../../images/asset/woof.png');
+        this.load.image('forest', '../../images/asset/singletree.png');
         this.load.image('safezone', '../../images/safezone.png');
         // this.load.image('dropExp', '../../images/Item/exp.png');
         // this.load.image('dropGold', '../../images/Item/gold.png');
@@ -101,6 +102,8 @@ class GameScene extends Phaser.Scene {
             player.create();
             player.getBoss(bosses);
             bosses.getPlayer(player)
+            bosses.getBlanker(mapDesign)
+            player.getBlanker(mapDesign)
             control.getPlayer(player)
 
             monsters = new Monster({ scene: this, });
@@ -165,9 +168,21 @@ class GameScene extends Phaser.Scene {
             this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog3())
             this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog4())
 
+            //ที่หลบกระสุน
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker2());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker3());
+
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker2())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker3())
+
         } else {
             mapDesign = new MapDesign({ scene: this, });
             mapDesign.create();
+
+            respon = new responsive({ width, height })
+            respon.check(width, height)
 
             bosses = new Boss({ scene: this });
             bosses.create();
@@ -179,6 +194,8 @@ class GameScene extends Phaser.Scene {
             player.create();
             player.getBoss(bosses);
             bosses.getPlayer(player)
+            bosses.getBlanker(mapDesign)
+            player.getBlanker(mapDesign)
             control.getPlayer(player)
 
             monsters = new Monster({ scene: this, });
@@ -193,8 +210,8 @@ class GameScene extends Phaser.Scene {
             //Object in map
             let mons = monsters.getMonster()
             let boss = bosses.getBoss()
-            this.physics.add.collider(mons.getChildren(), player.getPlayer(), this.testHit);
-            // this.physics.add.collider(player.getPlayer(), this.testHitBoss);
+            // this.physics.add.collider(mons.getChildren(), player.getPlayer(), this.testHit);
+            this.physics.add.collider(player.getPlayer(), this.testHitBoss);
             this.physics.add.collider(mons.getChildren())
             this.physics.add.collider(mons.getChildren(), player.getPlayer(), hp.checkHeart);
             this.physics.add.collider(mons.getChildren(), hp.checkHp);
@@ -276,7 +293,7 @@ class GameScene extends Phaser.Scene {
         player.update();
         bosses.update();
         control.update();
-        // monster.update();
+        monsters.update();
         // mapDesign.update();
         // hp.update();
         // drop.update();
@@ -284,42 +301,39 @@ class GameScene extends Phaser.Scene {
     }
 
     testHit(monster) {
-        console.log(monster)
+        // console.log(monster)
         monster.hpMonsR -= 10
-            // let mons = monsters.getMonster()
+        // let mons = monsters.getMonster()
         if (monster.hpMonsR == 20) {
             // console.log(monsters.getMonster().getChildren())
             // monster.setTint(0xff0000)
         } else if (monster.hpMonsR <= 0) {
-            monster.body.gameObject.disableBody(true, true)
-                // monster.visible = false
-                // countBoss++
-                // console.log(countBoss)
-                // if (countBoss == 2) {
-                //     if (bos.disableBody(true)) {
-                //         console.log(bosses)
-                //         boshpMonB = 100
-                //         bos.disableBody(false, false);
-                //         countBoss = 0
+            // monster.disableBody(true, true)
+            countBoss++
+            console.log(countBoss)
+            if (countBoss == 2) {
+                if (bos.disableBody(true)) {
+                    console.log(bosses)
+                    boshpMonB = 100
+                    bos.disableBody(false, false);
+                    countBoss = 0
 
-            //     }
-            // }
-            // console.log(mons.getChildren())    
-            // mons.getChildren().visible(false)
+                }
+            }
         }
 
     }
 
-    // testHitBoss(bos) {
-    //     console.log(bos)
-    //     bos.hpMonsB -= 10
+    testHitBoss(bos) {
+        console.log(bos)
+        bos.hpMonsB -= 10
 
-    //     if (bos.hpMonsB == 20) {
-    //         bos.setTint(0xff0000)
-    //     } else if (bos.hpMonsB <= 0) {
-    //         bos.disableBody(true, true)
-    //     }
-    // }
+        if (bos.hpMonsB == 20) {
+            bos.setTint(0xff0000)
+        } else if (bos.hpMonsB <= 0) {
+            bos.disableBody(true, true)
+        }
+    }
 
     spawnBoss(bos) {
         if (bos.disableBody(true)) {

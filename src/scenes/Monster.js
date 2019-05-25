@@ -44,6 +44,23 @@ class Monster extends Phaser.Scene {
         // Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
         // // phaser.physics.add.collider(monsters);
 
+        // key: 'left',
+        // frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+        // frameRate: 10,
+        // repeat: -1
+
+        monsters = phaser.anims.create({
+            key: 'walk',
+            frames: phaser.anims.generateFrameNumbers('monster', { start: 0, end: 1 }),
+            frameRate: 10,
+            repeat: -1,
+            bounceX: 1,
+            bounceY: 1,
+            velocityX: 40,
+            velocityY: 40,
+        });
+
+
 
         monsters = phaser.physics.add.group({
             key: 'monster',
@@ -70,7 +87,7 @@ class Monster extends Phaser.Scene {
 
     update() {
 
-
+        // monsters.anims.play('walk', true);
     }
 
     // collectMons (bullets, monsters) {

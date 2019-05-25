@@ -1,6 +1,7 @@
 import responsive from "./../core/responsive";
 import Bullets from './../core/Bullet'
 import HP from './../Value/HP'
+import MapDesign from '../Map/MapDesign'
 
 let phasers;
 let player;
@@ -18,6 +19,7 @@ let cursors;
 let bgm;
 let hits;
 let s_over;
+let blanker;
 
 class Player extends Phaser.Scene {
 
@@ -39,7 +41,6 @@ class Player extends Phaser.Scene {
 
         let Bullet = new Bullets(this)
         Bullet.create()
-
 
         bgm = phasers.sound.add('bgm', { volume: 0.5 });
         bgm.setVolume(0.5);
@@ -87,8 +88,8 @@ class Player extends Phaser.Scene {
         overpic = phasers.add.image(player.x, player.y, 'over').setScale(scaleRatio + 0.2)
         overpic.setVisible(false);
 
-        //กล้องตามตัว player
-        phasers.cameras.main.setBounds(0, 0, 1024, 2048);
+        //กล้องตามตัว player    
+        phasers.cameras.main.setBounds(0, 0, 1240, 2048);
         phasers.cameras.main.startFollow(player, true, 1, 1);
         // phasers.cameras.mains.setZoom(2);
 
@@ -114,6 +115,10 @@ class Player extends Phaser.Scene {
 
     getBoss(b) {
         boss = b
+    }
+
+    getBlanker(bk){
+        blanker = bk
     }
 
     playerHitCallback(playerHit, bulletHit) {
@@ -168,6 +173,15 @@ class Player extends Phaser.Scene {
         if (bullet) {
             bullet.fire(player.x, player.y, player.rotation)
             phasers.physics.add.collider(boss.getBoss(), bullet, boss.enemyHitCallback);
+            phasers.physics.add.collider(bullet, blanker.getBlanker(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker2(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker3(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
         }
     }
 
