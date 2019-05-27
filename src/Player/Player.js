@@ -1,5 +1,6 @@
 import responsive from "./../core/responsive";
 import Bullets from './../core/Bullet'
+import Monster from './Monster'
 import HP from './../Value/HP'
 import MapDesign from '../Map/MapDesign'
 
@@ -43,6 +44,7 @@ class Player extends Phaser.Scene {
 
         let Bullet = new Bullets(this)
         Bullet.create()
+
 
         bgm = phasers.sound.add('bgm', { volume: 0.5 });
         bgm.setVolume(0.5);
@@ -171,6 +173,51 @@ class Player extends Phaser.Scene {
 
             // Destroy bullet
             bulletHit.setActive(false).setVisible(false);
+        }
+    }
+
+    playerCCallback(playerHit, MonsHit) {
+        // console.log('hit call back !!!')
+        // Reduce health of player
+        // console.log(playerHit,"lllllll",bulletHit)
+        if (MonsHit.active === true && playerHit.active === true) {
+            playerHit.health = playerHit.health - 0.5;
+            hits.play({ loop: false });
+            console.log("Player hp: ", playerHit.health);
+
+            // Kill hp sprites and kill player if health <= 0
+            if (playerHit.health == 2.5) {
+                hp3.destroy();
+                // heart3.setVisible(false);
+                // heart3_2.setVisible(true);
+            } else if (playerHit.health == 2) {
+                hp2.destroy();
+                // heart3.setVisible(false);
+                // heart3_2.setVisible(false);
+            } else if (playerHit.health == 1.5) {
+                hp2.destroy();
+                // heart2.setVisible(false);
+                // heart2_2.setVisible(true);
+            } else if (playerHit.health == 1) {
+                hp2.destroy();
+                // heart2_2.setVisible(false);
+            } else if (playerHit.health == 0.5) {
+                hp2.destroy();
+                // heart1_2.setVisible(true);
+                // heart1.setVisible(false);
+            } else if (playerHit.health == 0) {
+                hp1.destroy();
+                // heart1_2.setVisible(false);
+                // heart1.setVisible(true);
+                // heart2.setVisible(true);
+                // heart3.setVisible(true);
+                gameover = true;
+                bgm.pause();
+                s_over.play({ loop: true });
+            }
+
+            // Destroy bullet
+            // bulletHit.setActive(false).setVisible(false);
         }
     }
 

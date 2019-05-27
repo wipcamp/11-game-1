@@ -9,7 +9,7 @@ let boss;
 let player;
 let blanker;
 let bossBullets;
-let hp1;
+let bossText;
 let hp2;
 let hp3;
 let time = 0;
@@ -56,6 +56,8 @@ class Boss extends Phaser.Scene {
 
         // gameObject.physics.add.collider(player.getPlayer(), boss, player.playerHitCallback);
 
+        bossText = phasers.add.text(x+290, y-380, 'HP Boss: '+  boss.health, { font: '12px Arial', fill: '#000000' }).setScrollFactor(0).setScale(scaleRatio + 1);
+
     }
 
     update() {
@@ -81,6 +83,7 @@ class Boss extends Phaser.Scene {
         return boss
     }
 
+
     enemyHitCallback(bossHit, bulletHit) {
         // Reduce health of boss
 
@@ -96,6 +99,8 @@ class Boss extends Phaser.Scene {
             // Destroy bullet
             bulletHit.setActive(false).setVisible(false);
         }
+
+        bossText.setText('HP Boss: '+  boss.health);
     }
 
     enemyFire(boss, player, gameObject, blanker, monster) {

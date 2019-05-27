@@ -20,7 +20,7 @@ class Option extends Phaser.Scene {
         x = width * 0.5;
         y = height * 0.5;
 
-        playButOption = phaser.add.image(x+340, y-129, 'butOption').setScrollFactor(0).setScale(0.6);
+        playButOption = phaser.add.image(x+640, y-370, 'butOption').setScrollFactor(0).setScale(2);
         playButOption.setInteractive();
         playButOption.input.useHandCursor = true;
         playButOption.on ('pointerdown', () => { 

@@ -1,7 +1,6 @@
 import responsive from "./../core/responsive";
 
 let x, y, height, width;
-let graphics, exp, graphicRank;
 let heart, bg, wall, safezone;
 let flower, flower2;
 let part, part2, part3, part4;
@@ -372,24 +371,7 @@ class MapDesign extends Phaser.Scene {
         blanker15.refresh();   
         
         //Tab status player
-        graphics = phaser.make.graphics().fillStyle(0xF0FFFF).fillRect(0, 0, 700, 25);
-        graphics.generateTexture('hudbar', 700, 25);
-        graphics.destroy();
-        phaser.add.image(window.screen.width-900, window.screen.height-800, 'hudbar').setScrollFactor(0).setAlpha(0.3).setScale(scaleRatio + 2);
         
-        graphicRank = phaser.make.graphics().fillStyle(0xF0FFFF).fillRect(0, 0, 100, 70);
-        graphicRank.generateTexture('bgRank', 100, 70);
-        graphicRank.destroy();
-        phaser.add.image(x+263, y-81, 'bgRank').setScrollFactor(0).setAlpha(0.3);
-        
-        exp = phaser.make.graphics().fillStyle(0x00FF00).fillRect(0, 0, 600, 2);
-        exp.generateTexture('exp', 600, 2);
-        exp.destroy();
-        phaser.add.image(x, y+133, 'exp').setScrollFactor(0);
-        
-        levelText = phaser.add.text(window.screen.width-1400, window.screen.height-800, 'Lv.1', { fontSize: '16px', fill: '#00FFFF' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1);
-        nameText = phaser.add.text(scaleRatio + 20, y-320, 'แป้งมาเยือน อิอิ', { fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.4);
-        nameText2 = phaser.add.text(x-47, y-30, 'แป้งมาเยือน อิอิ', { fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.4);
         
     }
 

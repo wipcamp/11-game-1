@@ -2,7 +2,7 @@ import Monster from './Monster'
 import move_mobile from '../Control/move_mobile'
 import ControlPc from '../Control/ControlPc'
 import responsive from './../core/responsive'
-// import Map from '../Map/Map'
+import Map from '../Map/Map'
 import MapDesign from '../Map/MapDesign'
 import Boss from '../Enemy/Boss'
 import Player from '../Player/Player'
@@ -65,7 +65,7 @@ class GameScene extends Phaser.Scene {
         this.load.audio('gameover', '../sound/gameover.mp3');
 
         // this.load.image('weapon', '../../images/weapon.png');
-        this.load.spritesheet('monster', '../images/asset/mon.png', { frameWidth: 463, frameHeight: 500 }, 2);
+        this.load.spritesheet('monster', '../images/asset/monster.png', { frameWidth: 463, frameHeight: 500 }, 2);
         // this.load.image('platform', '../../images/platform.png');
         this.load.image('longlog', '../../images/asset/tonpaiside.png');
         this.load.image('ontablog', '../../images/asset/tonpai.png');
@@ -93,6 +93,7 @@ class GameScene extends Phaser.Scene {
         if (width < 1536 && height < 864) {
             mapDesign = new MapDesign({ scene: this, });
             mapDesign.create();
+            
 
             control = new move_mobile({ scene: this })
             control.create()
@@ -114,11 +115,14 @@ class GameScene extends Phaser.Scene {
             monsters = new Monster({ scene: this, });
             monsters.create();
 
-            option = new Option({ scene: this, });
-            option.create();
+            // option = new Option({ scene: this, });
+            // option.create();
+            map = new Map({ scene: this, });
+            map.create();
 
             hp = new HP({ scene: this, });
             hp.create();
+
 
             //monster collider
             let mons = monsters.getMonster()
@@ -232,16 +236,19 @@ class GameScene extends Phaser.Scene {
             monsters = new Monster({ scene: this, });
             monsters.create();
 
-            option = new Option({ scene: this, });
-            option.create();
-
+            // option = new Option({ scene: this, });
+            // option.create();
+            map = new Map({ scene: this, });
+            map.create();
+            
             hp = new HP({ scene: this, });
             hp.create();
+            
 
             //Object in map
             let mons = monsters.getMonster()
             let boss = bosses.getBoss()
-            // this.physics.add.collider(mons.getChildren(), player.getPlayer(), this.testHit);
+            this.physics.add.collider(mons.getChildren(), player.getPlayer(), player.playerCCallback);
             this.physics.add.collider(player.getPlayer(), this.testHitBoss);
             this.physics.add.collider(mons.getChildren())
             // this.physics.add.collider(player.getPlayer(), bosses.getBoss());
