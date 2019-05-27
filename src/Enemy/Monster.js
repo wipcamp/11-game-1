@@ -1,7 +1,7 @@
 
 let x, y, height, width;
 let player, platforms;
-let monsters, bullets;
+let monsters, bullets, player;
 let phaser;
 
 class Monster extends Phaser.Scene {
@@ -52,13 +52,42 @@ class Monster extends Phaser.Scene {
         Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(100, 100, 1260, 500));
         phaser.physics.add.collider(monsters.getChildren());
 
+        
+        // Add groups for Bullet objects
+        monstersBullets = phasers.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
+
+        monsters.health = 1;
+
     }
+   
     getMonster() {
         return monsters
     }
+
+    // getPlayer(p){
+    //     player = p
+    // }
     
     update() {
-    
+
+
+    }
+
+    monstersHitCallBack(monsterHit, bulletHit){
+      // Reduce health of boss
+
+      if (bulletHit.active && monsterHit.active) {
+        monsterHit.health = monsterHit.health - 1;
+        console.log("Monster hp: ", monsterHit.health);
+
+        // Kill enemy if health <= 0
+        if (monsterHit.health == 0) {
+            monsterHit.setActive(false).setVisible(false);
+        }
+
+        // Destroy bullet
+        bulletHit.setActive(false).setVisible(false);
+    }
 
     }
 }

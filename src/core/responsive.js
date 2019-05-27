@@ -112,7 +112,7 @@ class responsive extends Phaser.Scene {
     posiions(sceneheight, scenewidth) {
 
         if (sceneheight <= 450) {
-
+            
         }
         else if (sceneheight <= 490) {
 

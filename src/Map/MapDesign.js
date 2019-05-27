@@ -12,7 +12,8 @@ let longlog, longlog2, longlog3, longlog4;
 let ontablog, ontablog2, ontablog3, ontablog4, ontablog5, ontablog6;
 let downtablog, downtablog2, downtablog3, downtablog4, downtablog5, downtablog6;
 let righttablog, righttablog2,righttablog3, righttablog4;
-let blanker, blanker2, blanker3, blanker4, blanker5, blanker6, blanker7, blanker8, blanker9, blanker10;
+let blanker, blanker2, blanker3, blanker4, blanker5, blanker6, blanker7, blanker8, blanker9, blanker10, blanker11, blanker12, blanker13, blanker14, blanker15;
+let slidelog;
 
 class MapDesign extends Phaser.Scene {
 
@@ -241,7 +242,7 @@ class MapDesign extends Phaser.Scene {
             collideWorldBounds: true,
             visible: true
         });
-        Phaser.Actions.PlaceOnRectangle(blanker.getChildren(), new Phaser.Geom.Rectangle(650, 820));
+        Phaser.Actions.PlaceOnRectangle(blanker.getChildren(), new Phaser.Geom.Rectangle(545, 900));
         blanker.refresh();  
 
         blanker2 = phaser.physics.add.staticGroup({
@@ -250,7 +251,7 @@ class MapDesign extends Phaser.Scene {
             collideWorldBounds: true,
             visible: true
         });
-        Phaser.Actions.PlaceOnRectangle(blanker2.getChildren(), new Phaser.Geom.Rectangle(598, 820));
+        Phaser.Actions.PlaceOnRectangle(blanker2.getChildren(), new Phaser.Geom.Rectangle(494, 900));
         blanker2.refresh();
 
         blanker3 = phaser.physics.add.staticGroup({
@@ -259,8 +260,116 @@ class MapDesign extends Phaser.Scene {
             collideWorldBounds: true,
             visible: true
         });
-        Phaser.Actions.PlaceOnRectangle(blanker3.getChildren(), new Phaser.Geom.Rectangle(544, 820));
+        Phaser.Actions.PlaceOnRectangle(blanker3.getChildren(), new Phaser.Geom.Rectangle(443, 900));
         blanker3.refresh();   
+
+        blanker4 = phaser.physics.add.staticGroup({
+            key: 'blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker4.getChildren(), new Phaser.Geom.Rectangle(650, 500));
+        blanker4.refresh();  
+
+        blanker5 = phaser.physics.add.staticGroup({
+            key: 'blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker5.getChildren(), new Phaser.Geom.Rectangle(650, 437));
+        blanker5.refresh();  
+
+        blanker6 = phaser.physics.add.staticGroup({
+            key: 'blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker6.getChildren(), new Phaser.Geom.Rectangle(650, 374));
+        blanker6.refresh(); 
+
+        blanker7 = phaser.physics.add.staticGroup({
+            key: 'blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker7.getChildren(), new Phaser.Geom.Rectangle(650, 311));
+        blanker7.refresh();
+        
+        blanker8 = phaser.physics.add.staticGroup({
+            key: 'longlog',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker8.getChildren(), new Phaser.Geom.Rectangle(410, 220));
+        blanker8.refresh();
+
+        blanker9 = phaser.physics.add.staticGroup({
+            key: 'type2blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker9.getChildren(), new Phaser.Geom.Rectangle(1200, 220));
+        blanker9.refresh();
+
+        blanker10 = phaser.physics.add.staticGroup({
+            key: 'type3blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker10.getChildren(), new Phaser.Geom.Rectangle(1400, 400));
+        blanker10.refresh();
+
+        blanker11 = phaser.physics.add.staticGroup({
+            key: 'type4blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker11.getChildren(), new Phaser.Geom.Rectangle(890, 900));
+        blanker11.refresh();
+        
+        blanker12 = phaser.physics.add.staticGroup({
+            key: 'type5blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker12.getChildren(), new Phaser.Geom.Rectangle(1200, 655));
+        blanker12.refresh();  
+
+        blanker13 = phaser.physics.add.staticGroup({
+            key: 'type6blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker13.getChildren(), new Phaser.Geom.Rectangle(1330, 920));
+        blanker13.refresh();
+
+        blanker14 = phaser.physics.add.staticGroup({
+            key: 'blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker14.getChildren(), new Phaser.Geom.Rectangle(392, 900));
+        blanker14.refresh();   
+
+        blanker15 = phaser.physics.add.staticGroup({
+            key: 'blanker',
+            frameQuantity: 3,
+            collideWorldBounds: true,
+            visible: true
+        });
+        Phaser.Actions.PlaceOnRectangle(blanker15.getChildren(), new Phaser.Geom.Rectangle(341, 900));
+        blanker15.refresh();   
         
         //Tab status player
         graphics = phaser.make.graphics().fillStyle(0xF0FFFF).fillRect(0, 0, 700, 25);
@@ -284,6 +393,10 @@ class MapDesign extends Phaser.Scene {
         
     }
 
+    getSlidelog(){
+        return slidelog
+    }
+
     getBlanker(){
         return blanker
     }
@@ -294,6 +407,54 @@ class MapDesign extends Phaser.Scene {
 
     getBlanker3(){
         return blanker3
+    }
+    
+    getBlanker4(){
+        return blanker4
+    }
+
+    getBlanker5(){
+        return blanker5
+    }
+
+    getBlanker6(){
+        return blanker6
+    }
+
+    getBlanker7(){
+        return blanker7
+    }
+
+    getBlanker8(){
+        return blanker8
+    }
+
+    getBlanker9(){
+        return blanker9
+    }
+
+    getBlanker10(){
+        return blanker10
+    }
+
+    getBlanker11(){
+        return blanker11
+    }
+
+    getBlanker12(){
+        return blanker12
+    }
+
+    getBlanker13(){
+        return blanker13
+    }
+
+    getBlanker14(){
+        return blanker14
+    }
+
+    getBlanker15(){
+        return blanker15
     }
 
     getLonglog(){

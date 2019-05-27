@@ -45,13 +45,13 @@ class Boss extends Phaser.Scene {
         let scaleRatio = responsives.getScale()
 
         // ตัวละคร boss
-        boss = phasers.physics.add.sprite(1000, 400, 'boss').setScale(scaleRatio + 0.2)
+        boss = phasers.physics.add.sprite(1000, 500, 'boss').setScale(scaleRatio + 0.2)
 
         // Add groups for Bullet objects
         bossBullets = phasers.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
 
         // Set sprite variables
-        boss.health = 1000;
+        boss.health = 270000;
         boss.lastFired = 0;
 
         // gameObject.physics.add.collider(player.getPlayer(), boss, player.playerHitCallback);
@@ -98,7 +98,7 @@ class Boss extends Phaser.Scene {
         }
     }
 
-    enemyFire(boss, player, gameObject, blanker) {
+    enemyFire(boss, player, gameObject, blanker, monster) {
         boss.lastFired += 50
         if (boss.active === false) {
             return;
@@ -123,6 +123,42 @@ class Boss extends Phaser.Scene {
                     });
                     
                     gameObject.physics.add.collider(bullet, blanker.getBlanker3(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker4(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker5(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker6(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker7(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker8(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker9(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker10(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker11(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker12(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker13(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker14(), (bullet, blanker) => {
+                        bullet.setActive(false).setVisible(false);
+                    });
+                    gameObject.physics.add.collider(bullet, blanker.getBlanker15(), (bullet, blanker) => {
                         bullet.setActive(false).setVisible(false);
                     });
                     

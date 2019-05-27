@@ -1,6 +1,8 @@
+import Bullets from './../core/Bullet'
 let x, y, height, width;
 let monsters;
 let phaser;
+let monstersBullets;
 
 class Monster extends Phaser.Scene {
 
@@ -21,6 +23,9 @@ class Monster extends Phaser.Scene {
         height = phaser.scene.scene.physics.world.bounds.height;
         x = width * 0.5;
         y = height * 0.5;
+
+        let Bullet = new Bullets(this)
+        Bullet.create()
 
         // this.gameitems = this.physics.add.group();
         // for (var i = 0; i < 20; i++) {
@@ -78,6 +83,13 @@ class Monster extends Phaser.Scene {
                 hpMonsR: 100,
             }
         }
+
+          
+        // Add groups for Bullet objects
+        monstersBullets = phaser.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
+
+        monsters.health = 1;
+
         // phaser.physics.add.collider(monsters.getChildren());
 
     }
@@ -90,18 +102,22 @@ class Monster extends Phaser.Scene {
         // monsters.anims.play('walk', true);
     }
 
-    // collectMons (bullets, monsters) {
-    //     bullets.disableBody(true, true);
-    //     score += 1;
-    //     monsterText.setText(monster.collectMons + ' /100 ');
-
-    //     if (monsters.countActive(true) === 0) {
-    //         Phaser.Actions.RandomRectangle(monsters.getChildren(), new Phaser.Geom.Rectangle(50, 50, 1260, 500));
-
-    //     }
-
-    //     return;
-    // }
+    monstersHitCallBack(monsterHit, bulletHit){
+        // Reduce health of boss
+  
+        if (bulletHit.active && monsterHit.active) {
+          monsterHit.health = monsterHit.health - 1;
+          console.log("Monster hp: ", monsterHit.health);
+  
+          // Kill enemy if health <= 0
+          if (monsterHit.health == 0) {
+              monsterHit.setActive(false).setVisible(false);
+          }
+  
+          // Destroy bullet
+          bulletHit.setActive(false).setVisible(false);
+      }
+    }   
 }
 
 export default Monster;

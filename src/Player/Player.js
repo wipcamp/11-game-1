@@ -20,6 +20,8 @@ let bgm;
 let hits;
 let s_over;
 let blanker;
+let slidelog;
+let monsters
 
 class Player extends Phaser.Scene {
 
@@ -68,7 +70,6 @@ class Player extends Phaser.Scene {
         phasers.keyD = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         phasers.keySpacebar = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-
         //กำหนดตัวละครเป็น physics
         player = phasers.physics.add.sprite(400, 600, 'player');
         player.setScale(scaleRatio + 0.2);
@@ -85,13 +86,12 @@ class Player extends Phaser.Scene {
         // Add groups for Bullet objects
         playerBullets = phasers.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
 
-        overpic = phasers.add.image(player.x, player.y, 'over').setScale(scaleRatio + 0.2)
+        overpic = phasers.add.image(0, 0, 'over').setScale(scaleRatio + 0.2)
         overpic.setVisible(false);
 
         //กล้องตามตัว player    
-        phasers.cameras.main.setBounds(0, 0, 1240, 2048);
+        // phasers.cameras.main.setBounds(0, 0, 1240, 2048);s
         phasers.cameras.main.startFollow(player, true, 1, 1);
-        // phasers.cameras.mains.setZoom(2);
 
         // Set sprite variables
         player.health = 3;
@@ -117,9 +117,17 @@ class Player extends Phaser.Scene {
         boss = b
     }
 
+    getMonster(mon){
+        monsters = mon
+    }
+
     getBlanker(bk){
         blanker = bk
     }
+
+   getSlidelog(ss){
+       slidelog = ss
+   }
 
     playerHitCallback(playerHit, bulletHit) {
         // console.log('hit call back !!!')
@@ -173,6 +181,7 @@ class Player extends Phaser.Scene {
         if (bullet) {
             bullet.fire(player.x, player.y, player.rotation)
             phasers.physics.add.collider(boss.getBoss(), bullet, boss.enemyHitCallback);
+            // phasers.physics.add.collider(monsters.getMonster(), bullet, monsters.monstersHitCallBack);
             phasers.physics.add.collider(bullet, blanker.getBlanker(), (bullet, blanker) => {
                 bullet.setActive(false).setVisible(false);
             });
@@ -182,6 +191,45 @@ class Player extends Phaser.Scene {
             phasers.physics.add.collider(bullet, blanker.getBlanker3(), (bullet, blanker) => {
                 bullet.setActive(false).setVisible(false);
             });
+            phasers.physics.add.collider(bullet, blanker.getBlanker4(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker5(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker6(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker7(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker8(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker9(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker10(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker11(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker12(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker13(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker14(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            phasers.physics.add.collider(bullet, blanker.getBlanker15(), (bullet, blanker) => {
+                bullet.setActive(false).setVisible(false);
+            });
+            // phasers.physics.add.collider(bullet, slidelog.getSlidelog(), (bullet, slidelog) => {
+            //     bullet.setActive(false).setVisible(false);
+            // });
         }
     }
 
