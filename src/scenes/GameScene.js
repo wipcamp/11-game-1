@@ -365,7 +365,7 @@ class GameScene extends Phaser.Scene {
         bosses.update();
         control.update();
         monsters.update();
-        // hp.update();
+        map.update();
         // drop.update();
         // exp.update();
     

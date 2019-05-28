@@ -11,7 +11,7 @@ let overpic;
 
 let heart1, heart1_2, heart2, heart2_2, heart3, heart3_2
 let cursors, bgm1;
-let hits;
+let hits,timeText,time;
 let x,y,currentHeart=3,health=3;
 let s_over;
 let blanker;
@@ -26,110 +26,115 @@ class Player extends Phaser.Scene {
         this.scene.add.existing(this);
         phasers = config.scene
     }
-
-
+    
+    
     preload() {
-
-
-
+        
+        
+        
     }
-
+    
     create() {
-
+        
         let Bullet = new Bullets(this)
         Bullet.create()
-
-        bgm1= phasers.sound.add('bgm', { volume: 0.5 });
-        bgm1.setVolume(0.5);
-        bgm1.play({ loop: true });
-
-        hits = phasers.sound.add('hit', true);
-        hits.volume -= 0.5;
-
-        let width = phasers.scene.scene.game.config.width;
-        let height = phasers.scene.scene.game.config.height;
-        let x = phasers.scene.scene
-
-        let responsives = new responsive(width, height)
-        responsives.check(height, width)
-        let scaleRatio = responsives.getScale()
-
-        s_over = phasers.sound.add('gameover', false);
-        s_over.volume -= 0.5;
-
+        
         heart1_2 = phasers.physics.add.image(scaleRatio + 320, y-365, 'halfheart').setScrollFactor(0).setScale(1.5);
         heart1_2.setVisible(false);
         heart1 = phasers.physics.add.image(scaleRatio + 320, y-365, 'heart').setScrollFactor(0).setScale(3);
         heart1.setVisible(true);
-
+        
         heart2_2 = phasers.physics.add.image(scaleRatio + 360, y-365, 'halfheart').setScrollFactor(0).setScale(1.5);
         heart2_2.setVisible(false);
         heart2 = phasers.physics.add.image(scaleRatio + 360, y-365, 'heart').setScrollFactor(0).setScale(1.5);
         heart2.setVisible(true);
-
-
+        
+        
         heart3_2 = phasers.physics.add.image(scaleRatio + 400, y-365, 'halfheart').setScrollFactor(0).setScale(1.5);
         heart3_2.setVisible(false);
         heart3 = phasers.physics.add.image(scaleRatio + 400, y-365, 'heart').setScrollFactor(0).setScale(1.5);
         heart3.setVisible(true);
-
+        
         overpic = phasers.add.image(0, 0, 'over').setScale(scaleRatio + 0.2)
         overpic.setVisible(false);
-
+        
+        bgm1= phasers.sound.add('bgm', { volume: 0.5 });
+        bgm1.setVolume(0.5);
+        bgm1.play({ loop: true });
+        
+        hits = phasers.sound.add('hit', true);
+        hits.volume -= 0.5;
+        
+        let width = phasers.scene.scene.game.config.width;
+        let height = phasers.scene.scene.game.config.height;
+        let x = phasers.scene.scene
+        
+        let responsives = new responsive(width, height)
+        responsives.check(height, width)
+        let scaleRatio = responsives.getScale()
+        
+        s_over = phasers.sound.add('gameover', false);
+        s_over.volume -= 0.5;
+        
         cursors = phasers.input.keyboard.createCursorKeys();
         phasers.keyW = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         phasers.keyA = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         phasers.keyS = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         phasers.keyD = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         phasers.keySpacebar = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
+        
+        
+        
         //กำหนดตัวละครเป็น physics
         player = phasers.physics.add.sprite(400, 600, 'player');
         player.setScale(scaleRatio + 0.2);
         //ไม่ให้ player ออกนอกโลก
         player.setCollideWorldBounds(true);
-
-
+        
+        
         // Add groups for Bullet objects
         playerBullets = phasers.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
-
+        
         overpic = phasers.add.image(0, 0, 'over').setScale(scaleRatio + 0.2)
         overpic.setVisible(false);
-
+        
         //กล้องตามตัว player    
         // phasers.cameras.main.setBounds(0, 0, 1240, 2048);s
         phasers.cameras.main.startFollow(player, true, 1, 1);
-
+        
         // Set sprite variables
-
-
+        
+        
     }
-
+    
     update() {
-
-
+        
+        
         if (gameover == true) {
             phasers.scene.pause();
             bgm1.pause();
             overpic.x = player.x
             overpic.y = player.y
             overpic.setVisible(true)
+            
         }
-
+        
+        
+        
     }
-
+    
     getPlayer() {
         return player
     }
-
+    
     getBoss(b) {
         boss = b
     }
-
+    
     getMonster(mon){
         monsters = mon
     }
-
+    
     getBlanker(bk){
         blanker = bk
     }

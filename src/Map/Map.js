@@ -1,10 +1,9 @@
 import responsive from "./../core/responsive";
-import { timer } from "rxjs/observable/timer";
-import { timeout } from "rxjs/operators";
 
 
-let graphics, levelText, nameText, nameText2, timeText, time;
-let phaser;
+
+let graphics, levelText, nameText, nameText2, timeText, time=0;
+let phaser,scene;
 let width, height;
 let x,y;
 export default class Map extends Phaser.Scene {
@@ -34,13 +33,20 @@ export default class Map extends Phaser.Scene {
         // levelText = phaser.add.text(window.screen.width-1220, window.screen.height-810, 'Lv.1', { fontSize: '16px', fill: '#00FFFF' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 1);
         nameText = phaser.add.text(scaleRatio + 20, y-380, 'แป้งมาเยือน อิอิ', { fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 1);
         nameText2 = phaser.add.text(x-5, y-50, 'แป้งมาเยือน อิอิ', { fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 0.4);
-        timeText = phaser.add.text(scaleRatio + 700, y-380, 'Score:' +time,{ fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 1);
-        timeText.setText('Score:' + time);
-
+        
+        timeText = phaser.add.text(scaleRatio + 500, y-380, 'Score:' + time,{ fontSize: '16px', fill: '#FF1493' }).setScrollFactor(0).setShadow(1, 1, '#000000', 1).setScale(scaleRatio + 1);
+        
     }
     
     update() {
-        
+        if (timeText.active === true) {
+            time+=0.25;
+            timeText.setText('Score:'+ time);
+        }
     }
+
+
+    
+        
 }
 
