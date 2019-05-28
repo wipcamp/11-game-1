@@ -6,19 +6,17 @@ import Map from '../Map/Map'
 import MapDesign from '../Map/MapDesign'
 import Boss from '../Enemy/Boss'
 import Player from '../Player/Player'
-import HP from '../Value/HP'
-import EXP from '../Value/EXP'
-import Option from './Data/Option'
-import Drop from './Data/Drop'
+import Time from '../Map/Time'
+
 import Bullet from '../core/Bullet';
 
 let map
+let bullets =[]
 let mobile
 let respon
 let player
-let hp
+let time
 let control
-let option
 let mapDesign
 let monsters = []
 let bosses = []
@@ -115,14 +113,11 @@ class GameScene extends Phaser.Scene {
             monsters = new Monster({ scene: this, });
             monsters.create();
 
-            // option = new Option({ scene: this, });
-            // option.create();
+            bullets = new Bullet({ scene: this, });
+            bullets.create();
+
             map = new Map({ scene: this, });
             map.create();
-
-            hp = new HP({ scene: this, });
-            hp.create();
-
 
             //monster collider
             let mons = monsters.getMonster()
@@ -236,24 +231,21 @@ class GameScene extends Phaser.Scene {
             monsters = new Monster({ scene: this, });
             monsters.create();
 
-            // option = new Option({ scene: this, });
-            // option.create();
+            bullets = new Bullet({ scene: this, });
+            bullets.create();
+
             map = new Map({ scene: this, });
             map.create();
-            
-            hp = new HP({ scene: this, });
-            hp.create();
-            
-
+    
             //Object in map
             let mons = monsters.getMonster()
             let boss = bosses.getBoss()
-            this.physics.add.collider(mons.getChildren(), player.getPlayer(), player.playerCCallback);
+            // this.physics.add.collider(mons.getChildren(), player.getPlayer(), player.playerHitCallback1);
             this.physics.add.collider(player.getPlayer(), this.testHitBoss);
             this.physics.add.collider(mons.getChildren())
-            // this.physics.add.collider(player.getPlayer(), bosses.getBoss());
-            this.physics.add.collider(mons.getChildren(), player.getPlayer(), hp.checkHeart);
-            this.physics.add.collider(mons.getChildren(), hp.checkHp);
+        //    this.physics.add.collider(player.getPlayer(), bullets.getBullet(), player.playerHitCallback);
+            this.physics.add.collider(mons.getChildren(), player.getPlayer(), player.playerHitCallback);
+            // this.physics.add.collider(mons.getChildren(), player.checkHp);
             this.physics.add.collider(mons.getChildren(), mapDesign.getSafeZone());
             this.physics.add.collider(mons.getChildren(), mapDesign.getPart());
             this.physics.add.collider(mons.getChildren(), mapDesign.getPart2());
@@ -360,10 +352,10 @@ class GameScene extends Phaser.Scene {
              this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker14())
              this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker15())
 
-            this.physics.add.collider(player.getPlayer(), hp.checkHeart);
+            // this.physics.add.collider(player.getPlayer(), player.checkHeart);
             // this.physics.add.collider(bosses.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
             this.physics.add.collider(mons.getChildren());
-            this.physics.add.collider(hp.checkHpBoss);
+            // this.physics.add.collider(player.checkHpBoss);
         }
 
     }
@@ -373,10 +365,10 @@ class GameScene extends Phaser.Scene {
         bosses.update();
         control.update();
         monsters.update();
-        // mapDesign.update();
         // hp.update();
         // drop.update();
         // exp.update();
+    
     }
 
     testHit(monster) {

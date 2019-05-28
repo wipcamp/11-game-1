@@ -3,6 +3,7 @@ import Bullets from './../core/Bullet'
 import Player from '../Player/Player'
 import MapDesign from '../Map/MapDesign'
 
+
 let phasers;
 let x, y, height, width;
 let boss;
@@ -10,7 +11,7 @@ let player;
 let blanker;
 let bossBullets;
 let bossText;
-let hp2;
+let hp;
 let hp3;
 let time = 0;
 
@@ -33,6 +34,8 @@ class Boss extends Phaser.Scene {
 
         let Bullet = new Bullets(this)
         Bullet.create()
+
+        
 
         let width = phasers.scene.scene.game.config.width;
         let height = phasers.scene.scene.game.config.height;
@@ -73,14 +76,21 @@ class Boss extends Phaser.Scene {
 
     getPlayer(p) {
         player = p
-
     }
     getBlanker(bk){
         blanker = bk     
     }
 
+    getHP(hpp){
+        hp = hpp
+    }
+
     getBoss(){
         return boss
+    }
+
+    getBossBullet() {
+        return Bullet
     }
 
 
@@ -103,12 +113,12 @@ class Boss extends Phaser.Scene {
         bossText.setText('HP Boss: '+  boss.health);
     }
 
-    enemyFire(boss, player, gameObject, blanker, monster) {
-        boss.lastFired += 50
+    enemyFire(boss, player, gameObject, blanker) {
+        boss.lastFired += 10
         if (boss.active === false) {
             return;
         } else {
-            if ((time + boss.lastFired) >= 1000) {
+            if ((time + boss.lastFired) >= 350) {
                 boss.lastFired = time;
 
                 // Get bullet from bullets group
@@ -119,7 +129,9 @@ class Boss extends Phaser.Scene {
                     bullet.bossfire(boss.x, boss.y, Phaser.Math.Between(0, 360));
 
                     // Add collider between bullet and player
-                    gameObject.physics.add.collider(player.getPlayer(), bullet, player.playerHitCallback);
+                   gameObject.physics.add.collider(player.getPlayer(), bullet,player.playerHitCallback)
+                    // gameObject.physics.add.collider(player.getPlayer(), bullet, hp.checkHp);
+                    // gameObject.physics.add.collider(player.getPlayer(), bullet, hp.checkHeart())
                     gameObject.physics.add.collider(bullet, blanker.getBlanker(), (bullet, blanker) => {
                         bullet.setActive(false).setVisible(false);
                     });

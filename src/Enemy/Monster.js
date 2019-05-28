@@ -73,21 +73,22 @@ class Monster extends Phaser.Scene {
 
     }
 
-    monstersHitCallBack(monsterHit, bulletHit){
-      // Reduce health of boss
+    monstersHitCallBack(){
+      // Reduce health of bos
 
-      if (bulletHit.active && monsterHit.active) {
-        monsterHit.health = monsterHit.health - 1;
-        console.log("Monster hp: ", monsterHit.health);
+    //   if (bulletHit.active && monsterHit.active) 
+    //     monsterHit.health = monsterHit.health - 1;
+    //     console.log("Monster hp: ", monsterHit.health);
 
-        // Kill enemy if health <= 0
-        if (monsterHit.health == 0) {
-            monsterHit.setActive(false).setVisible(false);
-        }
+    //     // Kill enemy if health <= 0
+    //     if (monsterHit.health == 0) {
+    //         monsterHit.setActive(false).setVisible(false);
+    //     }
 
-        // Destroy bullet
-        bulletHit.setActive(false).setVisible(false);
-    }
+    //     // Destroy bullet
+    //     bulletHit.setActive(false).setVisible(false);
+    // }
+    physics.add.collider(player.getPlayer(), bullet, player.playerHitCallback);
 
     }
 }

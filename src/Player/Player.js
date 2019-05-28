@@ -1,8 +1,5 @@
 import responsive from "./../core/responsive";
-import Bullets from './../core/Bullet'
-import Monster from './Monster'
-import HP from './../Value/HP'
-import MapDesign from '../Map/MapDesign'
+import Bullets from './../core/Bullet';
 
 let phasers;
 let player;
@@ -11,18 +8,15 @@ let boss;
 let playerBullets;
 let gameover = false;
 let overpic;
-let hp3;
-let hp2;
-let hp1;
-let weapon;
+
 let heart1, heart1_2, heart2, heart2_2, heart3, heart3_2
-let cursors;
-let bgm;
+let cursors, bgm1;
 let hits;
+let x,y,currentHeart=3,health=3;
 let s_over;
 let blanker;
 let slidelog;
-let monsters
+
 
 class Player extends Phaser.Scene {
 
@@ -45,17 +39,12 @@ class Player extends Phaser.Scene {
         let Bullet = new Bullets(this)
         Bullet.create()
 
-
-        bgm = phasers.sound.add('bgm', { volume: 0.5 });
-        bgm.setVolume(0.5);
-        bgm.play({ loop: true });
-
+        bgm1= phasers.sound.add('bgm', { volume: 0.5 });
+        bgm1.setVolume(0.5);
+        bgm1.play({ loop: true });
 
         hits = phasers.sound.add('hit', true);
         hits.volume -= 0.5;
-
-        s_over = phasers.sound.add('gameover', true);
-        s_over.volume -= 0.5;
 
         let width = phasers.scene.scene.game.config.width;
         let height = phasers.scene.scene.game.config.height;
@@ -64,6 +53,28 @@ class Player extends Phaser.Scene {
         let responsives = new responsive(width, height)
         responsives.check(height, width)
         let scaleRatio = responsives.getScale()
+
+        s_over = phasers.sound.add('gameover', false);
+        s_over.volume -= 0.5;
+
+        heart1_2 = phasers.physics.add.image(scaleRatio + 320, y-365, 'halfheart').setScrollFactor(0).setScale(1.5);
+        heart1_2.setVisible(false);
+        heart1 = phasers.physics.add.image(scaleRatio + 320, y-365, 'heart').setScrollFactor(0).setScale(3);
+        heart1.setVisible(true);
+
+        heart2_2 = phasers.physics.add.image(scaleRatio + 360, y-365, 'halfheart').setScrollFactor(0).setScale(1.5);
+        heart2_2.setVisible(false);
+        heart2 = phasers.physics.add.image(scaleRatio + 360, y-365, 'heart').setScrollFactor(0).setScale(1.5);
+        heart2.setVisible(true);
+
+
+        heart3_2 = phasers.physics.add.image(scaleRatio + 400, y-365, 'halfheart').setScrollFactor(0).setScale(1.5);
+        heart3_2.setVisible(false);
+        heart3 = phasers.physics.add.image(scaleRatio + 400, y-365, 'heart').setScrollFactor(0).setScale(1.5);
+        heart3.setVisible(true);
+
+        overpic = phasers.add.image(0, 0, 'over').setScale(scaleRatio + 0.2)
+        overpic.setVisible(false);
 
         cursors = phasers.input.keyboard.createCursorKeys();
         phasers.keyW = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -78,12 +89,6 @@ class Player extends Phaser.Scene {
         //ไม่ให้ player ออกนอกโลก
         player.setCollideWorldBounds(true);
 
-        //weapon = phasers.physics.add.image(410,600, 'weapon');
-        //weapon.setCollideWorldBounds(true);
-
-        hp1 = phasers.add.image(-350, -250, 'heart').setScrollFactor(0.5, 0.5);
-        hp2 = phasers.add.image(-300, -250, 'heart').setScrollFactor(0.5, 0.5);
-        hp3 = phasers.add.image(-250, -250, 'heart').setScrollFactor(0.5, 0.5);
 
         // Add groups for Bullet objects
         playerBullets = phasers.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
@@ -96,14 +101,16 @@ class Player extends Phaser.Scene {
         phasers.cameras.main.startFollow(player, true, 1, 1);
 
         // Set sprite variables
-        player.health = 3;
+
 
     }
 
     update() {
 
+
         if (gameover == true) {
             phasers.scene.pause();
+            bgm1.pause();
             overpic.x = player.x
             overpic.y = player.y
             overpic.setVisible(true)
@@ -131,95 +138,101 @@ class Player extends Phaser.Scene {
        slidelog = ss
    }
 
+   
     playerHitCallback(playerHit, bulletHit) {
-        // console.log('hit call back !!!')
-        // Reduce health of player
-        // console.log(playerHit,"lllllll",bulletHit)
-        if (bulletHit.active === true && playerHit.active === true) {
-            playerHit.health = playerHit.health - 0.5;
-            hits.play({ loop: false });
-            console.log("Player hp: ", playerHit.health);
-
-            // Kill hp sprites and kill player if health <= 0
-            if (playerHit.health == 2.5) {
-                hp3.destroy();
-                // heart3.setVisible(false);
-                // heart3_2.setVisible(true);
-            } else if (playerHit.health == 2) {
-                hp2.destroy();
-                // heart3.setVisible(false);
-                // heart3_2.setVisible(false);
-            } else if (playerHit.health == 1.5) {
-                hp2.destroy();
-                // heart2.setVisible(false);
-                // heart2_2.setVisible(true);
-            } else if (playerHit.health == 1) {
-                hp2.destroy();
-                // heart2_2.setVisible(false);
-            } else if (playerHit.health == 0.5) {
-                hp2.destroy();
-                // heart1_2.setVisible(true);
-                // heart1.setVisible(false);
-            } else if (playerHit.health == 0) {
-                hp1.destroy();
-                // heart1_2.setVisible(false);
-                // heart1.setVisible(true);
-                // heart2.setVisible(true);
-                // heart3.setVisible(true);
+        health -= 0.5;
+        currentHeart-=0.5;
+        hits.play({ loop: false });
+        console.log("Player hp: ", health);
+         if (bulletHit.active === true && playerHit.active === true) {
+           // console.log("Player hp: ", health);
+            bulletHit.setActive(true).setVisible(true);
+            if (health >= 2.5 && health < 3) {
+                heart3.setVisible(false);
+                heart3_2.setVisible(true);
+                return health;
+             } if (health >= 2 && health < 2.5) {
+                heart3.setVisible(false);
+                heart3_2.setVisible(false);
+                return health;
+             } if (health >= 1.5 && health < 2) {
+                heart2.setVisible(false);
+                heart2_2.setVisible(true);
+                return health;
+             } if (health >= 1 && health < 1.5) {
+                heart2_2.setVisible(false);
+                return health;
+             } if (health >= 0.5 && health < 1) {
+                heart1_2.setVisible(true);
+                heart1.setVisible(false);
+                return health;
+            } else {
+                heart1_2.setVisible(false);
+                heart1.setVisible(false);
+                heart2.setVisible(false);
+                heart3.setVisible(false);
+                heart2_2.setVisible(false);
+                heart3_2.setVisible(false);
                 gameover = true;
-                bgm.pause();
                 s_over.play({ loop: true });
-            }
-
-            // Destroy bullet
-            bulletHit.setActive(false).setVisible(false);
+            }            
         }
+        if (health >= 0 && health < 0.5 ) {
+            gameover = true;
+            s_over.play({ loop: true });
+            return health;
+        }
+        return health;
     }
 
-    playerCCallback(playerHit, MonsHit) {
-        // console.log('hit call back !!!')
-        // Reduce health of player
-        // console.log(playerHit,"lllllll",bulletHit)
-        if (MonsHit.active === true && playerHit.active === true) {
-            playerHit.health = playerHit.health - 0.5;
-            hits.play({ loop: false });
-            console.log("Player hp: ", playerHit.health);
+    checkHeart () {
+        // delay=3000;
+        // hits.play({ loop: false });
+        // currentText.setText('HP Player: ' + currentHeart);
 
-            // Kill hp sprites and kill player if health <= 0
-            if (playerHit.health == 2.5) {
-                hp3.destroy();
-                // heart3.setVisible(false);
-                // heart3_2.setVisible(true);
-            } else if (playerHit.health == 2) {
-                hp2.destroy();
-                // heart3.setVisible(false);
-                // heart3_2.setVisible(false);
-            } else if (playerHit.health == 1.5) {
-                hp2.destroy();
-                // heart2.setVisible(false);
-                // heart2_2.setVisible(true);
-            } else if (playerHit.health == 1) {
-                hp2.destroy();
-                // heart2_2.setVisible(false);
-            } else if (playerHit.health == 0.5) {
-                hp2.destroy();
-                // heart1_2.setVisible(true);
-                // heart1.setVisible(false);
-            } else if (playerHit.health == 0) {
-                hp1.destroy();
-                // heart1_2.setVisible(false);
-                // heart1.setVisible(true);
-                // heart2.setVisible(true);
-                // heart3.setVisible(true);
-                gameover = true;
-                bgm.pause();
-                s_over.play({ loop: true });
-            }
-
-            // Destroy bullet
-            // bulletHit.setActive(false).setVisible(false);
-        }
+        // if (currentHeart >= 2.5 && currentHeart < 3) {
+        //     heart3.setVisible(false);
+        //     heart3_2.setVisible(true);
+        //     return currentHeart;
+        //  } if (currentHeart >= 2 && currentHeart < 2.5) {
+        //     heart3.setVisible(false);
+        //     heart3_2.setVisible(false);
+        //     return currentHeart;
+        //  } if (currentHeart >= 1.5 && currentHeart < 2) {
+        //     heart2.setVisible(false);
+        //     heart2_2.setVisible(true);
+        //     return currentHeart;
+        //  } if (currentHeart >= 1 && currentHeart < 1.5) {
+        //     heart2_2.setVisible(false);
+        //     return currentHeart;
+        //  } if (currentHeart >= 0.5 && currentHeart < 1) {
+        //     heart1_2.setVisible(true);
+        //     heart1.setVisible(false);
+        //     return currentHeart;
+        // } else {
+        //     heart1_2.setVisible(false);
+        //     heart1.setVisible(false);
+        //     heart2.setVisible(false);
+        //     heart3.setVisible(false);
+        //     heart2_2.setVisible(false);
+        //     heart3_2.setVisible(false);
+           
+        // }
+        // return currentHeart;
     }
+
+    // checkHp() {
+    //     if (player.health >= 0 && player.health < 0.5) {
+    //         console.log(player.health)
+    //         // delay=3000;
+    //         gameover = true;
+    //         bgm1.pause();
+    //         sover.play({ loop: true });
+    //         return player.health;
+    //     }
+    // }
+
+    
 
     fire() {
 
@@ -228,7 +241,7 @@ class Player extends Phaser.Scene {
         if (bullet) {
             bullet.fire(player.x, player.y, player.rotation)
             phasers.physics.add.collider(boss.getBoss(), bullet, boss.enemyHitCallback);
-            // phasers.physics.add.collider(monsters.getMonster(), bullet, monsters.monstersHitCallBack);
+            //phasers.physics.add.collider(monsters.getMonster(), playerHitCallback);
             phasers.physics.add.collider(bullet, blanker.getBlanker(), (bullet, blanker) => {
                 bullet.setActive(false).setVisible(false);
             });
