@@ -11,7 +11,7 @@ import Time from '../Map/Time'
 import Bullet from '../core/Bullet';
 
 let map
-let bullets =[]
+let bullets = []
 let mobile
 let respon
 let player
@@ -50,7 +50,7 @@ class GameScene extends Phaser.Scene {
         //this.load.image('reticle', '../../images/target.png')
         this.load.image('bullet', '../../images/asset/weapon.png')
 
-        this.load.image('boss', '../../images/boss.gif')
+        this.load.image('boss', '../../images/asset/boss.png')
 
         this.load.image('heart', '../../images/heart.png')
         this.load.image('halfheart', '../../images/halfheart.png')
@@ -84,6 +84,7 @@ class GameScene extends Phaser.Scene {
 
     create() {
         console.log(this.scene)
+        console.log(player)
 
         let width = this.scene.scene.game.config.width;
         let height = this.scene.scene.game.config.height;
@@ -91,7 +92,7 @@ class GameScene extends Phaser.Scene {
         if (width < 1536 && height < 864) {
             mapDesign = new MapDesign({ scene: this, });
             mapDesign.create();
-            
+
 
             control = new move_mobile({ scene: this })
             control.create()
@@ -212,7 +213,7 @@ class GameScene extends Phaser.Scene {
 
             control = new ControlPc({ scene: this })
             control.create();
-            
+
             respon = new responsive({ width, height })
             respon.check(width, height)
 
@@ -223,7 +224,7 @@ class GameScene extends Phaser.Scene {
             player.create();
             player.getBoss(bosses);
             bosses.getPlayer(player)
-            // player.getMonster(monsters)
+                // player.getMonster(monsters)
             bosses.getBlanker(mapDesign)
             player.getBlanker(mapDesign)
             control.getPlayer(player)
@@ -236,14 +237,15 @@ class GameScene extends Phaser.Scene {
 
             map = new Map({ scene: this, });
             map.create();
-    
+
             //Object in map
             let mons = monsters.getMonster()
             let boss = bosses.getBoss()
-            // this.physics.add.collider(mons.getChildren(), player.getPlayer(), player.playerHitCallback1);
-            this.physics.add.collider(player.getPlayer(), this.testHitBoss);
-            this.physics.add.collider(mons.getChildren())
-        //    this.physics.add.collider(player.getPlayer(), bullets.getBullet(), player.playerHitCallback);
+                // this.physics.add.collider(mons.getChildren(), player.getPlayer(), player.playerHitCallback1);
+                // this.physics.add.collider(player.getPlayer(), this.testHitBoss);
+            this.physics.add.collider(mons.getChildren(), mons.getChildren())
+            this.physics.add.collider(mons.getChildren(), player.getPlayerBullet(), this.testHit);
+            //    this.physics.add.collider(player.getPlayer(), bullets.getBullet(), player.playerHitCallback);
             this.physics.add.collider(mons.getChildren(), player.getPlayer(), player.playerHitCallback);
             // this.physics.add.collider(mons.getChildren(), player.checkHp);
             this.physics.add.collider(mons.getChildren(), mapDesign.getSafeZone());
@@ -319,38 +321,38 @@ class GameScene extends Phaser.Scene {
             this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog3())
             this.physics.add.collider(player.getPlayer(), mapDesign.getRighttablog4())
 
-             //ที่หลบกระสุน
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker2());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker3());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker4());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker5());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker6());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker7());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker8());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker9());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker10());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker11());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker12());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker13());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker14());
-             this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker15());
- 
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker2())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker3())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker4())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker5())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker6())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker7())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker8())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker9())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker10())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker11())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker12())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker13())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker14())
-             this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker15())
+            //ที่หลบกระสุน
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker2());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker3());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker4());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker5());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker6());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker7());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker8());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker9());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker10());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker11());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker12());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker13());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker14());
+            this.physics.add.collider(mons.getChildren(), mapDesign.getBlanker15());
+
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker2())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker3())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker4())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker5())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker6())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker7())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker8())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker9())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker10())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker11())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker12())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker13())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker14())
+            this.physics.add.collider(player.getPlayer(), mapDesign.getBlanker15())
 
             // this.physics.add.collider(player.getPlayer(), player.checkHeart);
             // this.physics.add.collider(bosses.getWeaponBoss(), player.getPlayer(), hp.checkHeart);
@@ -368,29 +370,17 @@ class GameScene extends Phaser.Scene {
         map.update();
         // drop.update();
         // exp.update();
-    
+
     }
 
-    testHit(monster) {
-        // console.log(monster)
-        monster.hpMonsR -= 10
-        // let mons = monsters.getMonster()
-        if (monster.hpMonsR == 20) {
-            // console.log(monsters.getMonster().getChildren())
-            // monster.setTint(0xff0000)
-        } else if (monster.hpMonsR <= 0) {
-            // monster.disableBody(true, true)
-            countBoss++
-            console.log(countBoss)
-            if (countBoss == 2) {
-                if (bos.disableBody(true)) {
-                    console.log(bosses)
-                    boshpMonB = 100
-                    bos.disableBody(false, false);
-                    countBoss = 0
 
-                }
-            }
+
+    testHit(monster) {
+        console.log(monster)
+        monster.hpMonsR -= 10
+
+        if (monster.hpMonsR <= 0) {
+            monster.body.gameObject.disableBody(true, true)
         }
 
     }

@@ -48,7 +48,7 @@ class Boss extends Phaser.Scene {
         let scaleRatio = responsives.getScale()
 
         // ตัวละคร boss
-        boss = phasers.physics.add.sprite(1000, 500, 'boss').setScale(scaleRatio + 0.2)
+        boss = phasers.physics.add.sprite(1000, 500, 'boss').setScale(scaleRatio + 2)
 
         // Add groups for Bullet objects
         bossBullets = phasers.physics.add.group({ classType: Bullet.getBullet(), runChildUpdate: true });
